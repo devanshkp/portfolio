@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background-primary: black;
+  --color-background-primary: rgb(8, 8, 8);
   --color-background-secondary: gray-900;
-  --color-background-nav: black/80;
+  --color-background-nav: rgb(8, 8, 8) / 80;
 
   --color-text-primary: white;
   --color-text-secondary: oklch(87.2% 0.01 258.338);
