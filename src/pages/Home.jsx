@@ -91,7 +91,7 @@ const Home = () => {
     {
       title: "Synapse",
       description:
-        "Mobile Quiz Application, built in Flutter with a secure Firebase backend, featuring web-scraped questions and intelligent AI-generated hints.",
+        "Mobile Quiz Application with secure authentication, social features, web-scraped questions, and AI-generated hints.",
       tech: [
         "Flutter",
         "Selenium",
