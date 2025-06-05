@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 @theme {
+  --font-vulfsans: VulfSans, "sans-serif";
+
   --color-background-primary: rgb(8, 8, 8);
   --color-background-secondary: gray-900;
   --color-background-nav: rgb(8, 8, 8) / 80;
 
   --color-text-primary: white;
-  --color-text-secondary: oklch(87.2% 0.01 258.338);
+  --color-text-secondary: oklch(0.8188 0.01 258.338);
   --color-text-muted: oklch(70.7% 0.022 261.325);
   --color-text-subtle: oklch(55.1% 0.027 264.364);
 
@@ -47,4 +49,78 @@ html {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-BoldItalic.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-LightItalic.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-MediumItalic.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VulfSans";
+  src: url("src/assets/fonts/VulfSans/VulfSans-BlackItalic.otf")
+    format("opentype");
+  font-weight: 900;
+  font-style: italic;
 }

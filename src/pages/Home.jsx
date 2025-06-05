@@ -7,8 +7,6 @@ import {
   ArrowUpRight,
   ChevronUp,
   Code,
-  Cpu,
-  Palette,
 } from "lucide-react";
 
 const Home = () => {
@@ -63,10 +61,15 @@ const Home = () => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const onScroll = () => {
+      if (window.scrollY === 0) {
+        document.activeElement.blur();
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const projects = [
@@ -76,6 +79,14 @@ const Home = () => {
         "React-based application for real-time species recognition using a deep learning model.",
       tech: ["React", "Tailwind CSS", "Flask", "TensorFlow", "AWS"],
       link: "https://ai-mushroom-classifier-r2ed.vercel.app/",
+      live: true,
+      image: "/images/mushroom-classifier-preview.png",
+      techLogos: [
+        { name: "TensorFlow", logo: "/logos/tensorflow.svg" },
+        { name: "React", logo: "/logos/react.svg" },
+        { name: "Flask", logo: "/logos/flask.svg" },
+        { name: "AWS", logo: "/logos/aws.svg" },
+      ],
     },
     {
       title: "Synapse",
@@ -83,13 +94,21 @@ const Home = () => {
         "Mobile Quiz Application, built in Flutter with a secure Firebase backend, featuring web-scraped questions and intelligent AI-generated hints.",
       tech: [
         "Flutter",
-        "Firebase",
-        "Google Cloud Platform",
         "Selenium",
         "BeautifulSoup",
+        "Firebase",
+        "Google Cloud Platform",
         "Gemini API",
       ],
       link: "https://github.com/devanshkp/synapse-quiz-app",
+      live: false,
+      image: "/images/synapse-preview.png",
+      techLogos: [
+        { name: "Flutter", logo: "/logos/flutter.svg" },
+        { name: "Python", logo: "/logos/python.svg" },
+        { name: "Firebase", logo: "/logos/firebase.svg" },
+        { name: "Gemini API", logo: "/logos/gemini.svg" },
+      ],
     },
   ];
 
@@ -117,7 +136,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen font-mono text-sm bg-background-primary text-text-primary">
+    <div className="min-h-screen font-vulfsans bg-background-primary text-text-primary">
       <div
         className={`transition-opacity duration-1000 ${
           isLoaded ? "opacity-100" : "opacity-0"
@@ -126,8 +145,16 @@ const Home = () => {
         {/* Navigation */}
         <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-background-nav border-b border-border-primary">
           <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div className="font-bold">Portfolio.</div>
-            <div className="hidden md:flex space-x-8 text-sm">
+            <img
+              src={"/logos/cat.svg"}
+              alt={`Cat logo`}
+              className="w-5 h-5 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              onError={(e) => {
+                e.target.style.display = "none";
+                e.target.nextSibling.style.display = "flex";
+              }}
+            />
+            <div className="hidden md:flex space-x-8">
               <a
                 href="#about"
                 className="transition-colors text-text-primary hover:text-text-secondary"
@@ -175,7 +202,7 @@ const Home = () => {
             }}
           ></div>
 
-          <div className="max-w-4xl mx-auto px-6 relative">
+          <div className="max-w-3xl mx-auto px-6 relative">
             <div className="text-center relative z-10">
               {/* Main Heading */}
               <div className="mb-12">
@@ -190,14 +217,14 @@ const Home = () => {
                     {skills[currentSkill]}
                   </p>
                 </div>
-                <p className="text-sm md:text-base text-text-muted max-w-2xl mx-auto leading-relaxed">
+                <p className=" text-text-muted max-w-2xl mx-auto leading-relaxed">
                   Building innovative solutions with clean code, thoughtful
                   design, and a passion for machine learning. Currently pursuing
                   Computer Science at Griffith University.
                 </p>
               </div>
 
-              {/* Enhanced Social Links */}
+              {/* Social Links */}
               <div className="flex justify-center space-x-4 mb-12">
                 <a
                   href="https://github.com/devanshkp/"
@@ -248,7 +275,7 @@ const Home = () => {
                   href="#projects"
                   className="px-8 py-4 rounded-full transition-all duration-300 group border border-transparent hover:border-border-secondary inline-flex items-center justify-center text-text-muted hover:text-text-primary"
                 >
-                  View my work
+                  View my Resume
                 </a>
               </div>
             </div>
@@ -258,22 +285,21 @@ const Home = () => {
         <div className="max-w-3xl mx-auto px-6 relative">
           {/* About Section */}
           <section id="about" className="pt-20 md:pt-22">
-            <div className="max-w-4xl mx-auto">
+            <div className="mx-auto">
               <h2 className="text-xl md:text-2xl font-bold mb-8">About me</h2>
               <div className="flex flex-col gap-12 md:flex-row md:justify-between md:gap-25">
                 <div className="md:w-9/12">
-                  <p className="leading-relaxed mb-6 text-text-muted">
-                    I am a software engineer, ui/ux designer, problem solver,
-                    mentor, ML enthusiast, forever student, minimalist, and an
-                    eternal optimist.
+                  <p className="leading-relaxed mb-6 text-text-secondary">
+                    I'm a Software Engineer and UI/UX Designer with a hands-on
+                    approach to problem-solving, driven by a natural curiosity.
                   </p>
-                  <p className="leading-relaxed mb-6 text-text-muted">
+                  <p className="leading-relaxed mb-6 text-text-secondary">
                     I love to both build and break things. I am motivated by
                     challenging projects with self-guided research and dynamic
                     problem solving. My recent focus has been on Machine
                     Learning work, exploring innovative solutions.
                   </p>
-                  <p className="leading-relaxed text-text-muted">
+                  <p className="leading-relaxed text-text-secondary">
                     This is my personal space, where I share my work and
                     projects, documenting my progress and showcasing my
                     capabilities.
@@ -283,7 +309,7 @@ const Home = () => {
                   <h3 className="text-md md:text-lg font-semibold mb-4">
                     My primary tools include:
                   </h3>
-                  <ul className="space-y-2 text-text-muted">
+                  <ul className="space-y-2 text-text-secondary">
                     <li>• React.js, Flutter </li>
                     <li>• Flask </li>
                     <li>• Firebase, PostgreSQL </li>
@@ -301,9 +327,18 @@ const Home = () => {
             id="education"
             className="pt-20 md:pt-22 bg-background-secondary"
           >
-            <div className="max-w-4xl mx-auto">
+            <div className="mx-auto">
               <div className="flex justify-between items-center mb-12">
                 <h2 className="text-xl md:text-2xl font-bold">Education</h2>
+                <a
+                  href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
+                  className="group transition-all duration-300 text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="font-medium">Academic Transcript</span>
+                  <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.25 group-hover:-translate-y-0.25" />
+                </a>
               </div>
 
               <div className="space-y-8">
@@ -318,16 +353,14 @@ const Home = () => {
                       </h3>
                       <span className="text-text-muted">{edu.period}</span>
                     </div>
-                    <p className="text-sm mb-2 text-text-secondary">
-                      {edu.degree}
-                    </p>
+                    <p className="mb-5   text-text-muted">{edu.degree}</p>
                     {edu.gpa && (
-                      <p className="text-sm mb-2 text-text-secondary font-medium">
+                      <p className="mb-2 text-text-secondary font-medium">
                         {edu.gpa}
                       </p>
                     )}
                     {edu.misc && (
-                      <div className="text-text-muted">
+                      <div className="text-text-secondary">
                         {edu.misc.map((item, miscIndex) => (
                           <p key={miscIndex} className="mb-1">
                             • {item}
@@ -343,7 +376,7 @@ const Home = () => {
 
           {/* Work Experience */}
           <section id="work" className="pt-20 md:pt-22 bg-background-secondary">
-            <div className="max-w-4xl mx-auto">
+            <div className="mx-auto">
               <div className="flex justify-between items-center mb-12">
                 <h2 className="text-xl md:text-2xl font-bold">Work</h2>
               </div>
@@ -358,10 +391,8 @@ const Home = () => {
                       <h3 className="text-lg font-semibold">{job.company}</h3>
                       <span className="text-text-muted">{job.period}</span>
                     </div>
-                    <p className="text-sm mb-2 text-text-secondary">
-                      {job.role}
-                    </p>
-                    <p className="text-text-muted">{job.description}</p>
+                    <p className="mb-2 text-text-muted">{job.role}</p>
+                    <p className="text-text-secondary">{job.description}</p>
                   </div>
                 ))}
               </div>
@@ -370,22 +401,25 @@ const Home = () => {
 
           {/* Projects */}
           <section id="projects" className="pt-20 md:pt-22">
-            <div className="max-w-4xl mx-auto">
+            <div className="mx-auto">
               <div className="flex justify-between items-center mb-12">
                 <h2 className="text-xl md:text-2xl font-bold">Projects</h2>
                 <a
-                  href="https://github.com/devanshkp?tab=repositories"
-                  className="transition-colors text-text-muted hover:text-text-primary"
+                  href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
+                  className="group transition-all duration-300 text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  See more projects →
+                  <span className="font-medium">See all projects</span>
+                  <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.25 group-hover:-translate-y-0.25" />
                 </a>
               </div>
 
-              <div className="grid gap-8">
+              <div className="space-y-6">
                 {projects.map((project, index) => (
                   <div
                     key={index}
-                    className="group rounded-lg p-6 transition-all duration-300 hover:transform hover:scale-[1.02] border border-border-primary hover:border-border-hover"
+                    className="group relative bg-background-nav/30 backdrop-blur-sm rounded-lg border border-border-secondary hover:border-border-active transition-all duration-300 hover:shadow-lg hover:shadow-black/5 overflow-hidden transform hover:-translate-y-0.5"
                   >
                     <a
                       href={project.link}
@@ -393,35 +427,109 @@ const Home = () => {
                       rel="noopener noreferrer"
                       className="block"
                     >
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-lg md:text-xl font-semibold group-hover:text-text-secondary transition-colors">
-                          {project.title}
-                        </h3>
-                        <ArrowUpRight className="w-5 h-5 transition-colors text-text-muted group-hover:text-text-secondary" />{" "}
+                      <div className="flex flex-col md:flex-row">
+                        {/* Project Image */}
+                        <div className="relative md:w-2/5 aspect-video md:aspect-[4/3] overflow-hidden bg-background-secondary">
+                          <img
+                            src={project.image}
+                            alt={`${project.title} preview`}
+                            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                            onError={(e) => {
+                              e.target.style.display = "none";
+                              e.target.nextSibling.style.display = "flex";
+                            }}
+                          />
+
+                          {/* Fallback placeholder */}
+                          <div className="hidden w-full h-full bg-background-secondary items-center justify-center">
+                            <div className="text-center text-text-muted">
+                              <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-background-primary/50 flex items-center justify-center">
+                                <Code className="w-6 h-6" />
+                              </div>
+                              <p className="font-medium">{project.title}</p>
+                            </div>
+                          </div>
+
+                          {/* Simple overlay */}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+                        </div>
+
+                        {/* Project Content */}
+                        <div className="md:w-3/5 p-4 md:p-6 flex flex-col justify-between">
+                          <div className="mb-6">
+                            <div className="flex justify-between items-start mb-3">
+                              <div>
+                                <h3 className="text-xl md:text-2xl font-bold text-text-secondary group-hover:text-text-primary transition-colors duration-300 mb-2">
+                                  {project.title}
+                                </h3>
+
+                                {project.live && (
+                                  <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-background-secondary text-text-muted border border-border-secondary">
+                                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2"></div>
+                                    Live
+                                  </span>
+                                )}
+                              </div>
+
+                              <div className="w-4 h-4 rounded-lg bg-background-secondary/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                                <ArrowUpRight className="w-4 h-4 text-gray-50" />
+                              </div>
+                            </div>
+
+                            <p className="text-text-secondary leading-relaxed mb-6">
+                              {project.description}
+                            </p>
+                          </div>
+
+                          {/* Technology Stack */}
+                          <div>
+                            <div className="flex flex-wrap gap-2">
+                              {project.techLogos.map((tech, techIndex) => (
+                                <div
+                                  key={techIndex}
+                                  className="relative group/tech"
+                                >
+                                  <div className="p-2.5 rounded-lg bg-background-secondary/40 hover:bg-background-secondary/70 transition-all duration-200 border border-border-secondary/50 hover:border-border-secondary">
+                                    <img
+                                      src={tech.logo}
+                                      alt={tech.name}
+                                      className="w-5 h-5 object-contain opacity-70 group-hover/tech:opacity-100 transition-opacity duration-200"
+                                      onError={(e) => {
+                                        e.target.style.display = "none";
+                                        e.target.nextSibling.style.display =
+                                          "inline-block";
+                                      }}
+                                    />
+                                    <span className="hidden text-xs font-medium text-text-muted">
+                                      {tech.name}
+                                    </span>
+                                  </div>
+
+                                  {/* Tooltip */}
+                                  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                                    <div className="bg-background-nav px-2 py-1 rounded border border-border-secondary text-xs font-medium whitespace-nowrap">
+                                      {tech.name}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </a>{" "}
-                    <p className="mb-4 text-text-muted">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-3 py-1 rounded-full text-xs bg-accent-tag text-text-secondary"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                    </a>
                   </div>
                 ))}
               </div>
+
+              {/* Bottom divider */}
+              <div className="mt-16 h-px bg-gradient-to-r from-transparent via-border-secondary to-transparent"></div>
             </div>
           </section>
 
           {/* Footer */}
           <footer className="pt-60 py-10">
-            <div className="text-text-subtle">
+            <div className="text-text-subtle text-xs md:text-sm">
               <p>© 2025 | Devansh Kapoor</p>
             </div>
           </footer>
@@ -430,7 +538,7 @@ const Home = () => {
         {/* Scroll to Top Button */}
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary backdrop-blur-sm bg-background-nav hover:border-text-primary hover:bg-text-primary hover:text-background-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-secondary ${
+          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary backdrop-blur-sm bg-background-nav hover:border-border-active hover:bg-background-nav/50 hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-muted ${
             showScrollTop
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none"
@@ -440,7 +548,7 @@ const Home = () => {
           }}
           aria-label="Scroll to top"
         >
-          <ChevronUp className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+          <ChevronUp className="w-3.5 h-3.5 group-hover:scale-110 duration-300 transition-transform group-hover:-translate-y-0.25" />
           Back to top
         </button>
       </div>
