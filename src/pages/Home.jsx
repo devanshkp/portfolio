@@ -76,7 +76,7 @@ const Home = () => {
     {
       title: "AI Mushroom Classifier",
       description:
-        "React-based application for real-time species recognition using a deep learning model.",
+        "React-based application for real-time species recognition using a custom-trained deep learning model.",
       tech: ["React", "Tailwind CSS", "Flask", "TensorFlow", "AWS"],
       link: "https://ai-mushroom-classifier-r2ed.vercel.app/",
       live: true,
@@ -265,14 +265,17 @@ const Home = () => {
               {/* CTA Button */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a
-                  href="#contact"
+                  href="mailto:hello@devansh.kp@outlook.com"
                   className="px-8 py-4 rounded-full transition-all duration-300 group border border-border-secondary hover:bg-text-primary hover:text-background-primary inline-flex items-center justify-center hover:shadow-lg hover:scale-105 bg-background-nav/50 backdrop-blur-sm"
                 >
                   Let's work together
                   <ArrowRight className="w-4 h-4 inline-block ml-2 group-hover:translate-x-1 transition-transform text-current" />
                 </a>
                 <a
-                  href="#projects"
+                  href="https://drive.google.com/file/d/1EV7j6v1AqeVic54YIpfWG94guPpH6B84/view?usp=sharing"
+                  aria-label="Resume PDF"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-8 py-4 rounded-full transition-all duration-300 group border border-transparent hover:border-border-secondary inline-flex items-center justify-center text-text-muted hover:text-text-primary"
                 >
                   View my Resume
@@ -405,7 +408,7 @@ const Home = () => {
               <div className="flex justify-between items-center mb-12">
                 <h2 className="text-xl md:text-2xl font-bold">Projects</h2>
                 <a
-                  href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
+                  href="https://github.com/devanshkp?tab=repositories"
                   className="group transition-all duration-300 text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -489,7 +492,7 @@ const Home = () => {
                                   key={techIndex}
                                   className="relative group/tech"
                                 >
-                                  <div className="p-2.5 rounded-lg bg-background-secondary/40 hover:bg-background-secondary/70 transition-all duration-200 border border-border-secondary/50 hover:border-border-secondary">
+                                  <div className="p-2.5 rounded-lg bg-background-secondary/40 hover:bg-background-secondary/70 transition-all duration-200 border border-border-secondary/50 hover:border-border-secondary hover:translate-y-0.5">
                                     <img
                                       src={tech.logo}
                                       alt={tech.name}
