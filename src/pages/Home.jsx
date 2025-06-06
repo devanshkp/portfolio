@@ -143,7 +143,7 @@ const Home = () => {
         }`}
       >
         {/* Navigation */}
-        <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-background-nav border-b border-border-primary">
+        <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-black/25 border-b border-border-primary">
           <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
             <img
               src={"/logos/cat.svg"}
@@ -541,7 +541,7 @@ const Home = () => {
         {/* Scroll to Top Button */}
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary backdrop-blur-sm bg-background-nav hover:border-border-active hover:bg-background-nav/50 hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-muted ${
+          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary backdrop-blur-sm bg-black/50 hover:border-border-active hover:bg-black/25 hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-muted ${
             showScrollTop
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none"
