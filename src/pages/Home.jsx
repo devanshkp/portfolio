@@ -6,6 +6,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   ChevronUp,
+  ChevronDown,
   Code,
 } from "lucide-react";
 
@@ -136,11 +137,11 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen font-vulfsans bg-background-primary text-text-primary">
+    <div className="min-h-screen font-vulfsans bg-background-primary text-text-primary relative overflow-x-hidden">
       <div
         className={`transition-opacity duration-1000 ${
           isLoaded ? "opacity-100" : "opacity-0"
-        }`}
+        } relative z-10`}
       >
         {/* Navigation */}
         <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-black/25 border-b border-border-primary">
@@ -283,13 +284,48 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+          {/* Scroll Indicator */}
+          <div className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <div
+              className="group cursor-pointer"
+              onClick={() =>
+                document
+                  .getElementById("about")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+              style={{
+                animation: "float-smooth 2s ease-in-out infinite",
+              }}
+            >
+              <div className="flex flex-col items-center space-y-.25">
+                <ChevronDown className="w-7 h-7 text-text-muted group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-0.5 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                <ChevronDown className="w-7 h-7 text-text-muted group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-1 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] -mt-2" />
+              </div>
+            </div>
+          </div>
+
+          <style jsx>{`
+            @keyframes float-smooth {
+              0%,
+              100% {
+                transform: translateY(0px);
+              }
+              50% {
+                transform: translateY(8px);
+              }
+            }
+          `}</style>
         </section>
 
-        <div className="max-w-3xl mx-auto px-6 relative">
+        <div className="max-w-3xl mx-auto px-6 relative z-10">
           {/* About Section */}
           <section id="about" className="pt-20 md:pt-22">
             <div className="mx-auto">
-              <h2 className="text-xl md:text-2xl font-bold mb-8">About me</h2>
+              <div className="flex items-center mb-8">
+                <span className="inline-block w-2 h-2 rounded-full bg-blue-400 mr-3"></span>
+                <h2 className="text-xl md:text-2xl font-bold">About me</h2>
+              </div>
               <div className="flex flex-col gap-12 md:flex-row md:justify-between md:gap-25">
                 <div className="md:w-9/12">
                   <p className="leading-relaxed mb-6 text-text-secondary">
@@ -326,16 +362,14 @@ const Home = () => {
           </section>
 
           {/* Education Section */}
-          <section
-            id="education"
-            className="pt-20 md:pt-22 bg-background-secondary"
-          >
+          <section id="education" className="pt-20 md:pt-22 rounded-xl mb-12">
             <div className="mx-auto">
-              <div className="flex justify-between items-center mb-12">
+              <div className="flex items-center mb-12">
+                <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">Education</h2>
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
-                  className="group transition-all duration-300 text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg"
+                  className="group transition-all duration-300 text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg ml-auto"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -378,9 +412,10 @@ const Home = () => {
           </section>
 
           {/* Work Experience */}
-          <section id="work" className="pt-20 md:pt-22 bg-background-secondary">
+          <section id="work" className="pt-20 md:pt-22 rounded-xl mb-12">
             <div className="mx-auto">
-              <div className="flex justify-between items-center mb-12">
+              <div className="flex items-center mb-12">
+                <span className="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">Work</h2>
               </div>
 
@@ -403,13 +438,14 @@ const Home = () => {
           </section>
 
           {/* Projects */}
-          <section id="projects" className="pt-20 md:pt-22">
+          <section id="projects" className="pt-20 md:pt-22 mb-12">
             <div className="mx-auto">
-              <div className="flex justify-between items-center mb-12">
+              <div className="flex items-center mb-12">
+                <span className="inline-block w-2 h-2 rounded-full bg-purple-400 mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">Projects</h2>
                 <a
                   href="https://github.com/devanshkp?tab=repositories"
-                  className="group transition-all duration-300 text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg"
+                  className="group transition-all duration-300 text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg ml-auto"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -422,7 +458,7 @@ const Home = () => {
                 {projects.map((project, index) => (
                   <div
                     key={index}
-                    className="group relative bg-background-nav/30 backdrop-blur-sm rounded-lg border border-border-secondary hover:border-border-active transition-all duration-300 hover:shadow-lg hover:shadow-black/5 overflow-hidden transform hover:-translate-y-0.5"
+                    className="group relative bg-background-nav/40 backdrop-blur-sm rounded-xl border border-border-secondary hover:border-border-active transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden transform"
                   >
                     <a
                       href={project.link}
@@ -432,7 +468,7 @@ const Home = () => {
                     >
                       <div className="flex flex-col md:flex-row">
                         {/* Project Image */}
-                        <div className="relative md:w-2/5 aspect-video md:aspect-[4/3] overflow-hidden bg-background-secondary">
+                        <div className="relative md:w-2/5 aspect-video md:aspect-[4/3] overflow-hidden">
                           <img
                             src={project.image}
                             alt={`${project.title} preview`}
@@ -444,7 +480,7 @@ const Home = () => {
                           />
 
                           {/* Fallback placeholder */}
-                          <div className="hidden w-full h-full bg-background-secondary items-center justify-center">
+                          <div className="hidden w-full h-full items-center justify-center">
                             <div className="text-center text-text-muted">
                               <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-background-primary/50 flex items-center justify-center">
                                 <Code className="w-6 h-6" />
@@ -467,14 +503,14 @@ const Home = () => {
                                 </h3>
 
                                 {project.live && (
-                                  <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-background-secondary text-text-muted border border-border-secondary">
+                                  <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium text-text-muted border border-border-secondary">
                                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2"></div>
                                     Live
                                   </span>
                                 )}
                               </div>
 
-                              <div className="w-4 h-4 rounded-lg bg-background-secondary/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                              <div className="w-4 h-4 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
                                 <ArrowUpRight className="w-4 h-4 text-gray-50" />
                               </div>
                             </div>
@@ -531,7 +567,7 @@ const Home = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-60 py-10">
+          <footer className="pt-40 py-10">
             <div className="text-text-subtle text-xs md:text-sm">
               <p>© 2025 | Devansh Kapoor</p>
             </div>
@@ -541,7 +577,7 @@ const Home = () => {
         {/* Scroll to Top Button */}
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary backdrop-blur-sm bg-black/50 hover:border-border-active hover:bg-black/25 hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-muted ${
+          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary bg-background-primary/50 backdrop-blur-md hover:border-border-active hover:bg-background-lighter hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-muted ${
             showScrollTop
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none"

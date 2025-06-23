@@ -3,21 +3,22 @@
 @theme {
   --font-vulfsans: VulfSans, "sans-serif";
 
-  --color-background-primary: rgb(8, 8, 8);
+  --color-background-primary: rgb(23, 22, 28);
+  --color-background-lighter: rgb(34, 32, 41);
   --color-background-secondary: gray-900;
   --color-background-nav: rgb(8, 8, 8) / 80;
 
   --color-text-primary: white;
-  --color-text-secondary: oklch(0.8188 0.01 258.338);
-  --color-text-muted: oklch(70.7% 0.022 261.325);
-  --color-text-subtle: oklch(55.1% 0.027 264.364);
+  --color-text-secondary: oklch(81.161% 0.01402 290.568);
+  --color-text-muted: oklch(69.442% 0.0293 281.055);
+  --color-text-subtle: oklch(53.534% 0.0359 283.14);
 
-  --color-border-primary: oklch(27.8% 0.033 256.848);
-  --color-border-secondary: oklch(37.3% 0.034 259.733);
-  --color-border-hover: oklch(44.6% 0.03 256.802);
-  --color-border-active: oklch(55.1% 0.027 264.364);
+  --color-border-primary: oklch(26.248% 0.04199 273.431);
+  --color-border-secondary: oklch(36.315% 0.03936 270.706);
+  --color-border-hover: oklch(43.426% 0.03565 272.403);
+  --color-border-active: oklch(53.977% 0.03297 278.823);
 
-  --color-accent-tag: oklch(27.8% 0.033 256.848);
+  --color-accent-tag: oklch(27.034% 0.03743 266.421);
 }
 
 :root {
