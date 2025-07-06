@@ -14,6 +14,7 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showScrollDown, setShowScrollDown] = useState(true);
   const [currentSkill, setCurrentSkill] = useState(0);
 
   const skills = [
@@ -32,8 +33,14 @@ const Home = () => {
     setTimeout(() => setIsLoaded(true), 100);
 
     // Scroll to top
-    const handleScroll = () => {
+    const handleScrollUp = () => {
       setShowScrollTop(window.scrollY > 300);
+    };
+
+    const handleScrollDown = () => {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      setShowScrollDown(scrollTop < 100);
     };
 
     // Rotate skills
@@ -41,12 +48,14 @@ const Home = () => {
       setCurrentSkill((prev) => (prev + 1) % skills.length);
     }, 3000);
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScrollUp);
+    window.addEventListener("scroll", handleScrollDown);
 
     return () => {
       clearInterval(timer);
       clearInterval(skillTimer);
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScrollUp);
+      window.removeEventListener("scroll", handleScrollDown);
     };
   }, []);
 
@@ -206,68 +215,69 @@ const Home = () => {
           <div className="max-w-3xl mx-auto px-6 relative">
             <div className="text-center relative z-10">
               {/* Main Heading */}
-              <div className="mb-12">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+              <div className="mb-8 md:mb-12">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 tracking-tight">
                   Devansh Kapoor
                 </h1>
-                <div className="h-8 mb-6">
+                <div className="h-6 md:h-8 mb-4 md:mb-6">
                   <p
                     key={currentSkill}
-                    className="text-xl md:text-2xl text-text-muted animate-pulse"
+                    className="text-lg md:text-xl lg:text-2xl text-text-muted animate-pulse"
                   >
                     {skills[currentSkill]}
                   </p>
                 </div>
-                <p className=" text-text-muted max-w-2xl mx-auto leading-relaxed">
+                {/* Hide subtext on mobile */}
+                <p className="hidden md:block text-text-muted max-w-2xl mx-auto leading-relaxed">
                   Turning late-night ideas into working code. I build, I train,
-                  I refine - All in pursuit of software that’s actually useful.
+                  I refine - All in pursuit of software that's actually useful.
                   CS grad from Griffith.
                 </p>
               </div>
 
               {/* Social Links */}
-              <div className="flex justify-center space-x-4 mb-12">
+              <div className="flex justify-center space-x-4 mb-8 md:mb-12">
                 <a
                   href="https://github.com/devanshkp/"
-                  className="group relative p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-text-primary hover:shadow-lg hover:shadow-blue-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
+                  className="group relative p-3 md:p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-text-primary hover:shadow-lg hover:shadow-blue-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
                   aria-label="GitHub Profile"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <Github className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform" />
                   <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity bg-background-nav px-2 py-1 rounded border border-border-secondary whitespace-nowrap">
                     GitHub
                   </span>
                 </a>
                 <a
                   href="https://www.linkedin.com/in/devansh-kapoor/"
-                  className="group relative p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
+                  className="group relative p-3 md:p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
                   aria-label="LinkedIn Profile"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="w-6 h-6 group-hover:scale-110 transition-transform group-hover:text-blue-400" />
+                  <Linkedin className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform group-hover:text-blue-400" />
                   <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity bg-background-nav px-2 py-1 rounded border border-border-secondary whitespace-nowrap">
                     LinkedIn
                   </span>
                 </a>
                 <a
                   href="mailto:hello@devansh.kp@outlook.com"
-                  className="group relative p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-green-400 hover:shadow-lg hover:shadow-green-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
+                  className="group relative p-3 md:p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-green-400 hover:shadow-lg hover:shadow-green-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
                   aria-label="Email Contact"
                 >
-                  <Mail className="w-6 h-6 group-hover:scale-110 transition-transform group-hover:text-green-400" />
+                  <Mail className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform group-hover:text-green-400" />
                   <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity bg-background-nav px-2 py-1 rounded border border-border-secondary whitespace-nowrap">
                     Email
                   </span>
                 </a>
               </div>
 
-              {/* CTA Button */}
+              {/* CTA Button - Hide "Let's work together" on mobile */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a
                   href="mailto:hello@devansh.kp@outlook.com"
-                  className="px-8 py-4 rounded-full transition-all duration-300 group border border-border-secondary hover:bg-text-primary hover:text-background-primary inline-flex items-center justify-center hover:shadow-lg hover:scale-105 bg-background-nav/50 backdrop-blur-sm"
+                  className="hidden md:inline-flex px-8 py-4 rounded-full transition-all duration-300 group border border-border-secondary hover:bg-text-primary hover:text-background-primary items-center justify-center hover:shadow-lg hover:scale-105 bg-background-nav/50 backdrop-blur-sm"
                 >
                   Let's work together
                   <ArrowRight className="w-4 h-4 inline-block ml-2 group-hover:translate-x-1 transition-transform text-current" />
@@ -277,7 +287,7 @@ const Home = () => {
                   aria-label="Resume PDF"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-4 rounded-full transition-all duration-300 group border border-transparent hover:border-border-secondary inline-flex items-center justify-center text-text-muted hover:text-text-primary"
+                  className="px-6 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 group border border-transparent hover:border-border-secondary inline-flex items-center justify-center text-text-muted hover:text-text-primary"
                 >
                   View my Resume
                 </a>
@@ -286,36 +296,55 @@ const Home = () => {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div
+            className="fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300"
+            style={{
+              bottom: `calc(4rem + env(safe-area-inset-bottom, 0px))`,
+              opacity: showScrollDown ? 1 : 0,
+              transform: showScrollDown
+                ? "translateX(-50%) translateY(0px)"
+                : "translateX(-50%) translateY(10px)",
+              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              pointerEvents: showScrollDown ? "auto" : "none",
+            }}
+          >
             <div
               className="group cursor-pointer"
               onClick={() =>
                 document
                   .getElementById("about")
-                  .scrollIntoView({ behavior: "smooth" })
+                  ?.scrollIntoView({ behavior: "smooth" })
               }
-              style={{
-                animation: "float-smooth 2s ease-in-out infinite",
-              }}
             >
-              <div className="flex flex-col items-center space-y-.25">
-                <ChevronDown className="w-7 h-7 text-text-muted group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-0.5 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-                <ChevronDown className="w-7 h-7 text-text-muted group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-1 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] -mt-2" />
+              {/* Mobile*/}
+              <div
+                className="flex flex-col items-center space-y-.25 md:hidden"
+                style={{
+                  animation: showScrollDown
+                    ? "float-smooth 2s ease-in-out infinite"
+                    : "none",
+                }}
+              >
+                <ChevronDown className="w-8 h-8 text-text-subtle group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-1 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] -mt-2" />
+              </div>
+
+              {/* Desktop*/}
+              <div className="hidden md:flex flex-col items-center">
+                <div className="relative">
+                  <div className="w-6.5 h-9.5 border-[1.75px] border-text-subtle group-hover:border-text-primary rounded-full flex justify-center items-start pt-1.5 transition-all duration-250 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">
+                    <div
+                      className="w-[2.5px] h-1.5 bg-text-subtle group-hover:bg-text-primary rounded-full transition-colors duration-150"
+                      style={{
+                        animation: showScrollDown
+                          ? "mouse-scroll 1.75s ease-in-out infinite 0.5s"
+                          : "none",
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          <style jsx>{`
-            @keyframes float-smooth {
-              0%,
-              100% {
-                transform: translateY(0px);
-              }
-              50% {
-                transform: translateY(8px);
-              }
-            }
-          `}</style>
         </section>
 
         <div className="max-w-3xl mx-auto px-6 relative z-10">
