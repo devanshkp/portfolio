@@ -236,7 +236,7 @@ const Home = () => {
               </div>
 
               {/* Social Links */}
-              <div className="flex justify-center space-x-4 mb-8 md:mb-12">
+              <div className="flex justify-center space-x-4 mb-6 md:mb-6">
                 <a
                   href="https://github.com/devanshkp/"
                   className="group relative p-3 md:p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-text-primary hover:shadow-lg hover:shadow-blue-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
@@ -273,23 +273,17 @@ const Home = () => {
                 </a>
               </div>
 
-              {/* CTA Button - Hide "Let's work together" on mobile */}
+              {/* Resume */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a
-                  href="mailto:hello@devansh.kp@outlook.com"
-                  className="hidden md:inline-flex px-8 py-4 rounded-full transition-all duration-300 group border border-border-secondary hover:bg-text-primary hover:text-background-primary items-center justify-center hover:shadow-lg hover:scale-105 bg-background-nav/50 backdrop-blur-sm"
-                >
-                  Let's work together
-                  <ArrowRight className="w-4 h-4 inline-block ml-2 group-hover:translate-x-1 transition-transform text-current" />
-                </a>
                 <a
                   href="https://drive.google.com/file/d/1EV7j6v1AqeVic54YIpfWG94guPpH6B84/view?usp=sharing"
                   aria-label="Resume PDF"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 md:px-8 py-3 md:py-4 rounded-full transition-all duration-300 group border border-transparent hover:border-border-secondary inline-flex items-center justify-center text-text-muted hover:text-text-primary"
+                  className="px-6 md:px-8 py-1 md:py-1 rounded-full transition-all duration-300 group border border-transparent inline-flex items-center justify-center text-text-muted hover:text-text-primary"
                 >
-                  View my Resume
+                  View Resume
+                  <ArrowRight className="hidden md:inline-block w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform text-current" />
                 </a>
               </div>
             </div>
@@ -607,7 +601,7 @@ const Home = () => {
         {/* Scroll to Top Button */}
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary bg-background-primary/50 backdrop-blur-md hover:border-border-active hover:bg-background-lighter hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-secondary ${
+          className={`fixed bottom-8 z-50 rounded-md md:rounded-sm transition-all duration-300 border border-border-secondary bg-background-primary/75 backdrop-blur-md hover:border-border-active hover:bg-background-lighter hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-secondary ${
             showScrollTop
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none"
@@ -617,8 +611,8 @@ const Home = () => {
           }}
           aria-label="Scroll to top"
         >
-          <ChevronUp className="w-3.5 h-3.5 group-hover:scale-110 duration-300 transition-transform group-hover:-translate-y-0.25" />
-          Back to top
+          <ChevronUp className="w-6 h-6 md:w-3.5 md:h-3.5 group-hover:scale-110 duration-300 transition-transform group-hover:-translate-y-0.25" />
+          <a className="hidden md:inline-block">Back to top</a>
         </button>
       </div>
     </div>
