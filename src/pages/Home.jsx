@@ -302,8 +302,8 @@ const Home = () => {
               bottom: `calc(4rem + env(safe-area-inset-bottom, 0px))`,
               opacity: showScrollDown ? 1 : 0,
               transform: showScrollDown
-                ? "translateX(-50%) translateY(0px)"
-                : "translateX(-50%) translateY(10px)",
+                ? "translateY(0px)"
+                : "translateY(10px)",
               transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
               pointerEvents: showScrollDown ? "auto" : "none",
             }}
