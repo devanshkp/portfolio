@@ -92,7 +92,7 @@ const Home = () => {
     {
       title: "Synapse",
       description:
-        "Mobile Quiz Application with secure authentication, social features, web-scraped questions, and AI-generated hints.",
+        "Mobile quiz application built with Flutter, featuring secure authentication, social features, and 4,000+ questions with contextual hints.",
       tech: [
         "Flutter",
         "Selenium",
@@ -144,7 +144,7 @@ const Home = () => {
         } relative z-10`}
       >
         {/* Navigation */}
-        <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-black/25 border-b border-border-primary">
+        <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-background-primary/75 border-b border-border-primary">
           <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
             <img
               src={"/logos/cat.svg"}
@@ -219,9 +219,9 @@ const Home = () => {
                   </p>
                 </div>
                 <p className=" text-text-muted max-w-2xl mx-auto leading-relaxed">
-                  Building innovative solutions with clean code, thoughtful
-                  design, and a passion for machine learning. Currently pursuing
-                  Computer Science at Griffith University.
+                  Turning late-night ideas into working code. I build, I train,
+                  I refine - All in pursuit of software that’s actually useful.
+                  CS grad from Griffith.
                 </p>
               </div>
 
@@ -329,19 +329,20 @@ const Home = () => {
               <div className="flex flex-col gap-12 md:flex-row md:justify-between md:gap-25">
                 <div className="md:w-9/12">
                   <p className="leading-relaxed mb-6 text-text-secondary">
-                    I'm a Software Engineer and UI/UX Designer with a hands-on
-                    approach to problem-solving, driven by a natural curiosity.
+                    I'm Devansh, a software engineer based on the Gold Coast
+                    with experience in full-stack development, machine learning,
+                    and mobile apps.
                   </p>
                   <p className="leading-relaxed mb-6 text-text-secondary">
-                    I love to both build and break things. I am motivated by
-                    challenging projects with self-guided research and dynamic
-                    problem solving. My recent focus has been on Machine
-                    Learning work, exploring innovative solutions.
+                    Some of my projects include a mushroom classifier using deep
+                    learning, a CS quiz app built with Flutter, and various
+                    small tools to automate tasks and explore new tech.
                   </p>
                   <p className="leading-relaxed text-text-secondary">
-                    This is my personal space, where I share my work and
-                    projects, documenting my progress and showcasing my
-                    capabilities.
+                    In my spare time, I like to play video games, watch TV
+                    shows, and hit the gym. I’m always open to chatting about
+                    cool ideas or upcoming projects, so feel free to drop me a
+                    line.
                   </p>
                 </div>
                 <div className="md:w-7/12">
@@ -349,10 +350,10 @@ const Home = () => {
                     My primary tools include:
                   </h3>
                   <ul className="space-y-2 text-text-secondary">
-                    <li>• React.js, Flutter </li>
+                    <li>• React, Flutter </li>
                     <li>• Flask </li>
                     <li>• Firebase, PostgreSQL </li>
-                    <li>• Python, C/C++, Javascript </li>
+                    <li>• Python, C++, Javascript </li>
                     <li>• Tensorflow, Scikit-learn, Pandas</li>
                     <li>• AWS</li>
                   </ul>
@@ -567,8 +568,8 @@ const Home = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-40 py-10">
-            <div className="text-text-subtle text-xs md:text-sm">
+          <footer className="pt-25 py-10">
+            <div className="text-text-secondary text-xs md:text-sm">
               <p>© 2025 | Devansh Kapoor</p>
             </div>
           </footer>
@@ -577,7 +578,7 @@ const Home = () => {
         {/* Scroll to Top Button */}
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary bg-background-primary/50 backdrop-blur-md hover:border-border-active hover:bg-background-lighter hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-muted ${
+          className={`fixed bottom-8 z-50 rounded-sm transition-all duration-300 border border-border-secondary bg-background-primary/50 backdrop-blur-md hover:border-border-active hover:bg-background-lighter hover:text-text-primary group inline-flex items-center px-2 py-2 gap-x-2 text-text-secondary ${
             showScrollTop
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none"
