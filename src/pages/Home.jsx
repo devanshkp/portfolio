@@ -283,7 +283,7 @@ const Home = () => {
                   className="px-6 md:px-8 py-1 md:py-1 rounded-full transition-all duration-300 group border border-transparent inline-flex items-center justify-center text-text-muted hover:text-text-primary"
                 >
                   View Resume
-                  <ArrowRight className="hidden md:inline-block w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform text-current" />
+                  <ArrowRight className="hidden md:inline-block w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform text-current" />
                 </a>
               </div>
             </div>
