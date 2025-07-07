@@ -346,7 +346,7 @@ const Home = () => {
           <section id="about" className="pt-20 md:pt-22">
             <div className="mx-auto">
               <div className="flex items-center mb-8">
-                <span className="inline-block w-2 h-2 rounded-full bg-blue-400 mr-3"></span>
+                <span className="inline-block w-2 h-2 rounded-full bg-primary mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">About me</h2>
               </div>
               <div className="flex flex-col gap-12 md:flex-row md:justify-between md:gap-25">
@@ -389,7 +389,7 @@ const Home = () => {
           <section id="education" className="pt-20 md:pt-22 rounded-xl mb-12">
             <div className="mx-auto">
               <div className="flex items-center mb-12">
-                <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-3"></span>
+                <span className="inline-block w-2 h-2 rounded-full bg-secondary mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">Education</h2>
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
@@ -439,7 +439,7 @@ const Home = () => {
           <section id="work" className="pt-20 md:pt-22 rounded-xl mb-12">
             <div className="mx-auto">
               <div className="flex items-center mb-12">
-                <span className="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-3"></span>
+                <span className="inline-block w-2 h-2 rounded-full bg-primary mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">Work</h2>
               </div>
 
@@ -465,7 +465,7 @@ const Home = () => {
           <section id="projects" className="pt-20 md:pt-22 mb-12">
             <div className="mx-auto">
               <div className="flex items-center mb-12">
-                <span className="inline-block w-2 h-2 rounded-full bg-purple-400 mr-3"></span>
+                <span className="inline-block w-2 h-2 rounded-full bg-secondary mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">Projects</h2>
                 <a
                   href="https://github.com/devanshkp?tab=repositories"

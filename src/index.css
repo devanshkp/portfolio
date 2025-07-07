@@ -19,6 +19,9 @@
   --color-border-active: oklch(53.977% 0.03297 278.823);
 
   --color-accent-tag: oklch(27.034% 0.03743 266.421);
+
+  --color-primary: hsl(278, 80%, 80%);
+  --color-secondary: hsl(158, 80%, 80%);
 }
 
 @keyframes mouse-scroll {
