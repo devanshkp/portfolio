@@ -236,7 +236,7 @@ const Home = () => {
               </div>
 
               {/* Social Links */}
-              <div className="flex justify-center space-x-4 mb-10">
+              <div className="flex justify-center space-x-4 mb-6 md:mb-10">
                 <a
                   href="https://github.com/devanshkp/"
                   className="group relative p-3 md:p-4 rounded-full transition-all duration-300 border border-border-secondary hover:border-text-primary hover:shadow-lg hover:shadow-blue-500/20 bg-background-nav/50 backdrop-blur-sm hover:scale-110"
