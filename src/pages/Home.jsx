@@ -125,9 +125,9 @@ const Home = () => {
   const education = [
     {
       institution: "Griffith University",
-      degree: "Bachelor of Computer Science, majoring in Software Development",
-      period: "2022 - Current",
-      gpa: "GPA: 6.5/7",
+      degree: "Bachelor of Computer Science, Software Development major",
+      period: "Mar 2022 - Jul 2025",
+      gpa: "GPA: 6.54/7",
       misc: [
         "Groups: Griffith ICT Club, Griffith Coding Club",
         "Relevant Coursework: Advanced Algorithms and Data Structures, Machine Learning & Intelligent Systems, Web Development, DevSecOps, Object-Oriented Programming with C++",
