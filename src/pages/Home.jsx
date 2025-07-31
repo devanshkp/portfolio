@@ -8,6 +8,13 @@ import {
   ChevronUp,
   ChevronDown,
   Code,
+  Database,
+  Cloud,
+  Brain,
+  Globe,
+  Smartphone,
+  Server,
+  Zap,
 } from "lucide-react";
 
 const Home = () => {
@@ -349,37 +356,160 @@ const Home = () => {
                 <span className="inline-block w-2 h-2 rounded-full bg-primary mr-3"></span>
                 <h2 className="text-xl md:text-2xl font-bold">About me</h2>
               </div>
-              <div className="flex flex-col gap-12 md:flex-row md:justify-between md:gap-25">
-                <div className="md:w-9/12">
-                  <p className="leading-relaxed mb-6 text-text-secondary">
-                    I'm Devansh, a software engineer based on the Gold Coast
-                    with experience in full-stack development, machine learning,
-                    and mobile apps.
-                  </p>
-                  <p className="leading-relaxed mb-6 text-text-secondary">
-                    Some of my projects include a mushroom classifier using deep
-                    learning, a CS quiz app built with Flutter, and various
-                    small tools to automate tasks and explore new tech.
-                  </p>
-                  <p className="leading-relaxed text-text-secondary">
-                    In my spare time, I like to play video games, watch TV
-                    shows, and hit the gym. I’m always open to chatting about
-                    cool ideas or upcoming projects, so feel free to drop me a
-                    line.
-                  </p>
+
+              {/* Description Section */}
+              <div className="mb-12">
+                <p className="leading-relaxed mb-6 text-text-secondary">
+                  I'm Devansh, a software engineer based on the Gold Coast with
+                  experience in full-stack development, machine learning, and
+                  mobile apps.
+                </p>
+                <p className="leading-relaxed mb-6 text-text-secondary">
+                  Some of my projects include a mushroom classifier using deep
+                  learning, a CS quiz app built with Flutter, and various small
+                  tools to automate tasks and explore new tech.
+                </p>
+                <p className="leading-relaxed text-text-secondary">
+                  In my spare time, I like to play video games, watch TV shows,
+                  and hit the gym. I'm always open to chatting about cool ideas
+                  or upcoming projects, so feel free to drop me a line.
+                </p>
+              </div>
+
+              {/* Skills Section */}
+              <div>
+                <h3 className="text-md md:text-lg font-semibold mb-6">
+                  My primary tools include:
+                </h3>
+
+                {/* Frontendx` */}
+                <div className="mb-6">
+                  <div className="flex items-center mb-3">
+                    <Globe className="w-4 h-4 text-blue-400 mr-2" />
+                    <h4 className="text-sm font-medium text-text-muted uppercase tracking-wide">
+                      Frontend
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-blue-500/40 hover:bg-blue-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        React
+                      </span>
+                    </div>
+                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-blue-500/40 hover:bg-blue-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        Flutter
+                      </span>
+                    </div>
+                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-blue-500/40 hover:bg-blue-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        HTML/CSS
+                      </span>
+                    </div>
+                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-blue-500/40 hover:bg-blue-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        JavaScript
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="md:w-7/12">
-                  <h3 className="text-md md:text-lg font-semibold mb-4">
-                    My primary tools include:
-                  </h3>
-                  <ul className="space-y-2 text-text-secondary">
-                    <li>• React, Flutter </li>
-                    <li>• Flask </li>
-                    <li>• Firebase, PostgreSQL </li>
-                    <li>• Python, C++, Javascript </li>
-                    <li>• Tensorflow, Scikit-learn, Pandas</li>
-                    <li>• AWS</li>
-                  </ul>
+
+                {/* Backend & Database */}
+                <div className="mb-6">
+                  <div className="flex items-center mb-3">
+                    <Server className="w-4 h-4 text-green-400 mr-2" />
+                    <h4 className="text-sm font-medium text-text-muted uppercase tracking-wide">
+                      Backend & Database
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-green-500/40 hover:bg-green-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        Flask
+                      </span>
+                    </div>
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-green-500/40 hover:bg-green-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        Firebase
+                      </span>
+                    </div>
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-green-500/40 hover:bg-green-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        PostgreSQL
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Programming Languages */}
+                <div className="mb-6">
+                  <div className="flex items-center mb-3">
+                    <Code className="w-4 h-4 text-purple-400 mr-2" />
+                    <h4 className="text-sm font-medium text-text-muted uppercase tracking-wide">
+                      Programming Languages
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-purple-500/40 hover:bg-purple-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        Python
+                      </span>
+                    </div>
+                    <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-purple-500/40 hover:bg-purple-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        C++
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Machine Learning & Data */}
+                <div className="mb-6">
+                  <div className="flex items-center mb-3">
+                    <Brain className="w-4 h-4 text-orange-400 mr-2" />
+                    <h4 className="text-sm font-medium text-text-muted uppercase tracking-wide">
+                      Machine Learning & Data
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-orange-500/40 hover:bg-orange-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        TensorFlow
+                      </span>
+                    </div>
+                    <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-orange-500/40 hover:bg-orange-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        Scikit-learn
+                      </span>
+                    </div>
+                    <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-orange-500/40 hover:bg-orange-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        Pandas
+                      </span>
+                    </div>
+                    <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-orange-500/40 hover:bg-orange-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        Jupyter
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Cloud & Infrastructure */}
+                <div>
+                  <div className="flex items-center mb-3">
+                    <Cloud className="w-4 h-4 text-cyan-400 mr-2" />
+                    <h4 className="text-sm font-medium text-text-muted uppercase tracking-wide">
+                      Cloud & Infrastructure
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg px-3 py-2 text-center transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-500/15 group">
+                      <span className="text-text-secondary font-medium group-hover:text-text-primary transition-colors text-sm">
+                        AWS
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

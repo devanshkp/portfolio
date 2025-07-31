@@ -58,6 +58,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Force consistent scaling across devices */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -65,6 +70,15 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
+
+  /* Prevent browser zoom adjustments */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  /* Force consistent font rendering */
+  font-smooth: never;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 #root {
