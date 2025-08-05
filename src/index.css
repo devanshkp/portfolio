@@ -2,26 +2,93 @@
 
 @theme {
   --font-vulfsans: VulfSans, "sans-serif";
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-bg-nav: var(--bg-nav);
 
-  --color-background-primary: rgb(23, 22, 28);
-  --color-background-lighter: rgb(34, 32, 41);
-  --color-background-secondary: gray-900;
-  --color-background-nav: rgb(8, 8, 8) / 80;
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
 
-  --color-text-primary: white;
-  --color-text-secondary: oklch(81.161% 0.01402 290.568);
-  --color-text-muted: oklch(69.442% 0.0293 281.055);
-  --color-text-subtle: oklch(53.534% 0.0359 283.14);
+  --color-border: var(--border);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-active: var(--border-active);
 
-  --color-border-primary: oklch(26.248% 0.04199 273.431);
-  --color-border-secondary: oklch(36.315% 0.03936 270.706);
-  --color-border-hover: oklch(43.426% 0.03565 272.403);
-  --color-border-active: oklch(53.977% 0.03297 278.823);
+  --color-accent: var(--accent);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-secondary-solid: var(--accent-secondary-solid);
 
-  --color-accent-tag: oklch(27.034% 0.03743 266.421);
+  --color-grid: var(--grid-color);
+}
 
-  --color-primary: hsl(278, 80%, 80%);
-  --color-secondary: hsl(158, 80%, 80%);
+:root {
+  --bg: hsl(221, 35%, 9%);
+  --bg-secondary: hsl(221, 35%, 14%);
+  --bg-card: hsl(221, 35%, 12%);
+  --bg-nav: hsl(221, 35%, 9%);
+
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+
+  --border: #334155;
+  --border-secondary: #475569;
+  --border-active: #5eead4;
+
+  --accent: linear-gradient(to right, #a78bfa, #f472b6);
+  --accent-solid: #f472b6;
+  --accent-secondary: linear-gradient(to right, #2dd4bf, #34d399);
+  --accent-secondary-solid: #34d399;
+
+  --grid-color: rgba(148, 163, 184, 0.3);
+}
+
+.light-theme {
+  --bg: #f8fafc;
+  --bg-secondary: rgba(226, 226, 226, 0.7);
+  --bg-card: rgba(238, 238, 238, 0.8);
+  --bg-nav: rgba(255, 255, 255, 0.9);
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --text-subtle: #64748b;
+
+  --border: #cbd5e1;
+  --border-secondary: #e5e7eb;
+  --border-active: #94a3b8;
+
+  --accent: linear-gradient(to right, #7c3aed, #db2777);
+  --accent-secondary: linear-gradient(to right, #14b8a6, #10b981);
+
+  --grid-color: rgba(39, 44, 49, 0.2);
+}
+
+.bg-gradient-accent {
+  background: var(--accent) !important;
+}
+.bg-gradient-accent-secondary {
+  background: var(--accent-secondary) !important;
+}
+
+/* For text gradients */
+.text-gradient-accent {
+  background: var(--accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* For grid background */
+.grid-bg {
+  background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 100px 100px;
 }
 
 @keyframes mouse-scroll {
@@ -45,19 +112,8 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
   }
-}
-
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: dark;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -65,11 +121,14 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-#root {
-  width: 100%;
-  min-height: 100vh;
+  font-family: var(
+    --font-vulfsans,
+    system-ui,
+    Avenir,
+    Helvetica,
+    Arial,
+    sans-serif
+  );
 }
 
 html {
@@ -81,69 +140,61 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Font faces remain unchanged */
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-Italic.otf") format("opentype");
   font-weight: 400;
   font-style: italic;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-BoldItalic.otf") format("opentype");
   font-weight: 700;
   font-style: italic;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-Light.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-LightItalic.otf") format("opentype");
   font-weight: 300;
   font-style: italic;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-Medium.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-MediumItalic.otf") format("opentype");
   font-weight: 500;
   font-style: italic;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-Black.otf") format("opentype");
   font-weight: 900;
   font-style: normal;
 }
-
 @font-face {
   font-family: "VulfSans";
   src: url("/fonts/VulfSans/VulfSans-BlackItalic.otf") format("opentype");
