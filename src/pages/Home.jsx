@@ -599,7 +599,7 @@ const Home = () => {
                 {projects.map((project, index) => (
                   <div
                     key={index}
-                    className={`group relative bg-bg-card backdrop-blur-sm rounded-2xl border-border-primary hover:border-active transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
+                    className={`group relative bg-bg-card rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
                   >
                     <a
                       href={project.link}
@@ -648,7 +648,7 @@ const Home = () => {
 
                         {/* Project Content */}
                         <div className="lg:w-3/5 p-6 lg:p-8 flex flex-col justify-between">
-                          <div className="mb-6">
+                          <div className="md:mb-6">
                             <div className="flex justify-between items-start mb-4">
                               <div>
                                 <h3
