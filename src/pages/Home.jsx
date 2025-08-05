@@ -6,7 +6,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   ChevronUp,
-  ChevronDown,
+  ArrowDown,
   Code,
   Sun,
   Moon,
@@ -73,6 +73,7 @@ const Home = () => {
     };
   }, []);
 
+  // Scroll progress
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -87,6 +88,22 @@ const Home = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Update Meta Tags
+  useEffect(() => {
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    const appleStatusBar = document.querySelector(
+      'meta[name="apple-mobile-web-app-status-bar-style"]'
+    );
+
+    if (isDarkMode) {
+      metaThemeColor?.setAttribute("content", "#161b22");
+      appleStatusBar?.setAttribute("content", "black-translucent");
+    } else {
+      metaThemeColor?.setAttribute("content", "#f8fafc");
+      appleStatusBar?.setAttribute("content", "default");
+    }
+  }, [isDarkMode]);
 
   const formatTime = (date) => {
     const timePart = date.toLocaleTimeString("en-US", {
@@ -213,8 +230,12 @@ const Home = () => {
             className="block md:hidden absolute bottom-0 left-0 h-[2px]"
             style={{
               width: "0%",
-              background: "var(--accent-secondary-solid)",
-              boxShadow: "0 0 6px var(--accent-secondary-solid)",
+              background: isDarkMode
+                ? "var(--accent-secondary-solid)"
+                : "var(--accent-solid)",
+              boxShadow: isDarkMode
+                ? "0 0 6px var(--accent-secondary-solid)"
+                : "0 0 6px var(--accent-solid)",
               transition: "width 0.1s ease-out",
             }}
           ></div>
@@ -366,12 +387,12 @@ const Home = () => {
           <div
             className="fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300"
             style={{
-              bottom: `calc(4rem + env(safe-area-inset-bottom, 0px))`,
+              bottom: `calc(2rem + env(safe-area-inset-bottom, 0px))`,
               opacity: showScrollDown ? 1 : 0,
               transform: showScrollDown
                 ? "translateY(0px)"
                 : "translateY(10px)",
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
               pointerEvents: showScrollDown ? "auto" : "none",
             }}
           >
@@ -384,16 +405,14 @@ const Home = () => {
               }
             >
               <div
-                className={`flex flex-col items-center space-y-1 p-3 rounded-full bg-bg-card border-border-primary hover:border-active backdrop-blur-sm hover:scale-110 transition-all duration-300`}
+                className={`flex flex-col items-center space-y-1 p-3 hover:border-active backdrop-blur-sm hover:scale-110 transition-all duration-300`}
                 style={{
                   animation: showScrollDown
-                    ? "float-smooth 2s ease-in-out infinite"
+                    ? "float-smooth 1s ease-in-out infinite"
                     : "none",
                 }}
               >
-                <ChevronDown
-                  className={`w-6 h-6 text-text-muted group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-1`}
-                />
+                <ArrowDown className="w-8 h-8 text-accent-solid group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-1" />
               </div>
             </div>
           </div>
@@ -723,7 +742,7 @@ const Home = () => {
           </footer>
         </div>
 
-        {/* Scroll to Top Button - now fixed to bottom right of content container */}
+        {/* Scroll to Top Button */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
           <button
             onClick={scrollToTop}
@@ -743,30 +762,6 @@ const Home = () => {
             </span>
           </button>
         </div>
-        <style jsx>{`
-          @keyframes float-smooth {
-            0%,
-            100% {
-              transform: translateY(0px);
-            }
-            50% {
-              transform: translateY(-10px);
-            }
-          }
-          @keyframes mouse-scroll {
-            0% {
-              transform: translateY(0px);
-              opacity: 0;
-            }
-            50% {
-              opacity: 1;
-            }
-            100% {
-              transform: translateY(12px);
-              opacity: 0;
-            }
-          }
-        `}</style>
       </div>
     </div>
   );
