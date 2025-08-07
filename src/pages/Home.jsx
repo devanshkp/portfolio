@@ -6,6 +6,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   ChevronUp,
+  ArrowUp,
   ArrowDown,
   Code,
   Sun,
@@ -17,6 +18,7 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showScrollDown, setShowScrollDown] = useState(true);
+  const [isScrolling, setIsScrolling] = useState(false);
   const [currentSkill, setCurrentSkill] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return !window.matchMedia("(prefers-color-scheme: light)").matches;
@@ -117,8 +119,10 @@ const Home = () => {
   };
 
   const scrollToTop = () => {
+    setIsScrolling(true);
     const onScroll = () => {
       if (window.scrollY === 0) {
+        setIsScrolling(false);
         document.activeElement.blur();
         window.removeEventListener("scroll", onScroll);
       }
@@ -756,7 +760,22 @@ const Home = () => {
               right: `max(1.5rem, calc((100vw - min(56rem, 100vw - 3rem)) / 2))`,
             }}
           >
-            <ChevronUp className="w-5 h-5 group-hover:scale-110 duration-300 transition-transform group-hover:-translate-y-0.5" />
+            <div className="relative w-5 h-5">
+              <ChevronUp
+                className={`w-5 h-5 group-hover:scale-110 duration-300 transition-all group-hover:-translate-y-0.5 absolute ${
+                  showScrollDown || isScrolling
+                    ? "opacity-0"
+                    : "group-hover:opacity-0"
+                }`}
+              />
+              <ArrowUp
+                className={`w-5 h-5 group-hover:scale-110 duration-300 transition-all group-hover:-translate-y-0.5 absolute ${
+                  showScrollDown || isScrolling
+                    ? "opacity-100"
+                    : "opacity-0 group-hover:opacity-100"
+                }`}
+              />
+            </div>
             <span className="hidden sm:inline-block font-medium">
               Back to top
             </span>
