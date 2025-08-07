@@ -769,7 +769,7 @@ const Home = () => {
                 }`}
               />
               <ArrowUp
-                className={`w-5 h-5 group-hover:scale-110 duration-300 transition-all group-hover:-translate-y-0.5 absolute ${
+                className={`w-5 h-5 group-hover:scale-110 duration-300 transition-all absolute ${
                   showScrollDown || isScrolling
                     ? "opacity-100"
                     : "opacity-0 group-hover:opacity-100"
