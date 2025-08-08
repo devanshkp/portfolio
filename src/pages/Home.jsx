@@ -268,7 +268,7 @@ const Home = () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={toggleDarkMode}
-                className={`p-2 rounded-lg bg-bg-secondary border-border-primary hover:border-active transition-all duration-300 hover:scale-110`}
+                className={`p-2 rounded-lg bg-bg-secondary transition-all duration-300 hover:scale-110`}
                 aria-label="Toggle theme"
               >
                 {isDarkMode ? (
@@ -506,38 +506,41 @@ const Home = () => {
 
               <div className="space-y-8">
                 {education.map((edu, index) => (
-                  <div
-                    key={index}
-                    className={`pl-6 transition-colors border-l-2 border-l-border hover:border-l-accent-secondary-solid`}
-                  >
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                      <h3 className="text-xl font-semibold">
-                        {edu.institution}
-                      </h3>
-                      <span className={`text-text-muted text-sm font-medium`}>
-                        {edu.period}
-                      </span>
-                    </div>
-                    <p className={`mb-4 text-text-muted text-lg`}>
-                      {edu.degree}
-                    </p>
-                    {edu.gpa && (
-                      <p
-                        className={`mb-4 text-text-secondary font-semibold text-lg`}
-                      >
-                        {edu.gpa}
-                      </p>
-                    )}
-                    {edu.misc && (
-                      <div className="text-text-secondary">
-                        {edu.misc.map((item, miscIndex) => (
-                          <p key={miscIndex} className="mb-2 flex items-start">
-                            <span className="text-teal-400 mr-2">•</span>
-                            {item}
-                          </p>
-                        ))}
+                  <div className="flex group transition-colors">
+                    <div className="w-0.5 bg-border transition-all duration-300 group-hover:bg-accent-secondary-solid group-hover:shadow-[0_0_10px_theme(colors.accent.secondary.solid/30%)]"></div>
+                    <div className="pl-4 md:pl-8 flex-1 transition-colors">
+                      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                        <h3 className="text-xl font-semibold">
+                          {edu.institution}
+                        </h3>
+                        <span className={`text-text-muted text-sm font-medium`}>
+                          {edu.period}
+                        </span>
                       </div>
-                    )}
+                      <p className={`mb-4 text-text-muted text-lg`}>
+                        {edu.degree}
+                      </p>
+                      {edu.gpa && (
+                        <p
+                          className={`mb-4 text-text-secondary font-semibold text-lg`}
+                        >
+                          {edu.gpa}
+                        </p>
+                      )}
+                      {edu.misc && (
+                        <div className="text-text-secondary">
+                          {edu.misc.map((item, miscIndex) => (
+                            <p
+                              key={miscIndex}
+                              className="mb-2 flex items-start"
+                            >
+                              <span className="text-teal-400 mr-2">•</span>
+                              {item}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -556,22 +559,21 @@ const Home = () => {
 
               <div className="space-y-8">
                 {workExperience.map((job, index) => (
-                  <div
-                    key={index}
-                    className={`pl-6 transition-colors border-l-2 border-l-border hover:border-l-accent-solid`}
-                  >
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                      <h3 className="text-xl font-semibold">{job.company}</h3>
-                      <span className={`text-text-muted text-sm font-medium`}>
-                        {job.period}
-                      </span>
+                  <div key={index} className="flex group transition-colors">
+                    <div className="w-0.5 bg-border transition-all duration-300 group-hover:bg-accent-solid group-hover:shadow-[0_0_10px_theme(colors.accent.solid/30%)]"></div>
+
+                    <div className="pl-4 md:pl-8 flex-1 transition-colors">
+                      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                        <h3 className="text-xl font-semibold">{job.company}</h3>
+                        <span className="text-text-muted text-sm font-medium">
+                          {job.period}
+                        </span>
+                      </div>
+                      <p className="mb-4 text-text-muted text-lg">{job.role}</p>
+                      <p className="text-text-secondary text-lg leading-relaxed">
+                        {job.description}
+                      </p>
                     </div>
-                    <p className={`mb-4 text-text-muted text-lg`}>{job.role}</p>
-                    <p
-                      className={`text-text-secondary text-lg leading-relaxed`}
-                    >
-                      {job.description}
-                    </p>
                   </div>
                 ))}
               </div>
