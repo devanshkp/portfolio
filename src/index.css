@@ -48,9 +48,9 @@
 }
 
 .light-theme {
-  --bg: #f8fafc;
-  --bg-secondary: rgba(226, 226, 226, 0.7);
-  --bg-card: rgba(238, 238, 238, 0.8);
+  --bg: hsl(0, 0%, 95%);
+  --bg-secondary: hsl(0, 0%, 96%);
+  --bg-card: rgba(255, 255, 255, 0.8);
   --bg-nav: rgba(255, 255, 255, 0.9);
 
   --text-primary: #0f172a;
