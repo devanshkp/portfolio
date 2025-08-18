@@ -144,7 +144,7 @@ const App = () => {
       tech: ["React", "Tailwind CSS", "Flask", "TensorFlow", "AWS"],
       link: "https://ai-mushroom-classifier-r2ed.vercel.app/",
       live: true,
-      image: "/images/mushroom-classifier-preview.png",
+      image: "/images/mushroom-classifier.png",
       techLogos: [
         {
           name: "TensorFlow",
@@ -174,7 +174,7 @@ const App = () => {
       ],
       link: "https://github.com/devanshkp/synapse-quiz-app",
       live: false,
-      image: "/images/synapse-preview.png",
+      image: "/images/synapse.png",
       techLogos: [
         { name: "Flutter", logo: "/logos/flutter.svg", color: "text-blue-500" },
         { name: "Python", logo: "/logos/python.svg", color: "text-yellow-500" },
@@ -266,17 +266,40 @@ const App = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button
+              <div
                 onClick={toggleDarkMode}
-                className={`p-2 rounded-lg bg-bg-secondary transition-all duration-300 hover:scale-110`}
+                className="relative inline-flex h-6 w-11 items-center rounded-full bg-bg-secondary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                role="switch"
+                aria-checked={isDarkMode}
                 aria-label="Toggle theme"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleDarkMode();
+                  }
+                }}
               >
-                {isDarkMode ? (
-                  <Sun className="w-4 h-4 text-yellow-400" />
-                ) : (
-                  <Moon className="w-4 h-4 text-slate-600" />
-                )}
-              </button>
+                <div
+                  className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+                    isDarkMode ? "bg-slate-700" : "bg-slate-300"
+                  }`}
+                />
+
+                <div
+                  className={`relative inline-block h-6 w-6 rounded-full bg-white shadow-lg transform transition-transform duration-300 ${
+                    isDarkMode ? "translate-x-5" : "translate-x-0"
+                  }`}
+                >
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {isDarkMode ? (
+                      <Moon className="w-4 h-4 text-slate-700" />
+                    ) : (
+                      <Sun className="w-4 h-4 text-yellow-500" />
+                    )}
+                  </div>
+                </div>
+              </div>
               <div className={`text-text-muted text-sm font-mono`}>
                 {formatTime(currentTime)}
               </div>
