@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 import {
   Github,
   Linkedin,
@@ -21,63 +23,186 @@ const SocialLink = ({
   color = "purple",
   isEmail = false,
   isDarkMode = true,
+  animationDuration = 0.4,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const colorClasses = {
     purple: {
       border: "hover:border-purple-400/50",
       shadow: "hover:shadow-purple-500/25",
       gradient: "from-purple-500/10 to-pink-500/10",
       icon: "group-hover:text-purple-400",
-      tooltip: isDarkMode ? "bg-purple-500" : "bg-purple-300",
+      tooltip: {
+        bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
+        border: isDarkMode ? "border-purple-500/30" : "border-purple-300/40",
+        text: isDarkMode ? "text-purple-200" : "text-purple-700",
+        accent: isDarkMode ? "bg-purple-500/20" : "bg-purple-200/60",
+      },
     },
     blue: {
       border: "hover:border-blue-400/50",
       shadow: "hover:shadow-blue-500/25",
       gradient: "from-blue-500/10 to-cyan-500/10",
       icon: "group-hover:text-blue-400",
-      tooltip: isDarkMode ? "bg-blue-500" : "bg-blue-300",
+      tooltip: {
+        bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
+        border: isDarkMode ? "border-blue-500/30" : "border-blue-300/40",
+        text: isDarkMode ? "text-blue-200" : "text-blue-700",
+        accent: isDarkMode ? "bg-blue-500/20" : "bg-blue-200/60",
+      },
     },
     emerald: {
       border: "hover:border-emerald-400/50",
       shadow: "hover:shadow-emerald-500/25",
       gradient: "from-emerald-500/10 to-teal-500/10",
       icon: "group-hover:text-emerald-400",
-      tooltip: isDarkMode ? "bg-emerald-500" : "bg-emerald-300",
+      tooltip: {
+        bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
+        border: isDarkMode ? "border-emerald-500/30" : "border-emerald-300/40",
+        text: isDarkMode ? "text-emerald-200" : "text-emerald-700",
+        accent: isDarkMode ? "bg-emerald-500/20" : "bg-emerald-200/60",
+      },
     },
   };
 
   const colors = colorClasses[color] || colorClasses.purple;
 
+  const raindropVariants = {
+    initial: {
+      scale: 0,
+      y: -20,
+      borderRadius: "50%",
+      opacity: 0,
+    },
+    animate: {
+      scale: 1,
+      y: 0,
+      borderRadius: "48px",
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 15,
+        stiffness: 300,
+        duration: animationDuration,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      },
+    },
+    exit: {
+      scale: 0,
+      y: -10,
+      opacity: 0,
+      transition: {
+        duration: animationDuration * 0.33,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const textVariants = {
+    initial: {
+      opacity: 0,
+      scale: 0.8,
+    },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: animationDuration * 0.25,
+        duration: animationDuration * 0.5,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      transition: {
+        duration: animationDuration * 0.17,
+      },
+    },
+  };
+
+  const accentVariants = {
+    initial: {
+      opacity: 0,
+    },
+    animate: {
+      opacity: 0.5,
+      transition: {
+        delay: animationDuration * 0.33,
+        duration: animationDuration * 0.25,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: animationDuration * 0.17,
+      },
+    },
+  };
+
   return (
     <a
       href={href}
-      className={`group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
+      className={`group relative p-5 rounded-full transition-all duration-500 ring-1 ring-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
       aria-label={ariaLabel}
       target={isEmail ? undefined : "_blank"}
       rel={isEmail ? undefined : "noopener noreferrer"}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        backgroundColor: isDarkMode
+          ? "var(--bg-tertiary)"
+          : "var(--bg-secondary)",
+      }}
     >
-      {/* Glow effect background */}
       <div
         className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full`}
       ></div>
 
-      {/* Icon container */}
       <div className="relative z-10">
         <Icon
           className={`w-6 h-6 text-text-secondary ${colors.icon} transition-all duration-500 group-hover:scale-110 group-hover:rotate-12`}
         />
       </div>
 
-      {/*  tooltip */}
-      <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
-        <div
-          className={`${colors.tooltip} backdrop-blur-sm px-3 py-1.5 rounded-lg text-text-primary text-xs font-medium shadow-lg whitespace-nowrap`}
-        >
-          {tooltip}
-          <div
-            className={`absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 ${colors.tooltip} rotate-45`}
-          ></div>
-        </div>
+      {/* Raindrop Tooltip Animation */}
+      <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 pointer-events-none z-30">
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              variants={raindropVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className={`${colors.tooltip.bg} ${colors.tooltip.text} backdrop-blur-md px-4 py-2.5 text-xs font-medium shadow-xl whitespace-nowrap border ${colors.tooltip.border} relative overflow-hidden`}
+              style={{
+                transformOrigin: "center top",
+              }}
+            >
+              {/* Animated accent background */}
+              <motion.div
+                variants={accentVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className={`absolute inset-0 ${colors.tooltip.accent}`}
+              />
+
+              {/* Animated text content */}
+              <motion.span
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="relative z-10"
+              >
+                {tooltip}
+              </motion.span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </a>
   );
@@ -90,6 +215,7 @@ const App = () => {
   const [showScrollDown, setShowScrollDown] = useState(true);
   const [isScrolling, setIsScrolling] = useState(false);
   const [currentSkill, setCurrentSkill] = useState(0);
+  const [hoveredCodeButton, setHoveredCodeButton] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return !window.matchMedia("(prefers-color-scheme: light)").matches;
   });
@@ -213,6 +339,7 @@ const App = () => {
         "React-based application for real-time species recognition using a custom-trained deep learning model.",
       tech: ["React", "Tailwind CSS", "Flask", "TensorFlow", "AWS"],
       link: "https://ai-mushroom-classifier-r2ed.vercel.app/",
+      git: "https://github.com/devanshkp/ai-mushroom-classifier",
       live: true,
       image: "/images/mushroom-classifier.png",
       techLogos: [
@@ -243,6 +370,7 @@ const App = () => {
         "Gemini API",
       ],
       link: "https://github.com/devanshkp/synapse-quiz-app",
+      git: "https://github.com/devanshkp/synapse-quiz-app",
       live: false,
       image: "/images/synapse.png",
       techLogos: [
@@ -338,7 +466,7 @@ const App = () => {
             <div className="flex items-center space-x-4">
               <div
                 onClick={toggleDarkMode}
-                className="relative inline-flex h-6 w-11 items-center rounded-full bg-bg-secondary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 role="switch"
                 aria-checked={isDarkMode}
                 aria-label="Toggle theme"
@@ -581,14 +709,13 @@ const App = () => {
                 </div>
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
-                  className={`group transition-all duration-300 ring-1 ring-border text-text-muted hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105`}
+                  className={`group transition-all duration-300 ring-1 ring-border text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                    isDarkMode
+                      ? "bg-bg-tertiary hover:bg-bg-quaternary"
+                      : "bg-bg-secondary"
+                  }`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    backgroundColor: isDarkMode
-                      ? "var(--bg-secondary)"
-                      : "var(--bg-card)",
-                  }}
                 >
                   <span className="font-medium text-sm">
                     Academic Transcript
@@ -685,14 +812,13 @@ const App = () => {
                 </div>
                 <a
                   href="https://github.com/devanshkp?tab=repositories"
-                  className={`group transition-all duration-300 ring-1 ring-border text-text-muted hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105`}
+                  className={`group transition-all duration-300 ring-1 ring-border text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                    isDarkMode
+                      ? "bg-bg-tertiary hover:bg-bg-quaternary"
+                      : "bg-bg-secondary"
+                  }`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    backgroundColor: isDarkMode
-                      ? "var(--bg-secondary)"
-                      : "var(--bg-card)",
-                  }}
                 >
                   <span className="font-medium text-sm">See all projects</span>
                   <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -703,127 +829,126 @@ const App = () => {
                 {projects.map((project, index) => (
                   <div
                     key={index}
-                    className={`group relative bg-bg-card rounded-3xl ring-1 ring-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
+                    className={`group relative bg-bg-secondary rounded-3xl ring-1 ring-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
                   >
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block"
-                    >
-                      <div className="flex flex-col lg:flex-row">
-                        {/* Project Image */}
-                        <div className="relative lg:w-2/5 aspect-video lg:aspect-[4/3] overflow-hidden">
-                          <img
-                            src={project.image}
-                            alt={`${project.title} preview`}
-                            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                            onError={(e) => {
-                              e.target.style.display = "none";
-                              e.target.nextSibling.style.display = "flex";
-                            }}
-                          />
+                    <div className="flex flex-col md:flex-row">
+                      {/* Project Image */}
+                      <div className="relative lg:w-2/5 aspect-video lg:aspect-[4/3] overflow-hidden">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} preview`}
+                          className="w-full h-full scale-110 md:scale-120 object-cover object-center transition-transform duration-500 group-hover:scale-120 md:group-hover:scale-130"
+                          onError={(e) => {
+                            e.target.style.display = "none";
+                            e.target.nextSibling.style.display = "flex";
+                          }}
+                        />
 
-                          {/* Fallback placeholder */}
-                          <div
-                            className={`hidden w-full h-full items-center justify-center bg-bg-secondary`}
-                          >
-                            <div className={`text-center text-text-muted`}>
-                              <div
-                                className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-bg-card flex items-center justify-center`}
-                              >
-                                <Code className="w-8 h-8" />
-                              </div>
-                              <p className="font-medium text-lg">
-                                {project.title}
-                              </p>
+                        {/* Fallback placeholder */}
+                        <div
+                          className={`hidden w-full h-full items-center justify-center bg-bg-tertiary`}
+                        >
+                          <div className={`text-center text-text-muted`}>
+                            <div
+                              className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-bg-secondary flex items-center justify-center`}
+                            >
+                              <Code className="w-8 h-8" />
                             </div>
+                            <p className="font-medium text-lg">
+                              {project.title}
+                            </p>
                           </div>
-
-                          {/* Overlay */}
-                          <div
-                            className={`absolute inset-0 bg-gradient-to-t ${
-                              isDarkMode
-                                ? "from-black/20 to-transparent"
-                                : "from-white/20 to-transparent"
-                            } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                          ></div>
                         </div>
 
-                        {/* Project Content */}
-                        <div className="lg:w-3/5 p-6 lg:p-8 flex flex-col justify-between">
+                        {/* Live Badge */}
+                        {project.live && (
+                          <div className="absolute top-4 right-4">
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
+                              <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                              Live
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Project Content */}
+                      <div className="lg:w-3/5 p-6 md:w-1/2 flex flex-col justify-between">
+                        <div>
                           <div className="flex justify-between items-start mb-4">
-                            <div>
-                              <h3
-                                className={`text-2xl lg:text-3xl font-bold text-text-secondary group-hover:text-text-primary transition-colors duration-300 mb-3`}
-                              >
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-2xl font-bold text-text-secondary group-hover:text-text-primary duration-200">
                                 {project.title}
                               </h3>
-
-                              {project.live && (
-                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
-                                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                                  Live
-                                </span>
-                              )}
+                              <ArrowUpRight
+                                className={`w-5 h-5 text-text-primary transition-all duration-300 group-hover:translate-x-1 ${
+                                  hoveredCodeButton === index
+                                    ? "opacity-0"
+                                    : "opacity-0 group-hover:opacity-100"
+                                }`}
+                              />
                             </div>
 
-                            <div
-                              className={`w-5 h-5 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 text-text-muted`}
+                            {/* View Code Button - Desktop */}
+                            <a
+                              href={project.git}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hidden md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
+                              onClick={(e) => e.stopPropagation()}
+                              onMouseEnter={() => setHoveredCodeButton(index)}
+                              onMouseLeave={() => setHoveredCodeButton(null)}
                             >
-                              <ArrowUpRight className="w-5 h-5" />
-                            </div>
+                              <Github className="w-4 h-4 transition-colors" />
+                              <span className="text-sm font-medium">
+                                View Code
+                              </span>
+                            </a>
                           </div>
 
-                          <p
-                            className={`text-text-secondary leading-relaxed text-lg`}
-                          >
+                          <p className="text-text-secondary leading-relaxed mb-4 text-lg">
                             {project.description}
                           </p>
 
-                          {/* Technology Stack */}
-                          <div>
-                            <div className="hidden md:flex mt-14 flex-wrap gap-4">
-                              {project.techLogos.map((tech, techIndex) => (
-                                <div
-                                  key={techIndex}
-                                  className="relative group/tech"
-                                >
-                                  <div
-                                    className={`p-3 rounded-xl bg-bg-secondary ring-1 ring-border-secondary hover:bg-bg-card transition-all duration-200 hover:border-active hover:scale-110 hover:-translate-y-1 backdrop-blur-sm`}
-                                  >
-                                    <img
-                                      src={tech.logo}
-                                      alt={tech.name}
-                                      className="w-6 h-6 object-contain opacity-80 group-hover/tech:opacity-100 transition-opacity duration-200"
-                                      onError={(e) => {
-                                        e.target.style.display = "none";
-                                        e.target.nextSibling.style.display =
-                                          "inline-block";
-                                      }}
-                                    />
-                                    <span
-                                      className={`hidden text-sm font-medium ${tech.color}`}
-                                    >
-                                      {tech.name}
-                                    </span>
-                                  </div>
-
-                                  {/* Tooltip */}
-                                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
-                                    <div
-                                      className={`bg-bg-nav px-3 py-1 rounded-lg ring-1 ring-border text-sm font-medium whitespace-nowrap backdrop-blur-sm shadow-lg`}
-                                    >
-                                      {tech.name}
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
+                          {/* View Code Button - Mobile */}
+                          <div className="md:hidden">
+                            <a
+                              href={project.git}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group/code inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
+                              onClick={(e) => e.stopPropagation()}
+                              onMouseEnter={() => setHoveredCodeButton(index)}
+                              onMouseLeave={() => setHoveredCodeButton(null)}
+                            >
+                              <Github className="w-4 h-4 transition-colors" />
+                              <span className="text-sm font-medium">
+                                View Code
+                              </span>
+                            </a>
                           </div>
                         </div>
+
+                        {/* Technology Stack */}
+                        <div className="hidden md:flex flex-wrap gap-2">
+                          {project.techLogos.map((tech, techIndex) => (
+                            <div
+                              key={techIndex}
+                              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary text-text-secondary text-sm font-medium ring-1 ring-border"
+                            >
+                              <img
+                                src={tech.logo}
+                                alt={tech.name}
+                                className="w-4 h-4 object-contain"
+                                onError={(e) => {
+                                  e.target.style.display = "none";
+                                }}
+                              />
+                              <span>{tech.name}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </a>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -831,8 +956,8 @@ const App = () => {
           </section>
         </div>
 
-        {/* Footer - Minimal */}
-        <footer className="bg-bg-card border-t border-border mt-20">
+        {/* Footer */}
+        <footer className="bg-bg-secondary border-t border-border mt-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 pb-24">
             <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-text-muted">
               <p>© 2025 Devansh Kapoor</p>
@@ -869,10 +994,14 @@ const App = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border duration-300 bg-bg-card/85 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-lg hover:shadow-xl ${
+            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-lg hover:shadow-xl ${
               showScrollTop
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-4 pointer-events-none"
+            }  ${
+              isDarkMode
+                ? "bg-bg-tertiary hover:bg-bg-quaternary"
+                : "bg-bg-secondary"
             }`}
             aria-label="Scroll to top"
             style={{

@@ -4,7 +4,8 @@
   --font-vulfsans: VulfSans, "sans-serif";
   --color-bg: var(--bg);
   --color-bg-secondary: var(--bg-secondary);
-  --color-bg-card: var(--bg-card);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-quaternary: var(--bg-quaternary);
   --color-bg-nav: var(--bg-nav);
 
   --color-text-primary: var(--text-primary);
@@ -26,8 +27,9 @@
 
 :root {
   --bg: oklch(0.19 0.025 265);
-  --bg-secondary: oklch(0.24 0.035 265);
-  --bg-card: oklch(0.22 0.03 264);
+  --bg-secondary: oklch(0.22 0.03 264);
+  --bg-tertiary: oklch(0.28 0.035 265);
+  --bg-quaternary: oklch(0.32 0.04 265);
   --bg-nav: oklch(0.18 0.03 265);
 
   --text-primary: oklch(1 0 0);
@@ -35,7 +37,7 @@
   --text-muted: oklch(0.68 0.02 240);
   --text-subtle: oklch(0.54 0.04 240);
 
-  --border: oklch(0.3 0.04 265);
+  --border: oklch(0.25 0.04 265);
   --border-secondary: oklch(0.3 0.04 265);
   --border-active: oklch(0.68 0.02 240);
 
@@ -58,8 +60,9 @@
 
 .light-theme {
   --bg: oklch(0.97 0 120);
-  --bg-secondary: oklch(0.97 0 120);
-  --bg-card: oklch(1 0 0 / 0.8);
+  --bg-secondary: oklch(1 0 0 / 0.8);
+  --bg-tertiary: oklch(0.97 0 120);
+  --bg-quaternary: oklch(0.95 0 120);
   --bg-nav: oklch(1 0 0 / 0.9);
 
   --text-primary: oklch(0.16 0 252);
@@ -67,7 +70,7 @@
   --text-muted: oklch(0.44 0 240);
   --text-subtle: oklch(0.54 0 240);
 
-  --border: oklch(0.87 0 240);
+  --border: oklch(0.92 0 240);
   --border-secondary: oklch(0.9 0 210);
   --border-active: oklch(0.68 0 240);
 
