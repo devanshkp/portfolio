@@ -323,8 +323,8 @@ const App = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 relative">
             <div className="text-center relative z-10">
               {/* Main Heading */}
-              <div className="mb-8 md:mb-12">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 tracking-tight">
+              <div className="mb-8 md:mb-8">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6">
                   <span
                     className={`bg-gradient-to-r bg-clip-text text-gradient-accent text-transparent`}
                   >
@@ -350,47 +350,76 @@ const App = () => {
                 </p>
               </div>
 
-              {/* Social Links */}
-              <div className="flex justify-center space-x-4 mb-8 md:mb-10">
+              {/* Enhanced Social Links */}
+              <div className="flex justify-center space-x-6 mb-8 md:mb-12">
                 <a
                   href="https://github.com/devanshkp/"
-                  className={`group relative p-4 rounded-4xl transition-all duration-300 bg-bg-card border-border-primary hover:border-active hover:shadow-xl hover:shadow-purple-500/20 backdrop-blur-sm hover:scale-110 hover:-translate-y-1`}
+                  className="group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/25 backdrop-blur-sm hover:scale-110 hover:-translate-y-2"
                   aria-label="GitHub Profile"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github className="w-6 h-6 group-hover:text-purple-400 transition-colors" />
-                  <span
-                    className={`absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity border-purple-400 bg-bg-nav px-2 py-1 rounded border whitespace-nowrap`}
-                  >
-                    GitHub
-                  </span>
+                  {/* Glow effect background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+
+                  {/* Icon container */}
+                  <div className="relative z-10">
+                    <Github className="w-6 h-6 text-text-secondary group-hover:text-purple-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
+                  </div>
+
+                  {/* Enhanced tooltip */}
+                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
+                    <div className="bg-purple-500 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-xs font-medium shadow-lg whitespace-nowrap">
+                      GitHub
+                      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-purple-500 rotate-45"></div>
+                    </div>
+                  </div>
                 </a>
+
                 <a
                   href="https://www.linkedin.com/in/devansh-kapoor/"
-                  className={`group relative p-4 rounded-4xl transition-all duration-300 bg-bg-card border-border-primary hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/20 backdrop-blur-sm hover:scale-110 hover:-translate-y-1`}
+                  className="group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/25 backdrop-blur-sm hover:scale-110 hover:-translate-y-2"
                   aria-label="LinkedIn Profile"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="w-6 h-6 group-hover:text-blue-400 transition-colors" />
-                  <span
-                    className={`absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity border-blue-400 bg-bg-nav px-2 py-1 rounded border whitespace-nowrap`}
-                  >
-                    LinkedIn
-                  </span>
+                  {/* Glow effect background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+
+                  {/* Icon container */}
+                  <div className="relative z-10">
+                    <Linkedin className="w-6 h-6 text-text-secondary group-hover:text-blue-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
+                  </div>
+
+                  {/* Enhanced tooltip */}
+                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
+                    <div className="bg-blue-500 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-xs font-medium shadow-lg whitespace-nowrap">
+                      LinkedIn
+                      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-500 rotate-45"></div>
+                    </div>
+                  </div>
                 </a>
+
                 <a
-                  href="mailto:hello@devansh.kp@outlook.com"
-                  className={`group relative p-4 rounded-4xl transition-all duration-300 bg-bg-card border-border-primary hover:border-emerald-400 hover:shadow-xl hover:shadow-emerald-500/20 backdrop-blur-sm hover:scale-110 hover:-translate-y-1`}
+                  href="mailto:devansh.kp@outlook.com"
+                  className="group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/25 backdrop-blur-sm hover:scale-110 hover:-translate-y-2"
                   aria-label="Email Contact"
                 >
-                  <Mail className="w-6 h-6 group-hover:text-emerald-400 transition-colors" />
-                  <span
-                    className={`absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity border-emerald-400 bg-bg-card px-2 py-1 rounded border whitespace-nowrap`}
-                  >
-                    Email
-                  </span>
+                  {/* Glow effect background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+
+                  {/* Icon container */}
+                  <div className="relative z-10">
+                    <Mail className="w-6 h-6 text-text-secondary group-hover:text-emerald-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
+                  </div>
+
+                  {/* Enhanced tooltip */}
+                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
+                    <div className="bg-emerald-500 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-xs font-medium shadow-lg whitespace-nowrap">
+                      Email
+                      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-emerald-500 rotate-45"></div>
+                    </div>
+                  </div>
                 </a>
               </div>
 
@@ -516,7 +545,7 @@ const App = () => {
                 </div>
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
-                  className={`group transition-all duration-300 text-text-muted hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105`}
+                  className={`group transition-all duration-300 ring-1 ring-border text-text-muted hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -620,7 +649,7 @@ const App = () => {
                 </div>
                 <a
                   href="https://github.com/devanshkp?tab=repositories"
-                  className={`group transition-all duration-300 text-text-muted hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105`}
+                  className={`group transition-all duration-300 ring-1 ring-border text-text-muted hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -638,7 +667,7 @@ const App = () => {
                 {projects.map((project, index) => (
                   <div
                     key={index}
-                    className={`group relative bg-bg-card rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
+                    className={`group relative bg-bg-card rounded-3xl ring-1 ring-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
                   >
                     <a
                       href={project.link}
@@ -720,14 +749,14 @@ const App = () => {
 
                           {/* Technology Stack */}
                           <div>
-                            <div className="flex flex-wrap gap-3">
+                            <div className="flex flex-wrap gap-4">
                               {project.techLogos.map((tech, techIndex) => (
                                 <div
                                   key={techIndex}
                                   className="relative group/tech"
                                 >
                                   <div
-                                    className={`p-3 rounded-xl bg-bg-secondary hover:bg-bg-card transition-all duration-200 hover:border-active hover:scale-110 hover:-translate-y-1 backdrop-blur-sm`}
+                                    className={`p-3 rounded-xl bg-bg-secondary ring-1 ring-border hover:bg-bg-card transition-all duration-200 hover:border-active hover:scale-110 hover:-translate-y-1 backdrop-blur-sm`}
                                   >
                                     <img
                                       src={tech.logo}
@@ -749,7 +778,7 @@ const App = () => {
                                   {/* Tooltip */}
                                   <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
                                     <div
-                                      className={`bg-bg-nav px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap backdrop-blur-sm shadow-lg`}
+                                      className={`bg-bg-nav px-3 py-1 rounded-lg ring-1 ring-border text-sm font-medium whitespace-nowrap backdrop-blur-sm shadow-lg`}
                                     >
                                       {tech.name}
                                     </div>
@@ -764,28 +793,49 @@ const App = () => {
                   </div>
                 ))}
               </div>
-
-              {/* Bottom divider */}
-              <div
-                className={`mt-20 h-px bg-gradient-to-r from-transparent via-purple-400/30 to-transparent`}
-              ></div>
             </div>
           </section>
-
-          {/* Footer */}
-          <footer className="pt-16 py-12">
-            <div className={`text-text-muted text-center`}>
-              <p className="text-lg font-medium">© 2025 | Devansh Kapoor</p>
-              <p className="mt-2 text-sm">Built with React & Tailwind CSS</p>
-            </div>
-          </footer>
         </div>
+
+        {/* Footer - Minimal */}
+        <footer className="bg-bg-card border-t border-border mt-20">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 pb-24">
+            <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-text-muted">
+              <p>© 2025 Devansh Kapoor</p>
+
+              <div className="flex gap-6 mt-4 sm:mt-0">
+                <a
+                  href="https://github.com/devanshkp/"
+                  className="hover:text-text-primary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/devansh-kapoor/"
+                  className="hover:text-text-primary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="mailto:devansh.kp@outlook.com"
+                  className="hover:text-text-primary transition-colors"
+                >
+                  Email
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
 
         {/* Scroll to Top Button */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all duration-300 bg-bg-card border-border-primary hover:border-active backdrop-blur-md hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-lg hover:shadow-xl ${
+            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border duration-300 bg-bg-card border-border-primary hover:border-active backdrop-blur-md hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-lg hover:shadow-xl ${
               showScrollTop
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-4 pointer-events-none"
