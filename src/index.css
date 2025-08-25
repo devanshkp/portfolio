@@ -25,47 +25,63 @@
 }
 
 :root {
-  --bg: hsl(221, 35%, 9%);
-  --bg-secondary: hsl(221, 35%, 14%);
-  --bg-card: hsl(221, 35%, 12%);
-  --bg-nav: hsl(221, 35%, 9%);
+  --bg: oklch(0.19 0.025 265);
+  --bg-secondary: oklch(0.24 0.035 265);
+  --bg-card: oklch(0.22 0.03 264);
+  --bg-nav: oklch(0.18 0.03 265);
 
-  --text-primary: #ffffff;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --text-subtle: #64748b;
+  --text-primary: oklch(1 0 0);
+  --text-secondary: oklch(0.87 0.02 252);
+  --text-muted: oklch(0.68 0.02 240);
+  --text-subtle: oklch(0.54 0.04 240);
 
-  --border: #1b2636;
-  --border-secondary: #475569;
-  --border-active: #95a0b0;
+  --border: oklch(0.3 0.04 265);
+  --border-secondary: oklch(0.3 0.04 265);
+  --border-active: oklch(0.68 0.02 240);
 
-  --accent: linear-gradient(to right, #a78bfa, #f472b6);
-  --accent-solid: #f472b6;
-  --accent-secondary: linear-gradient(to right, #2dd4bf, #34d399);
-  --accent-secondary-solid: #34d399;
+  --accent: linear-gradient(
+    to right,
+    oklch(0.72 0.15 295),
+    oklch(0.75 0.17 360)
+  );
+  --accent-secondary: linear-gradient(
+    to right,
+    oklch(0.74 0.11 180),
+    oklch(0.76 0.13 158)
+  );
 
-  --grid-color: rgba(148, 163, 184, 0.3);
+  --accent-solid: oklch(0.7 0.17 328);
+  --accent-secondary-solid: oklch(0.76 0.13 158);
+
+  --grid-color: oklch(0.68 0.02 240 / 0.3);
 }
 
 .light-theme {
-  --bg: hsl(0, 0%, 95%);
-  --bg-secondary: hsl(0, 0%, 96%);
-  --bg-card: rgba(255, 255, 255, 0.8);
-  --bg-nav: rgba(255, 255, 255, 0.9);
+  --bg: oklch(0.97 0 120);
+  --bg-secondary: oklch(0.97 0 120);
+  --bg-card: oklch(1 0 0 / 0.8);
+  --bg-nav: oklch(1 0 0 / 0.9);
 
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #475569;
-  --text-subtle: #64748b;
+  --text-primary: oklch(0.16 0 252);
+  --text-secondary: oklch(0.35 0 252);
+  --text-muted: oklch(0.44 0 240);
+  --text-subtle: oklch(0.54 0 240);
 
-  --border: #cbd5e1;
-  --border-secondary: #e5e7eb;
-  --border-active: #94a3b8;
+  --border: oklch(0.87 0 240);
+  --border-secondary: oklch(0.9 0 210);
+  --border-active: oklch(0.68 0 240);
 
-  --accent: linear-gradient(to right, #7c3aed, #db2777);
-  --accent-secondary: linear-gradient(to right, #14b8a6, #10b981);
+  --accent: linear-gradient(to right, oklch(0.6 0.25 295), oklch(0.48 0.3 360));
+  --accent-secondary: linear-gradient(
+    to right,
+    oklch(0.68 0.12 180),
+    oklch(0.7 0.14 158)
+  );
 
-  --grid-color: rgba(39, 44, 49, 0.2);
+  --accent-solid: oklch(0.65 0.25 328);
+  --accent-secondary-solid: oklch(0.76 0.13 158);
+
+  --grid-color: oklch(0.26 0.02 252 / 0.2);
 }
 
 .bg-gradient-accent {

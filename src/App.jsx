@@ -13,6 +13,76 @@ import {
   Moon,
 } from "lucide-react";
 
+const SocialLink = ({
+  href,
+  Icon,
+  tooltip,
+  ariaLabel,
+  color = "purple",
+  isEmail = false,
+  isDarkMode = true,
+}) => {
+  const colorClasses = {
+    purple: {
+      border: "hover:border-purple-400/50",
+      shadow: "hover:shadow-purple-500/25",
+      gradient: "from-purple-500/10 to-pink-500/10",
+      icon: "group-hover:text-purple-400",
+      tooltip: isDarkMode ? "bg-purple-500" : "bg-purple-300",
+    },
+    blue: {
+      border: "hover:border-blue-400/50",
+      shadow: "hover:shadow-blue-500/25",
+      gradient: "from-blue-500/10 to-cyan-500/10",
+      icon: "group-hover:text-blue-400",
+      tooltip: isDarkMode ? "bg-blue-500" : "bg-blue-300",
+    },
+    emerald: {
+      border: "hover:border-emerald-400/50",
+      shadow: "hover:shadow-emerald-500/25",
+      gradient: "from-emerald-500/10 to-teal-500/10",
+      icon: "group-hover:text-emerald-400",
+      tooltip: isDarkMode ? "bg-emerald-500" : "bg-emerald-300",
+    },
+  };
+
+  const colors = colorClasses[color] || colorClasses.purple;
+
+  return (
+    <a
+      href={href}
+      className={`group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
+      aria-label={ariaLabel}
+      target={isEmail ? undefined : "_blank"}
+      rel={isEmail ? undefined : "noopener noreferrer"}
+    >
+      {/* Glow effect background */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full`}
+      ></div>
+
+      {/* Icon container */}
+      <div className="relative z-10">
+        <Icon
+          className={`w-6 h-6 text-text-secondary ${colors.icon} transition-all duration-500 group-hover:scale-110 group-hover:rotate-12`}
+        />
+      </div>
+
+      {/*  tooltip */}
+      <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
+        <div
+          className={`${colors.tooltip} backdrop-blur-sm px-3 py-1.5 rounded-lg text-text-primary text-xs font-medium shadow-lg whitespace-nowrap`}
+        >
+          {tooltip}
+          <div
+            className={`absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 ${colors.tooltip} rotate-45`}
+          ></div>
+        </div>
+      </div>
+    </a>
+  );
+};
+
 const App = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isLoaded, setIsLoaded] = useState(false);
@@ -226,7 +296,7 @@ const App = () => {
       >
         {/* Navigation */}
         <nav
-          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav/60 border-border border-b-1`}
+          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav/85 border-border border-b-1`}
         >
           {/* Scroll progress bar */}
           <div
@@ -282,7 +352,7 @@ const App = () => {
               >
                 <div
                   className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-                    isDarkMode ? "bg-slate-700" : "bg-slate-300"
+                    isDarkMode ? "bg-gray-700" : "bg-gray-300"
                   }`}
                 />
 
@@ -324,11 +394,19 @@ const App = () => {
             <div className="text-center relative z-10">
               {/* Main Heading */}
               <div className="mb-8 md:mb-8">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6">
-                  <span
-                    className={`bg-gradient-to-r bg-clip-text text-gradient-accent text-transparent`}
-                  >
-                    Devansh
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 relative tracking-tight">
+                  <span className="relative inline-grid">
+                    <span
+                      className={`bg-gradient-to-r bg-clip-text text-gradient-accent text-transparent col-start-1 row-start-1`}
+                    >
+                      Devansh
+                    </span>
+                    <span
+                      className="bg-gradient-to-r bg-clip-text text-gradient-accent text-transparent blur-lg opacity-25 col-start-1 row-start-1"
+                      style={{ transform: "translate(2px, 2px)" }}
+                    >
+                      Devansh
+                    </span>
                   </span>{" "}
                   Kapoor
                 </h1>
@@ -350,77 +428,35 @@ const App = () => {
                 </p>
               </div>
 
-              {/* Enhanced Social Links */}
+              {/* Social Links */}
               <div className="flex justify-center space-x-6 mb-8 md:mb-12">
-                <a
+                <SocialLink
                   href="https://github.com/devanshkp/"
-                  className="group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/25 backdrop-blur-sm hover:scale-110 hover:-translate-y-2"
-                  aria-label="GitHub Profile"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {/* Glow effect background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                  Icon={Github}
+                  tooltip="GitHub"
+                  ariaLabel="GitHub Profile"
+                  color="purple"
+                  isDarkMode={isDarkMode}
+                />
 
-                  {/* Icon container */}
-                  <div className="relative z-10">
-                    <Github className="w-6 h-6 text-text-secondary group-hover:text-purple-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
-                  </div>
-
-                  {/* Enhanced tooltip */}
-                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
-                    <div className="bg-purple-500 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-xs font-medium shadow-lg whitespace-nowrap">
-                      GitHub
-                      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-purple-500 rotate-45"></div>
-                    </div>
-                  </div>
-                </a>
-
-                <a
+                <SocialLink
                   href="https://www.linkedin.com/in/devansh-kapoor/"
-                  className="group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/25 backdrop-blur-sm hover:scale-110 hover:-translate-y-2"
-                  aria-label="LinkedIn Profile"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {/* Glow effect background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                  Icon={Linkedin}
+                  tooltip="LinkedIn"
+                  ariaLabel="LinkedIn Profile"
+                  color="blue"
+                  isDarkMode={isDarkMode}
+                />
 
-                  {/* Icon container */}
-                  <div className="relative z-10">
-                    <Linkedin className="w-6 h-6 text-text-secondary group-hover:text-blue-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
-                  </div>
-
-                  {/* Enhanced tooltip */}
-                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
-                    <div className="bg-blue-500 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-xs font-medium shadow-lg whitespace-nowrap">
-                      LinkedIn
-                      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-500 rotate-45"></div>
-                    </div>
-                  </div>
-                </a>
-
-                <a
+                <SocialLink
                   href="mailto:devansh.kp@outlook.com"
-                  className="group relative p-5 rounded-full transition-all duration-500 bg-bg-card ring-1 ring-border hover:border-emerald-400/50 hover:shadow-2xl hover:shadow-emerald-500/25 backdrop-blur-sm hover:scale-110 hover:-translate-y-2"
-                  aria-label="Email Contact"
-                >
-                  {/* Glow effect background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
-
-                  {/* Icon container */}
-                  <div className="relative z-10">
-                    <Mail className="w-6 h-6 text-text-secondary group-hover:text-emerald-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
-                  </div>
-
-                  {/* Enhanced tooltip */}
-                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
-                    <div className="bg-emerald-500 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-xs font-medium shadow-lg whitespace-nowrap">
-                      Email
-                      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-emerald-500 rotate-45"></div>
-                    </div>
-                  </div>
-                </a>
+                  Icon={Mail}
+                  tooltip="Email"
+                  ariaLabel="Email Contact"
+                  color="emerald"
+                  isEmail={true}
+                  isDarkMode={isDarkMode}
+                />
               </div>
 
               {/* Resume Button */}
@@ -430,7 +466,7 @@ const App = () => {
                   aria-label="Resume PDF"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-8 py-3 rounded-2xl transition-all duration-300 group inline-flex items-center justify-center text-text-muted hover:text-text-primary font-medium`}
+                  className={`py-3 transition-all duration-300 group inline-flex items-center justify-center text-text-muted hover:text-text-primary font-medium`}
                 >
                   View Resume
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -716,47 +752,45 @@ const App = () => {
 
                         {/* Project Content */}
                         <div className="lg:w-3/5 p-6 lg:p-8 flex flex-col justify-between">
-                          <div className="md:mb-6">
-                            <div className="flex justify-between items-start mb-4">
-                              <div>
-                                <h3
-                                  className={`text-2xl lg:text-3xl font-bold text-text-secondary group-hover:text-text-primary transition-colors duration-300 mb-3`}
-                                >
-                                  {project.title}
-                                </h3>
-
-                                {project.live && (
-                                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                                    Live
-                                  </span>
-                                )}
-                              </div>
-
-                              <div
-                                className={`w-5 h-5 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 text-text-muted`}
+                          <div className="flex justify-between items-start mb-4">
+                            <div>
+                              <h3
+                                className={`text-2xl lg:text-3xl font-bold text-text-secondary group-hover:text-text-primary transition-colors duration-300 mb-3`}
                               >
-                                <ArrowUpRight className="w-5 h-5" />
-                              </div>
+                                {project.title}
+                              </h3>
+
+                              {project.live && (
+                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                                  Live
+                                </span>
+                              )}
                             </div>
 
-                            <p
-                              className={`text-text-secondary leading-relaxed mb-6 text-lg`}
+                            <div
+                              className={`w-5 h-5 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 text-text-muted`}
                             >
-                              {project.description}
-                            </p>
+                              <ArrowUpRight className="w-5 h-5" />
+                            </div>
                           </div>
+
+                          <p
+                            className={`text-text-secondary leading-relaxed text-lg`}
+                          >
+                            {project.description}
+                          </p>
 
                           {/* Technology Stack */}
                           <div>
-                            <div className="flex flex-wrap gap-4">
+                            <div className="hidden md:flex mt-14 flex-wrap gap-4">
                               {project.techLogos.map((tech, techIndex) => (
                                 <div
                                   key={techIndex}
                                   className="relative group/tech"
                                 >
                                   <div
-                                    className={`p-3 rounded-xl bg-bg-secondary ring-1 ring-border hover:bg-bg-card transition-all duration-200 hover:border-active hover:scale-110 hover:-translate-y-1 backdrop-blur-sm`}
+                                    className={`p-3 rounded-xl bg-bg-secondary ring-1 ring-border-secondary hover:bg-bg-card transition-all duration-200 hover:border-active hover:scale-110 hover:-translate-y-1 backdrop-blur-sm`}
                                   >
                                     <img
                                       src={tech.logo}
@@ -835,7 +869,7 @@ const App = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border duration-300 bg-bg-card border-border-primary hover:border-active backdrop-blur-md hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-lg hover:shadow-xl ${
+            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border duration-300 bg-bg-card/85 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-lg hover:shadow-xl ${
               showScrollTop
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-4 pointer-events-none"
