@@ -831,124 +831,131 @@ const App = () => {
                     key={index}
                     className={`group relative bg-bg-secondary rounded-3xl ring-1 ring-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
                   >
-                    <div className="flex flex-col md:flex-row">
-                      {/* Project Image */}
-                      <div className="relative lg:w-2/5 aspect-video lg:aspect-[4/3] overflow-hidden">
-                        <img
-                          src={project.image}
-                          alt={`${project.title} preview`}
-                          className="w-full h-full scale-110 md:scale-120 object-cover object-center transition-transform duration-500 group-hover:scale-120 md:group-hover:scale-130"
-                          onError={(e) => {
-                            e.target.style.display = "none";
-                            e.target.nextSibling.style.display = "flex";
-                          }}
-                        />
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      <div className="flex flex-col md:flex-row">
+                        {/* Project Image */}
+                        <div className="relative lg:w-2/5 aspect-video lg:aspect-[4/3] overflow-hidden">
+                          <img
+                            src={project.image}
+                            alt={`${project.title} preview`}
+                            className="w-full h-full scale-110 md:scale-120 object-cover object-center transition-transform duration-500 group-hover:scale-120 md:group-hover:scale-130"
+                            onError={(e) => {
+                              e.target.style.display = "none";
+                              e.target.nextSibling.style.display = "flex";
+                            }}
+                          />
 
-                        {/* Fallback placeholder */}
-                        <div
-                          className={`hidden w-full h-full items-center justify-center bg-bg-tertiary`}
-                        >
-                          <div className={`text-center text-text-muted`}>
-                            <div
-                              className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-bg-secondary flex items-center justify-center`}
-                            >
-                              <Code className="w-8 h-8" />
-                            </div>
-                            <p className="font-medium text-lg">
-                              {project.title}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Live Badge */}
-                        {project.live && (
-                          <div className="absolute top-4 right-4">
-                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
-                              <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
-                              Live
-                            </span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Project Content */}
-                      <div className="lg:w-3/5 p-6 md:w-1/2 flex flex-col justify-between">
-                        <div>
-                          <div className="flex justify-between items-start mb-4">
-                            <div className="flex items-center gap-2">
-                              <h3 className="text-2xl font-bold text-text-secondary group-hover:text-text-primary duration-200">
+                          {/* Fallback placeholder */}
+                          <div
+                            className={`hidden w-full h-full items-center justify-center bg-bg-tertiary`}
+                          >
+                            <div className={`text-center text-text-muted`}>
+                              <div
+                                className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-bg-secondary flex items-center justify-center`}
+                              >
+                                <Code className="w-8 h-8" />
+                              </div>
+                              <p className="font-medium text-lg">
                                 {project.title}
-                              </h3>
-                              <ArrowUpRight
-                                className={`w-5 h-5 text-text-primary transition-all duration-300 group-hover:translate-x-1 ${
-                                  hoveredCodeButton === index
-                                    ? "opacity-0"
-                                    : "opacity-0 group-hover:opacity-100"
-                                }`}
-                              />
+                              </p>
                             </div>
-
-                            {/* View Code Button - Desktop */}
-                            <a
-                              href={project.git}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="hidden md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
-                              onClick={(e) => e.stopPropagation()}
-                              onMouseEnter={() => setHoveredCodeButton(index)}
-                              onMouseLeave={() => setHoveredCodeButton(null)}
-                            >
-                              <Github className="w-4 h-4 transition-colors" />
-                              <span className="text-sm font-medium">
-                                View Code
-                              </span>
-                            </a>
                           </div>
 
-                          <p className="text-text-secondary leading-relaxed mb-4 text-lg">
-                            {project.description}
-                          </p>
-
-                          {/* View Code Button - Mobile */}
-                          <div className="md:hidden">
-                            <a
-                              href={project.git}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group/code inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
-                              onClick={(e) => e.stopPropagation()}
-                              onMouseEnter={() => setHoveredCodeButton(index)}
-                              onMouseLeave={() => setHoveredCodeButton(null)}
-                            >
-                              <Github className="w-4 h-4 transition-colors" />
-                              <span className="text-sm font-medium">
-                                View Code
+                          {/* Live Badge */}
+                          {project.live && (
+                            <div className="absolute top-4 right-4">
+                              <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
+                                <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                                Live
                               </span>
-                            </a>
-                          </div>
+                            </div>
+                          )}
                         </div>
 
-                        {/* Technology Stack */}
-                        <div className="hidden md:flex flex-wrap gap-2">
-                          {project.techLogos.map((tech, techIndex) => (
-                            <div
-                              key={techIndex}
-                              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary text-text-secondary text-sm font-medium ring-1 ring-border"
-                            >
-                              <img
-                                src={tech.logo}
-                                alt={tech.name}
-                                className="w-4 h-4 object-contain"
-                                onError={(e) => {
-                                  e.target.style.display = "none";
-                                }}
-                              />
-                              <span>{tech.name}</span>
+                        {/* Project Content */}
+                        <div className="lg:w-3/5 p-6 md:w-1/2 flex flex-col justify-between">
+                          <div>
+                            <div className="flex justify-between items-start mb-4">
+                              <div className="flex items-center gap-2">
+                                <h3 className="text-2xl font-bold text-text-secondary group-hover:text-text-primary duration-200">
+                                  {project.title}
+                                </h3>
+                                <ArrowUpRight
+                                  className={`w-5 h-5 text-text-primary transition-all duration-300 group-hover:translate-x-1 ${
+                                    hoveredCodeButton === index
+                                      ? "opacity-0"
+                                      : "opacity-0 group-hover:opacity-100"
+                                  }`}
+                                />
+                              </div>
+
+                              {/* View Code Button - Desktop */}
+                              <a
+                                href={project.git}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hidden md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
+                                onClick={(e) => e.stopPropagation()}
+                                onMouseEnter={() => setHoveredCodeButton(index)}
+                                onMouseLeave={() => setHoveredCodeButton(null)}
+                              >
+                                <Github className="w-4 h-4 transition-colors" />
+                                <span className="text-sm font-medium">
+                                  View Code
+                                </span>
+                              </a>
                             </div>
-                          ))}
+
+                            <p className="text-text-secondary leading-relaxed mb-4 text-lg">
+                              {project.description}
+                            </p>
+
+                            {/* View Code Button - Mobile */}
+                            <div className="md:hidden">
+                              <a
+                                href={project.git}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/code inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
+                                onClick={(e) => e.stopPropagation()}
+                                onMouseEnter={() => setHoveredCodeButton(index)}
+                                onMouseLeave={() => setHoveredCodeButton(null)}
+                              >
+                                <Github className="w-4 h-4 transition-colors" />
+                                <span className="text-sm font-medium">
+                                  View Code
+                                </span>
+                              </a>
+                            </div>
+                          </div>
+
+                          {/* Technology Stack */}
+                          <div className="hidden md:flex flex-wrap gap-2">
+                            {project.techLogos.map((tech, techIndex) => (
+                              <div
+                                key={techIndex}
+                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary text-text-secondary text-sm font-medium ring-1 ring-border"
+                              >
+                                <img
+                                  src={tech.logo}
+                                  alt={tech.name}
+                                  className="w-4 h-4 object-contain"
+                                  onError={(e) => {
+                                    e.target.style.display = "none";
+                                  }}
+                                />
+                                <span>{tech.name}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 ))}
               </div>
