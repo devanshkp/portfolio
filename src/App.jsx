@@ -424,7 +424,7 @@ const App = () => {
       >
         {/* Navigation */}
         <nav
-          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav/85 border-border border-b-1`}
+          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav border-border border-b-1`}
         >
           {/* Scroll progress bar */}
           <div
