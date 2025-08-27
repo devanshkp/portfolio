@@ -13,6 +13,7 @@ import {
   Code,
   Sun,
   Moon,
+  MapPin,
 } from "lucide-react";
 
 const SocialLink = ({
@@ -36,7 +37,7 @@ const SocialLink = ({
       tooltip: {
         bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
         border: isDarkMode ? "border-purple-500/30" : "border-purple-300/40",
-        text: isDarkMode ? "text-purple-200" : "text-purple-700",
+        text: isDarkMode ? "text-purple-100" : "text-purple-700",
         accent: isDarkMode ? "bg-purple-500/20" : "bg-purple-200/60",
       },
     },
@@ -48,7 +49,7 @@ const SocialLink = ({
       tooltip: {
         bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
         border: isDarkMode ? "border-blue-500/30" : "border-blue-300/40",
-        text: isDarkMode ? "text-blue-200" : "text-blue-700",
+        text: isDarkMode ? "text-blue-100" : "text-blue-700",
         accent: isDarkMode ? "bg-blue-500/20" : "bg-blue-200/60",
       },
     },
@@ -60,7 +61,7 @@ const SocialLink = ({
       tooltip: {
         bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
         border: isDarkMode ? "border-emerald-500/30" : "border-emerald-300/40",
-        text: isDarkMode ? "text-emerald-200" : "text-emerald-700",
+        text: isDarkMode ? "text-emerald-100" : "text-emerald-700",
         accent: isDarkMode ? "bg-emerald-500/20" : "bg-emerald-200/60",
       },
     },
@@ -341,6 +342,7 @@ const App = () => {
       link: "https://ai-mushroom-classifier-r2ed.vercel.app/",
       git: "https://github.com/devanshkp/ai-mushroom-classifier",
       live: true,
+      inDevelopment: false,
       image: "/images/mushroom-classifier.png",
       techLogos: [
         {
@@ -372,6 +374,7 @@ const App = () => {
       link: "https://github.com/devanshkp/synapse-quiz-app",
       git: "https://github.com/devanshkp/synapse-quiz-app",
       live: false,
+      inDevelopment: false,
       image: "/images/synapse.png",
       techLogos: [
         { name: "Flutter", logo: "/logos/flutter.svg", color: "text-blue-500" },
@@ -385,6 +388,43 @@ const App = () => {
           name: "Gemini API",
           logo: "/logos/gemini.svg",
           color: "text-purple-400",
+        },
+      ],
+    },
+    {
+      title: "Forge",
+      description:
+        "Workout tracking app built with React Native, offering offline-first logging, progress insights, and personalized routines.",
+      tech: [
+        "React Native",
+        "Expo",
+        "TypeScript",
+        "SQLite",
+        "React Query",
+        "Expo Router",
+      ],
+
+      link: "https://github.com/devanshkp/workout-tracker",
+      git: "https://github.com/devanshkp/workout-tracker",
+      live: false,
+      inDevelopment: true,
+      image: "/images/forge.png",
+      techLogos: [
+        {
+          name: "React Native",
+          logo: "/logos/react.svg",
+          color: "text-blue-500",
+        },
+        { name: "Expo", logo: "/logos/expo.svg", color: "text-yellow-500" },
+        {
+          name: "TypeScript",
+          logo: "/logos/typescript.svg",
+          color: "text-blue-400",
+        },
+        {
+          name: "SQLite",
+          logo: isDarkMode ? "logos/sqlite-lighter.svg" : "/logos/sqlite.svg",
+          color: "text-blue-300",
         },
       ],
     },
@@ -424,7 +464,7 @@ const App = () => {
       >
         {/* Navigation */}
         <nav
-          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav border-border border-b-1`}
+          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav/85 border-border border-b-1`}
         >
           {/* Scroll progress bar */}
           <div
@@ -466,7 +506,7 @@ const App = () => {
             <div className="flex items-center space-x-4">
               <div
                 onClick={toggleDarkMode}
-                className="relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 ring-border focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 role="switch"
                 aria-checked={isDarkMode}
                 aria-label="Toggle theme"
@@ -712,7 +752,7 @@ const App = () => {
                   className={`group transition-all duration-300 ring-1 ring-border text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                      : "bg-bg-secondary"
+                      : "bg-bg-secondary hover:bg-bg-tertiary"
                   }`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -815,7 +855,7 @@ const App = () => {
                   className={`group transition-all duration-300 ring-1 ring-border text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                      : "bg-bg-secondary"
+                      : "bg-bg-secondary hover:bg-bg-tertiary"
                   }`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -867,12 +907,19 @@ const App = () => {
                           </div>
 
                           {/* Live Badge */}
-                          {project.live && (
+                          {(project.live || project.inDevelopment) && (
                             <div className="absolute top-4 right-4">
-                              <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
-                                <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
-                                Live
-                              </span>
+                              {project.live ? (
+                                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
+                                  <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                                  Live
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-yellow-600 text-white shadow-lg">
+                                  <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                                  WIP
+                                </span>
+                              )}
                             </div>
                           )}
                         </div>
@@ -964,36 +1011,50 @@ const App = () => {
         </div>
 
         {/* Footer */}
-        <footer className="bg-bg-secondary border-t border-border mt-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 pb-24">
-            <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-text-muted">
-              <p>© 2025 Devansh Kapoor</p>
-
-              <div className="flex gap-6 mt-4 sm:mt-0">
-                <a
-                  href="https://github.com/devanshkp/"
-                  className="hover:text-text-primary transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/devansh-kapoor/"
-                  className="hover:text-text-primary transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href="mailto:devansh.kp@outlook.com"
-                  className="hover:text-text-primary transition-colors"
-                >
-                  Email
-                </a>
-              </div>
+        <footer className="bg-bg-secondary border-t border-border mt-20 md:pb-10">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 py-6">
+            {/* top row */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-text-muted">
+              <p className="text-text-muted">&copy; 2025 Devansh Kapoor</p>
+              <nav aria-label="Footer">
+                <ul className="flex items-center gap-6">
+                  <li>
+                    <a
+                      href="https://github.com/devanshkp/"
+                      className="hover:text-text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary/40 rounded-sm"
+                      target="_blank"
+                      rel="noopener noreferrer me"
+                    >
+                      GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.linkedin.com/in/devansh-kapoor/"
+                      className="hover:text-text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary/40 rounded-sm"
+                      target="_blank"
+                      rel="noopener noreferrer me"
+                    >
+                      LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="mailto:devansh.kp@outlook.com"
+                      className="hover:text-text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary/40 rounded-sm"
+                    >
+                      Email
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
+
+            {/* meta row */}
+            <address className="hidden md:flex mt-4 not-italic text-xs text-text-muted max-w-lg items-center gap-2">
+              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>Gold Coast, QLD, Australia</span>
+            </address>
           </div>
         </footer>
 
@@ -1008,7 +1069,7 @@ const App = () => {
             }  ${
               isDarkMode
                 ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                : "bg-bg-secondary"
+                : "bg-bg-secondary hover:bg-bg-tertiary"
             }`}
             aria-label="Scroll to top"
             style={{
@@ -1031,7 +1092,7 @@ const App = () => {
                 }`}
               />
             </div>
-            <span className="hidden sm:inline-block font-medium">
+            <span className="hidden sm:inline-block font-medium cursor-pointer">
               Back to top
             </span>
           </button>
