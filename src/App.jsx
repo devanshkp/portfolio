@@ -869,7 +869,7 @@ const App = () => {
                 {projects.map((project, index) => (
                   <div
                     key={index}
-                    className={`group relative bg-bg-secondary rounded-3xl ring-1 ring-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
+                    className={`group relative bg-bg-secondary rounded-2xl ring-1 ring-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
                   >
                     <a
                       href={project.link}
