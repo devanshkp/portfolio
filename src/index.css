@@ -63,7 +63,7 @@
   --bg-tertiary: oklch(1 0 0 / 0.8);
   --bg-secondary: oklch(0.98 0 120);
   --bg: oklch(0.96 0 120);
-  --bg-nav: oklch(1 0 0 / 0.9);
+  --bg-nav: oklch(1 0 0 / 0.95);
 
   --text-primary: oklch(0.16 0 252);
   --text-secondary: oklch(0.35 0 252);

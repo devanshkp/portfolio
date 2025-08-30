@@ -506,7 +506,9 @@ const App = () => {
             <div className="flex items-center space-x-4">
               <div
                 onClick={toggleDarkMode}
-                className="relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 ring-border focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className={`relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                  isDarkMode ? "ring-white/20" : "ring-black/20"
+                }`}
                 role="switch"
                 aria-checked={isDarkMode}
                 aria-label="Toggle theme"
@@ -520,18 +522,20 @@ const App = () => {
               >
                 <div
                   className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-                    isDarkMode ? "bg-gray-700" : "bg-gray-300"
+                    isDarkMode ? "bg-gray-600" : "bg-gray-300"
                   }`}
                 />
 
                 <div
-                  className={`relative inline-block h-6 w-6 rounded-full bg-white shadow-lg transform transition-transform duration-300 ${
-                    isDarkMode ? "translate-x-5" : "translate-x-0"
+                  className={`relative inline-block h-6 w-6 rounded-full  shadow-lg transform transition-transform duration-300 ${
+                    isDarkMode
+                      ? "translate-x-5 bg-gray-900"
+                      : "translate-x-0 bg-white"
                   }`}
                 >
                   <div className="absolute inset-0 flex items-center justify-center">
                     {isDarkMode ? (
-                      <Moon className="w-4 h-4 text-slate-700" />
+                      <Moon className="w-4 h-4 text-gray-200" />
                     ) : (
                       <Sun className="w-4 h-4 text-yellow-500" />
                     )}
@@ -879,7 +883,7 @@ const App = () => {
                     >
                       <div className="flex flex-col md:flex-row">
                         {/* Project Image */}
-                        <div className="relative lg:w-2/5 aspect-video lg:aspect-[4/3] overflow-hidden">
+                        <div className="relative md:w-2/5 aspect-video md:aspect-[4/3] overflow-hidden">
                           <img
                             src={project.image}
                             alt={`${project.title} preview`}
@@ -900,7 +904,7 @@ const App = () => {
                               >
                                 <Code className="w-8 h-8" />
                               </div>
-                              <p className="font-medium text-lg">
+                              <p className="font-medium text-lg whitespace-nowrap">
                                 {project.title}
                               </p>
                             </div>
@@ -925,11 +929,11 @@ const App = () => {
                         </div>
 
                         {/* Project Content */}
-                        <div className="lg:w-3/5 p-6 md:w-1/2 flex flex-col justify-between">
+                        <div className="md:w-3/5 p-6 flex flex-col justify-between">
                           <div>
-                            <div className="flex justify-between items-start mb-4">
+                            <div className="flex justify-between items-start mb-4 md:mb-6">
                               <div className="flex items-center gap-2">
-                                <h3 className="text-2xl font-bold text-text-secondary group-hover:text-text-primary duration-200">
+                                <h3 className="text-xl lg:text-2xl font-bold text-text-secondary group-hover:text-text-primary duration-200">
                                   {project.title}
                                 </h3>
                                 <ArrowUpRight
@@ -952,13 +956,13 @@ const App = () => {
                                 onMouseLeave={() => setHoveredCodeButton(null)}
                               >
                                 <Github className="w-4 h-4 transition-colors" />
-                                <span className="text-sm font-medium">
+                                <span className="text-sm font-medium whitespace-nowrap">
                                   View Code
                                 </span>
                               </a>
                             </div>
 
-                            <p className="text-text-secondary leading-relaxed mb-4 text-lg">
+                            <p className="text-text-secondary leading-relaxed mb-4 md:mb-8 text-lg">
                               {project.description}
                             </p>
 
