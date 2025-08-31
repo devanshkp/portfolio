@@ -30,7 +30,7 @@ const SocialLink = ({
 
   const colorClasses = {
     purple: {
-      border: "hover:border-purple-400/50",
+      border: "border-purple-400/50",
       shadow: "hover:shadow-purple-500/25",
       gradient: "from-purple-500/10 to-pink-500/10",
       icon: "group-hover:text-purple-400",
@@ -42,7 +42,7 @@ const SocialLink = ({
       },
     },
     blue: {
-      border: "hover:border-blue-400/50",
+      border: "border-blue-400/50",
       shadow: "hover:shadow-blue-500/25",
       gradient: "from-blue-500/10 to-cyan-500/10",
       icon: "group-hover:text-blue-400",
@@ -54,7 +54,7 @@ const SocialLink = ({
       },
     },
     emerald: {
-      border: "hover:border-emerald-400/50",
+      border: "border-emerald-400/50",
       shadow: "hover:shadow-emerald-500/25",
       gradient: "from-emerald-500/10 to-teal-500/10",
       icon: "group-hover:text-emerald-400",
@@ -146,7 +146,7 @@ const SocialLink = ({
   return (
     <a
       href={href}
-      className={`group relative p-5 rounded-full transition-all duration-500 ring-1 ring-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
+      className={`group relative p-5 rounded-full transition-all duration-500 border-1 border-border hover:${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
       aria-label={ariaLabel}
       target={isEmail ? undefined : "_blank"}
       rel={isEmail ? undefined : "noopener noreferrer"}
@@ -506,9 +506,8 @@ const App = () => {
             <div className="flex items-center space-x-4">
               <div
                 onClick={toggleDarkMode}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                  isDarkMode ? "ring-white/20" : "ring-black/20"
-                }`}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ring-border-active
+                `}
                 role="switch"
                 aria-checked={isDarkMode}
                 aria-label="Toggle theme"
@@ -753,7 +752,7 @@ const App = () => {
                 </div>
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
-                  className={`group transition-all duration-300 ring-1 ring-border text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                  className={`group transition-all duration-300 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
                       : "bg-bg-secondary hover:bg-bg-tertiary"
@@ -771,7 +770,11 @@ const App = () => {
               <div className="space-y-8">
                 {education.map((edu, index) => (
                   <div className="flex group transition-colors">
-                    <div className="w-0.5 bg-border transition-all duration-300 group-hover:bg-accent-secondary-solid group-hover:shadow-[0_0_10px_theme(colors.accent.secondary.solid/30%)]"></div>
+                    <div
+                      className={`w-0.5 transition-all duration-300 group-hover:bg-accent-secondary-solid group-hover:shadow-[0_0_10px_theme(colors.accent.secondary.solid/30%)] ${
+                        isDarkMode ? "bg-bg-secondary" : "bg-bg-quaternary"
+                      }`}
+                    ></div>
                     <div className="pl-4 md:pl-8 flex-1 transition-colors">
                       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                         <h3 className="text-xl font-semibold">
@@ -824,7 +827,11 @@ const App = () => {
               <div className="space-y-8">
                 {workExperience.map((job, index) => (
                   <div key={index} className="flex group transition-colors">
-                    <div className="w-0.5 bg-border transition-all duration-300 group-hover:bg-accent-solid group-hover:shadow-[0_0_10px_theme(colors.accent.solid/30%)]"></div>
+                    <div
+                      className={`w-0.5 transition-all duration-300 group-hover:bg-accent-solid group-hover:shadow-[0_0_10px_theme(colors.accent.solid/30%)] ${
+                        isDarkMode ? "bg-bg-secondary" : "bg-bg-quaternary"
+                      }`}
+                    ></div>
 
                     <div className="pl-4 md:pl-8 flex-1 transition-colors">
                       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
@@ -856,7 +863,7 @@ const App = () => {
                 </div>
                 <a
                   href="https://github.com/devanshkp?tab=repositories"
-                  className={`group transition-all duration-300 ring-1 ring-border text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                  className={`group transition-all duration-300 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
                       : "bg-bg-secondary hover:bg-bg-tertiary"
@@ -873,7 +880,7 @@ const App = () => {
                 {projects.map((project, index) => (
                   <div
                     key={index}
-                    className={`group relative bg-bg-secondary rounded-2xl ring-1 ring-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform`}
+                    className={`group relative bg-bg-secondary rounded-2xl ring-1 ring-border transition-all duration-300 hover:shadow-lg hover:-translate-y-2 overflow-hidden transform`}
                   >
                     <a
                       href={project.link}
@@ -937,7 +944,7 @@ const App = () => {
                                   {project.title}
                                 </h3>
                                 <ArrowUpRight
-                                  className={`w-5 h-5 text-text-primary transition-all duration-300 group-hover:translate-x-1 ${
+                                  className={`w-5 h-5 text-text-secondary group-hover:text-text-primary transition-all duration-300 group-hover:translate-x-1 md:${
                                     hoveredCodeButton === index
                                       ? "opacity-0"
                                       : "opacity-0 group-hover:opacity-100"
@@ -950,7 +957,7 @@ const App = () => {
                                 href={project.git}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hidden md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
+                                className="hidden md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary"
                                 onClick={(e) => e.stopPropagation()}
                                 onMouseEnter={() => setHoveredCodeButton(index)}
                                 onMouseLeave={() => setHoveredCodeButton(null)}
@@ -990,7 +997,7 @@ const App = () => {
                             {project.techLogos.map((tech, techIndex) => (
                               <div
                                 key={techIndex}
-                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary text-text-secondary text-sm font-medium ring-1 ring-border"
+                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary text-text-secondary text-sm font-medium ring-1 ring-border-secondary"
                               >
                                 <img
                                   src={tech.logo}
@@ -1015,7 +1022,7 @@ const App = () => {
         </div>
 
         {/* Footer */}
-        <footer className="bg-bg-secondary border-t border-border mt-20 md:pb-10">
+        <footer className="bg-bg-secondary border-t border-border-secondary mt-20 md:pb-10">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 py-6">
             {/* top row */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-text-muted">
@@ -1066,7 +1073,7 @@ const App = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-lg hover:shadow-xl ${
+            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border-secondary duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-md hover:shadow-lg ${
               showScrollTop
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-4 pointer-events-none"

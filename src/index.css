@@ -37,9 +37,9 @@
   --text-muted: oklch(0.68 0.02 240);
   --text-subtle: oklch(0.54 0.04 240);
 
-  --border: oklch(0.25 0.04 265);
-  --border-secondary: oklch(0.3 0.04 265);
-  --border-active: oklch(0.68 0.02 240);
+  --border: oklch(1 0 0 / 0.075);
+  --border-secondary: oklch(1 0 0 / 0.1);
+  --border-active: oklch(1 0 0 / 0.25);
 
   --accent: linear-gradient(
     to right,
@@ -59,20 +59,20 @@
 }
 
 .light-theme {
-  --bg-quaternary: oklch(1 0 120);
-  --bg-tertiary: oklch(1 0 0 / 0.8);
-  --bg-secondary: oklch(0.98 0 120);
-  --bg: oklch(0.96 0 120);
+  --bg: oklch(1 0 120);
+  --bg-secondary: oklch(0.99 0 0);
+  --bg-tertiary: oklch(0.98 0 120);
+  --bg-quaternary: oklch(0.97 0 120);
   --bg-nav: oklch(1 0 0 / 0.95);
 
-  --text-primary: oklch(0.16 0 252);
+  --text-primary: oklch(16.529% 0.01396 18.598);
   --text-secondary: oklch(0.35 0 252);
   --text-muted: oklch(0.44 0 240);
   --text-subtle: oklch(0.54 0 240);
 
-  --border: oklch(0.85 0 240);
-  --border-secondary: oklch(0.9 0 210);
-  --border-active: oklch(0.68 0 240);
+  --border: oklch(0 0 0 / 0.25);
+  --border-secondary: oklch(0 0 0 / 0.2);
+  --border-active: oklch(0 0 0 / 0.3);
 
   --accent: linear-gradient(to right, oklch(0.55 0.3 295), oklch(0.6 0.25 360));
   --accent-secondary: linear-gradient(
