@@ -30,7 +30,7 @@ const SocialLink = ({
 
   const colorClasses = {
     purple: {
-      border: "border-purple-400/50",
+      border: "hover:border-purple-400/50",
       shadow: "hover:shadow-purple-500/25",
       gradient: "from-purple-500/10 to-pink-500/10",
       icon: "group-hover:text-purple-400",
@@ -42,7 +42,7 @@ const SocialLink = ({
       },
     },
     blue: {
-      border: "border-blue-400/50",
+      border: "hover:border-blue-400/50",
       shadow: "hover:shadow-blue-500/25",
       gradient: "from-blue-500/10 to-cyan-500/10",
       icon: "group-hover:text-blue-400",
@@ -54,7 +54,7 @@ const SocialLink = ({
       },
     },
     emerald: {
-      border: "border-emerald-400/50",
+      border: "hover:border-emerald-400/50",
       shadow: "hover:shadow-emerald-500/25",
       gradient: "from-emerald-500/10 to-teal-500/10",
       icon: "group-hover:text-emerald-400",
@@ -146,7 +146,7 @@ const SocialLink = ({
   return (
     <a
       href={href}
-      className={`group relative p-5 rounded-full transition-all duration-500 border-1 border-border hover:${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
+      className={`group relative p-5 rounded-full transition-all duration-500 border-1 border-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
       aria-label={ariaLabel}
       target={isEmail ? undefined : "_blank"}
       rel={isEmail ? undefined : "noopener noreferrer"}
@@ -772,7 +772,7 @@ const App = () => {
                   <div className="flex group transition-colors">
                     <div
                       className={`w-0.5 transition-all duration-300 group-hover:bg-accent-secondary-solid group-hover:shadow-[0_0_10px_theme(colors.accent.secondary.solid/30%)] ${
-                        isDarkMode ? "bg-bg-secondary" : "bg-bg-quaternary"
+                        isDarkMode ? "bg-bg-tertiary" : "bg-bg-quaternary"
                       }`}
                     ></div>
                     <div className="pl-4 md:pl-8 flex-1 transition-colors">
@@ -829,7 +829,7 @@ const App = () => {
                   <div key={index} className="flex group transition-colors">
                     <div
                       className={`w-0.5 transition-all duration-300 group-hover:bg-accent-solid group-hover:shadow-[0_0_10px_theme(colors.accent.solid/30%)] ${
-                        isDarkMode ? "bg-bg-secondary" : "bg-bg-quaternary"
+                        isDarkMode ? "bg-bg-tertiary" : "bg-bg-quaternary"
                       }`}
                     ></div>
 
