@@ -26,20 +26,20 @@
 }
 
 :root {
-  --bg: oklch(0.19 0.025 265);
-  --bg-secondary: oklch(0.22 0.03 264);
-  --bg-tertiary: oklch(0.28 0.035 265);
-  --bg-quaternary: oklch(0.32 0.04 265);
-  --bg-nav: oklch(0.18 0.03 265 / 0.9);
+  --bg: oklch(0.19 0.005 265);
+  --bg-secondary: oklch(0.22 0.005 265);
+  --bg-tertiary: oklch(0.28 0.005 265);
+  --bg-quaternary: oklch(0.32 0.005 265);
+  --bg-nav: oklch(0.18 0.005 265 / 0.9);
 
   --text-primary: oklch(1 0 0);
-  --text-secondary: oklch(0.87 0.02 252);
-  --text-muted: oklch(0.68 0.02 240);
-  --text-subtle: oklch(0.54 0.04 240);
+  --text-secondary: oklch(0.87 0 252);
+  --text-muted: oklch(0.68 0 240);
+  --text-subtle: oklch(0.54 0 240);
 
-  --border: oklch(1 0 0 / 0.075);
-  --border-secondary: oklch(1 0 0 / 0.1);
-  --border-active: oklch(1 0 0 / 0.25);
+  --border: oklch(1 0 275 / 0.1);
+  --border-secondary: oklch(1 0 275 / 0.125);
+  --border-active: oklch(1 0 275 / 0.25);
 
   --accent: linear-gradient(
     to right,
@@ -55,7 +55,7 @@
   --accent-solid: oklch(0.7 0.17 328);
   --accent-secondary-solid: oklch(0.76 0.13 158);
 
-  --grid-color: oklch(0.68 0.02 240 / 0.3);
+  --grid-color: oklch(0.68 0 240 / 0.3);
 }
 
 .light-theme {

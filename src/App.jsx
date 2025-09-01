@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 import {
   Github,
@@ -35,7 +35,7 @@ const SocialLink = ({
       gradient: "from-purple-500/10 to-pink-500/10",
       icon: "group-hover:text-purple-400",
       tooltip: {
-        bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
+        bg: isDarkMode ? "bg-bg-tertiary/95" : "bg-bg-secondary/95",
         border: isDarkMode ? "border-purple-500/30" : "border-purple-300/40",
         text: isDarkMode ? "text-purple-100" : "text-purple-700",
         accent: isDarkMode ? "bg-purple-500/20" : "bg-purple-200/60",
@@ -47,7 +47,7 @@ const SocialLink = ({
       gradient: "from-blue-500/10 to-cyan-500/10",
       icon: "group-hover:text-blue-400",
       tooltip: {
-        bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
+        bg: isDarkMode ? "bg-bg-tertiary/95" : "bg-bg-secondary/95",
         border: isDarkMode ? "border-blue-500/30" : "border-blue-300/40",
         text: isDarkMode ? "text-blue-100" : "text-blue-700",
         accent: isDarkMode ? "bg-blue-500/20" : "bg-blue-200/60",
@@ -59,7 +59,7 @@ const SocialLink = ({
       gradient: "from-emerald-500/10 to-teal-500/10",
       icon: "group-hover:text-emerald-400",
       tooltip: {
-        bg: isDarkMode ? "bg-gray-800/95" : "bg-white/95",
+        bg: isDarkMode ? "bg-bg-tertiary/95" : "bg-bg-secondary/95",
         border: isDarkMode ? "border-emerald-500/30" : "border-emerald-300/40",
         text: isDarkMode ? "text-emerald-100" : "text-emerald-700",
         accent: isDarkMode ? "bg-emerald-500/20" : "bg-emerald-200/60",
@@ -221,7 +221,6 @@ const App = () => {
     return !window.matchMedia("(prefers-color-scheme: light)").matches;
   });
 
-  // Toggle .light-theme class on <body> for light mode
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.remove("light-theme");
@@ -331,6 +330,31 @@ const App = () => {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const reduceMotion = useReducedMotion();
+
+  const easing = [0.22, 1, 0.36, 1];
+
+  const heroStagger = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+    },
+  };
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: easing },
+    },
+  };
+
+  const fade = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5, ease: easing } },
   };
 
   const projects = [
@@ -457,14 +481,13 @@ const App = () => {
     <div
       className={`min-h-screen font-vulfsans bg-bg text-text-primary relative overflow-x-hidden transition-colors duration-300`}
     >
-      <div
-        className={`transition-opacity duration-1000 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        } relative z-10`}
-      >
+      <div className="relative z-10">
         {/* Navigation */}
-        <nav
-          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav/85 border-border border-b-1`}
+        <motion.nav
+          variants={fade}
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav/85 border-border-secondary border-b-1`}
         >
           {/* Scroll progress bar */}
           <div
@@ -506,7 +529,7 @@ const App = () => {
             <div className="flex items-center space-x-4">
               <div
                 onClick={toggleDarkMode}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full bg-bg-tertiary transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ring-border-active
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ring-border-active
                 `}
                 role="switch"
                 aria-checked={isDarkMode}
@@ -521,14 +544,19 @@ const App = () => {
               >
                 <div
                   className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-                    isDarkMode ? "bg-gray-600" : "bg-gray-300"
+                    isDarkMode
+                      ? "bg-bg-quaternary brightness-130"
+                      : "bg-gray-300"
                   }`}
                 />
 
-                <div
-                  className={`relative inline-block h-6 w-6 rounded-full  shadow-lg transform transition-transform duration-300 ${
+                <motion.div
+                  initial={{ scale: reduceMotion ? 1 : 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.25, ease: easing, delay: 0.1 }}
+                  className={`relative inline-block h-6 w-6 rounded-full shadow-lg transform transition-transform duration-300 ${
                     isDarkMode
-                      ? "translate-x-5 bg-gray-900"
+                      ? "translate-x-5 bg-bg"
                       : "translate-x-0 bg-white"
                   }`}
                 >
@@ -539,32 +567,87 @@ const App = () => {
                       <Sun className="w-4 h-4 text-yellow-500" />
                     )}
                   </div>
-                </div>
+                </motion.div>
               </div>
               <div className={`text-text-muted text-sm font-mono`}>
                 {formatTime(currentTime)}
               </div>
             </div>
           </div>
-        </nav>
+        </motion.nav>
 
         {/* Main Section */}
         <section className="min-h-screen flex items-center justify-center relative">
           {/* Grid Background */}
           <div
-            className="absolute inset-0 pointer-events-none grid-bg"
+            className="absolute inset-0 pointer-events-none"
             style={{
               maskImage:
                 "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
               WebkitMaskImage:
                 "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
             }}
-          ></div>
+          >
+            {/* Base grid*/}
+            <div
+              className="absolute inset-0 grid-bg"
+              style={{ filter: "brightness(0.75) contrast(1)" }}
+            />
+
+            {/* Shimmer layer*/}
+            <motion.div
+              className="absolute inset-0 grid-bg"
+              style={{
+                filter: "brightness(3) contrast(1.5)",
+                WebkitMaskImage:
+                  "linear-gradient(90deg, transparent 35%, rgba(0,0,0,0.6) 46%, #000 50%, rgba(0,0,0,0.6) 54%, transparent 65%)",
+                maskImage:
+                  "linear-gradient(90deg, transparent 35%, rgba(0,0,0,0.6) 46%, #000 50%, rgba(0,0,0,0.6) 54%, transparent 65%)",
+                WebkitMaskSize: "220% 100%",
+                maskSize: "220% 100%",
+                WebkitMaskPosition: "var(--mask-x, -110%) 0%",
+                maskPosition: "var(--mask-x, -110%) 0%",
+                mixBlendMode: isDarkMode ? "screen" : "multiply",
+                opacity: 1,
+              }}
+              initial={{ opacity: 0 }}
+              animate={
+                reduceMotion
+                  ? { opacity: 0 }
+                  : {
+                      opacity: 0.5,
+                      ["--mask-x"]: ["-110%", "110%"],
+                    }
+              }
+              transition={
+                reduceMotion
+                  ? { duration: 0 }
+                  : {
+                      opacity: {
+                        duration: 0.5,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: 3,
+                      },
+                      ["--mask-x"]: {
+                        duration: 12,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        repeatType: "mirror",
+                      },
+                    }
+              }
+            />
+          </div>
 
           <div className="max-w-4xl mx-auto px-4 sm:px-6 relative">
-            <div className="text-center relative z-10">
+            <motion.div
+              variants={heroStagger}
+              initial="hidden"
+              animate={isLoaded ? "visible" : "hidden"}
+              className="text-center relative z-10"
+            >
               {/* Main Heading */}
-              <div className="mb-8 md:mb-8">
+              <motion.div variants={fadeUp} className="mb-8 md:mb-8">
                 <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 relative tracking-tight">
                   <span className="relative inline-grid">
                     <span
@@ -581,26 +664,30 @@ const App = () => {
                   </span>{" "}
                   Kapoor
                 </h1>
-                <div className="h-8 mb-6">
+                <motion.div variants={fadeUp} className="h-8 mb-6">
                   <p
                     key={currentSkill}
                     className={`text-xl md:text-2xl lg:text-3xl text-text-secondary font-medium animate-pulse`}
                   >
                     {skills[currentSkill]}
                   </p>
-                </div>
-                {/* Hide subtext on mobile screens */}
-                <p
+                </motion.div>
+                {/* Subtext */}
+                <motion.p
+                  variants={fadeUp}
                   className={`text-text-muted max-w-2xl mx-auto leading-relaxed text-lg px-4 hidden sm:block`}
                 >
                   Turning late-night ideas into working code. I build, I train,
                   I refine - All in pursuit of software that's actually useful.
                   CS grad from Griffith.
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
 
               {/* Social Links */}
-              <div className="flex justify-center space-x-6 mb-8 md:mb-12">
+              <motion.div
+                variants={fadeUp}
+                className="flex justify-center space-x-6 mb-8 md:mb-12"
+              >
                 <SocialLink
                   href="https://github.com/devanshkp/"
                   Icon={Github}
@@ -628,10 +715,13 @@ const App = () => {
                   isEmail={true}
                   isDarkMode={isDarkMode}
                 />
-              </div>
+              </motion.div>
 
               {/* Resume Button */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <motion.div
+                variants={fadeUp}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              >
                 <a
                   href="https://drive.google.com/file/d/1EV7j6v1AqeVic54YIpfWG94guPpH6B84/view?usp=sharing"
                   aria-label="Resume PDF"
@@ -640,10 +730,10 @@ const App = () => {
                   className={`py-3 transition-all duration-300 group inline-flex items-center justify-center text-text-muted hover:text-text-primary font-medium`}
                 >
                   View Resume
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform" />
                 </a>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
 
           {/* Scroll Indicator */}
@@ -821,7 +911,9 @@ const App = () => {
                 <div
                   className={`w-3 h-3 rounded-full bg-gradient-accent mr-4 shadow-lg`}
                 ></div>
-                <h2 className="text-2xl md:text-3xl font-bold">Work</h2>
+                <h2 className="text-2xl md:text-3xl font-bold">
+                  Work Experience
+                </h2>
               </div>
 
               <div className="space-y-8">
@@ -878,8 +970,12 @@ const App = () => {
 
               <div className="space-y-8">
                 {projects.map((project, index) => (
-                  <div
+                  <motion.div
                     key={index}
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate={isLoaded ? "visible" : "hidden"}
+                    transition={{ delay: 0.12 + index * 0.03 }}
                     className={`group relative bg-bg-secondary rounded-2xl ring-1 ring-border transition-all duration-300 hover:shadow-lg hover:-translate-y-2 overflow-hidden transform`}
                   >
                     <a
@@ -944,11 +1040,15 @@ const App = () => {
                                   {project.title}
                                 </h3>
                                 <ArrowUpRight
-                                  className={`w-5 h-5 text-text-secondary group-hover:text-text-primary transition-all duration-300 group-hover:translate-x-1 md:${
+                                  className={`hidden md:block w-5 h-5 text-text-secondary group-hover:text-text-primary transition-all duration-300 group-hover:translate-x-1 ${
                                     hoveredCodeButton === index
                                       ? "opacity-0"
                                       : "opacity-0 group-hover:opacity-100"
                                   }`}
+                                />
+                                <ArrowUpRight
+                                  className="md:hidden w-5 h-5 text-text-secondary group-hover:text-text-primary transition-all duration-300 group-hover:translate-x-1
+                                  "
                                 />
                               </div>
 
@@ -1014,7 +1114,7 @@ const App = () => {
                         </div>
                       </div>
                     </a>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -1022,7 +1122,7 @@ const App = () => {
         </div>
 
         {/* Footer */}
-        <footer className="bg-bg-secondary border-t border-border-secondary mt-20 md:pb-10">
+        <footer className="bg-bg-secondary border-t border-border-secondary mt-20 md:pb-20">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 py-6">
             {/* top row */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-text-muted">
@@ -1073,7 +1173,7 @@ const App = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border-secondary duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-3 gap-x-2 text-text-secondary hover:text-text-primary shadow-md hover:shadow-lg ${
+            className={`fixed bottom-6 right-6 z-50 rounded-xl transition-all ring-1 ring-border-secondary duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-4 py-2 gap-x-2 text-text-secondary hover:text-text-primary shadow-md hover:shadow-lg ${
               showScrollTop
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-4 pointer-events-none"
