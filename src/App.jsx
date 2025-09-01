@@ -545,8 +545,8 @@ const App = () => {
                 <div
                   className={`absolute inset-0 rounded-full transition-colors duration-300 ${
                     isDarkMode
-                      ? "bg-bg-quaternary brightness-130"
-                      : "bg-gray-300"
+                      ? "bg-bg-quaternary/95 brightness-130"
+                      : "bg-gray-300/95"
                   }`}
                 />
 
@@ -578,9 +578,9 @@ const App = () => {
 
         {/* Main Section */}
         <section className="min-h-screen flex items-center justify-center relative">
-          {/* Grid Background */}
+          {/* Animated Grid Background - Desktop */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="hidden md:block absolute inset-0 pointer-events-none"
             style={{
               maskImage:
                 "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
@@ -638,6 +638,16 @@ const App = () => {
               }
             />
           </div>
+
+          <div
+            className="md:hidden absolute inset-0 pointer-events-none grid-bg"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
+            }}
+          ></div>
 
           <div className="max-w-4xl mx-auto px-4 sm:px-6 relative">
             <motion.div
@@ -737,11 +747,15 @@ const App = () => {
           </div>
 
           {/* Scroll Indicator */}
-          <div
+          <motion.div
+            variants={heroStagger}
+            initial="hidden"
+            animate={isLoaded ? "visible" : "hidden"}
             className="fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300"
             style={{
               bottom: `calc(2rem + env(safe-area-inset-bottom, 0px))`,
               opacity: showScrollDown ? 1 : 0,
+              delay: "200ms",
               transform: showScrollDown
                 ? "translateY(0px)"
                 : "translateY(10px)",
@@ -749,7 +763,10 @@ const App = () => {
               pointerEvents: showScrollDown ? "auto" : "none",
             }}
           >
-            <div
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate={isLoaded ? "visible" : "hidden"}
               className="group cursor-pointer"
               onClick={() =>
                 document
@@ -767,11 +784,16 @@ const App = () => {
               >
                 <ArrowDown className="w-8 h-8 text-accent-solid group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-1" />
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+          className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10"
+        >
           {/* About Section */}
           <section id="about" className="pt-20 md:pt-24">
             <div className="mx-auto">
@@ -1119,7 +1141,7 @@ const App = () => {
               </div>
             </div>
           </section>
-        </div>
+        </motion.div>
 
         {/* Footer */}
         <footer className="bg-bg-secondary border-t border-border-secondary mt-20 md:pb-20">
