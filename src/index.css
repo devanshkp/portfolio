@@ -70,9 +70,9 @@
   --text-muted: oklch(0.44 0 240);
   --text-subtle: oklch(0.54 0 240);
 
-  --border: oklch(0 0 0 / 0.25);
-  --border-secondary: oklch(0 0 0 / 0.2);
-  --border-active: oklch(0 0 0 / 0.3);
+  --border: oklch(0 0 0 / 0.075);
+  --border-secondary: oklch(0 0 0 / 0.125);
+  --border-active: oklch(0 0 0 / 0.25);
 
   --accent: linear-gradient(to right, oklch(0.55 0.3 295), oklch(0.6 0.25 360));
   --accent-secondary: linear-gradient(

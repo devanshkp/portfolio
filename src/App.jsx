@@ -146,7 +146,7 @@ const SocialLink = ({
   return (
     <a
       href={href}
-      className={`group relative p-5 rounded-full transition-all duration-500 border-1 border-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
+      className={`group relative p-5 shadow-sm rounded-full transition-all duration-500 border-1 border-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
       aria-label={ariaLabel}
       target={isEmail ? undefined : "_blank"}
       rel={isEmail ? undefined : "noopener noreferrer"}
@@ -864,10 +864,10 @@ const App = () => {
                 </div>
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
-                  className={`group transition-all duration-300 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                  className={`group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                      : "bg-bg-secondary hover:bg-bg-tertiary"
+                      : "bg-bg-secondary"
                   }`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -977,10 +977,10 @@ const App = () => {
                 </div>
                 <a
                   href="https://github.com/devanshkp?tab=repositories"
-                  className={`group transition-all duration-300 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                  className={`group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                      : "bg-bg-secondary hover:bg-bg-tertiary"
+                      : "bg-bg-secondary"
                   }`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -998,7 +998,7 @@ const App = () => {
                     initial="hidden"
                     animate={isLoaded ? "visible" : "hidden"}
                     transition={{ delay: 0.12 + index * 0.03 }}
-                    className={`group relative bg-bg-secondary rounded-2xl ring-1 ring-border transition-all duration-300 hover:shadow-lg hover:-translate-y-2 overflow-hidden transform`}
+                    className={`group relative bg-bg-secondary rounded-2xl ring-1 ring-border transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-2 overflow-hidden transform`}
                   >
                     <a
                       href={project.link}
@@ -1079,7 +1079,9 @@ const App = () => {
                                 href={project.git}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hidden md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary"
+                                className={`hidden shadow-sm hover:shadow-md md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary transition-all duration-200 hover:scale-105 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary ${
+                                  isDarkMode && "hover:bg-bg-quaternary"
+                                }`}
                                 onClick={(e) => e.stopPropagation()}
                                 onMouseEnter={() => setHoveredCodeButton(index)}
                                 onMouseLeave={() => setHoveredCodeButton(null)}
@@ -1101,7 +1103,9 @@ const App = () => {
                                 href={project.git}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group/code inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary hover:bg-bg-quaternary transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary"
+                                className={`group/code inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary shadow-sm transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary ${
+                                  isDarkMode && "hover:bg-bg-quaternary"
+                                }`}
                                 onClick={(e) => e.stopPropagation()}
                                 onMouseEnter={() => setHoveredCodeButton(index)}
                                 onMouseLeave={() => setHoveredCodeButton(null)}
@@ -1195,14 +1199,14 @@ const App = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 z-50 rounded-full md:rounded-lg transition-all ring-1 ring-border-secondary duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-3 py-3 md:py-2 gap-x-2 text-text-secondary hover:text-text-primary shadow-md hover:shadow-lg ${
+            className={`fixed bottom-6 right-6 z-50 rounded-full md:rounded-lg transition-all ring-1 ring-border-secondary duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-3 py-3 md:py-2 gap-x-2 text-text-secondary hover:text-text-primary shadow-sm hover:shadow-md ${
               showScrollTop
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-4 pointer-events-none"
             }  ${
               isDarkMode
                 ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                : "bg-bg-secondary hover:bg-bg-tertiary"
+                : "bg-bg-secondary"
             }`}
             aria-label="Scroll to top"
             style={{
