@@ -14,7 +14,19 @@ import {
   Sun,
   Moon,
   MapPin,
+  Construction,
 } from "lucide-react";
+
+const ItemRow = ({ left, right, children }) => (
+  <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
+    <div className="md:hidden text-sm text-text-muted">{right}</div>
+    <div className="md:col-span-3">{left}</div>
+    <div className="hidden md:block col-span-1 text-right text-sm text-text-muted">
+      {right}
+    </div>
+    <div className="md:col-span-full">{children}</div>
+  </div>
+);
 
 const SocialLink = ({
   href,
@@ -229,12 +241,7 @@ const App = () => {
     }
   }, [isDarkMode]);
 
-  const skills = [
-    "Software Engineer",
-    "UI/UX Designer",
-    "ML Enthusiast",
-    "Problem Solver",
-  ];
+  const skills = ["SOFTWARE ENGINEER", "UI/UX DESIGNER"];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -361,7 +368,7 @@ const App = () => {
     {
       title: "AI Mushroom Classifier",
       description:
-        "React-based application for real-time species recognition using a custom-trained deep learning model.",
+        "React-based application for real-time species recognition using a custom-trained deep learning model built with transfer learning.",
       tech: ["React", "Tailwind CSS", "Flask", "TensorFlow", "AWS"],
       link: "https://ai-mushroom-classifier-r2ed.vercel.app/",
       git: "https://github.com/devanshkp/ai-mushroom-classifier",
@@ -458,11 +465,11 @@ const App = () => {
     {
       institution: "Griffith University",
       degree: "Bachelor of Computer Science, Software Development major",
-      period: "Mar 2022 - Jul 2025",
+      period: "Mar 2022 — Jul 2025",
       gpa: "GPA: 6.54/7",
       misc: [
         "Groups: Griffith ICT Club, Griffith Coding Club",
-        "Relevant Coursework: Advanced Algorithms and Data Structures, Machine Learning & Intelligent Systems, Web Development, DevSecOps, Object-Oriented Programming with C++",
+        "Coursework: Advanced Algorithms and Data Structures, Machine Learning & Intelligent Systems, Web Development, DevSecOps, Object-Oriented Programming with C++",
       ],
     },
   ];
@@ -471,15 +478,15 @@ const App = () => {
     {
       company: "aka studio",
       role: "Software Engineer Intern",
-      period: "Mar 2024 - Jun 2024",
+      period: "Mar 2024 — Jun 2024",
       description:
-        "As a Software Engineer Intern, I significantly improved UI/mobile usability, boosted data accuracy, and enhanced user engagement by integrating personalized features and optimizing core functionalities.",
+        "As a Software Engineer Intern, I redesigned and implemented interactive UI components across multiple core workflows, integrated personalized features to improve user engagement, and contributed to testing and validation to ensure reliable releases.",
     },
   ];
 
   return (
     <div
-      className={`min-h-screen font-vulfsans bg-bg text-text-primary relative overflow-x-hidden transition-colors duration-300`}
+      className={`min-h-screen font-interstack bg-bg text-text-primary relative overflow-x-hidden transition-colors duration-300`}
     >
       <div className="relative z-10">
         {/* Navigation */}
@@ -529,7 +536,7 @@ const App = () => {
             <div className="flex items-center space-x-4">
               <div
                 onClick={toggleDarkMode}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ring-border-active
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 ring-border-active
                 `}
                 role="switch"
                 aria-checked={isDarkMode}
@@ -545,8 +552,8 @@ const App = () => {
                 <div
                   className={`absolute inset-0 rounded-full transition-colors duration-300 ${
                     isDarkMode
-                      ? "bg-bg-quaternary/95 brightness-130"
-                      : "bg-gray-300/95"
+                      ? "bg-bg-quaternary/50 brightness-150"
+                      : "bg-gray-300/50"
                   }`}
                 />
 
@@ -658,8 +665,8 @@ const App = () => {
             >
               {/* Main Heading */}
               <motion.div variants={fadeUp} className="mb-8 md:mb-8">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 relative tracking-tight">
-                  <span className="relative inline-grid">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 relative ">
+                  <span className="relative inline-grid xl:tracking-tighter tracking-tight font-vulfsans">
                     <span
                       className={`bg-gradient-to-r bg-clip-text text-gradient-accent text-transparent col-start-1 row-start-1`}
                     >
@@ -672,12 +679,14 @@ const App = () => {
                       Devansh
                     </span>
                   </span>{" "}
-                  Kapoor
+                  <span className="tracking-tight md:tracking-tighter font-vulfsans">
+                    Kapoor
+                  </span>
                 </h1>
                 <motion.div variants={fadeUp} className="h-8 mb-6">
                   <p
                     key={currentSkill}
-                    className={`text-xl md:text-2xl lg:text-3xl text-text-secondary font-medium animate-pulse`}
+                    className={`text-xl md:text-2xl lg:text-3xl text-text-secondary font-semibold animate-pulse tracking-tight`}
                   >
                     {skills[currentSkill]}
                   </p>
@@ -685,11 +694,10 @@ const App = () => {
                 {/* Subtext */}
                 <motion.p
                   variants={fadeUp}
-                  className={`text-text-muted max-w-2xl mx-auto leading-relaxed text-lg px-4 hidden sm:block`}
+                  className={`text-text-muted max-w-2xl mx-auto leading-relaxed text-lg px-4 font-vulfsans hidden sm:block`}
                 >
-                  Turning late-night ideas into working code. I build, I train,
-                  I refine - All in pursuit of software that's actually useful.
-                  CS grad from Griffith.
+                  CS grad from Griffith, building software that makes life
+                  easier.
                 </motion.p>
               </motion.div>
 
@@ -737,7 +745,7 @@ const App = () => {
                   aria-label="Resume PDF"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`py-3 transition-all duration-300 group inline-flex items-center justify-center text-text-muted hover:text-text-primary font-medium`}
+                  className={`py-1 md:py-3 transition-all duration-300 group inline-flex items-center justify-center font-vulfsans text-text-muted hover:text-text-primary font-medium`}
                 >
                   View Resume
                   <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform" />
@@ -771,7 +779,7 @@ const App = () => {
               onClick={() =>
                 document
                   .getElementById("about")
-                  ?.scrollIntoView({ behavior: "smooth" })
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" })
               }
             >
               <div
@@ -795,38 +803,36 @@ const App = () => {
           className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10"
         >
           {/* About Section */}
-          <section id="about" className="pt-20 md:pt-24">
+          <section id="about" className="pt-20 md:pt-24 mb-4 md:mb-8">
             <div className="mx-auto">
               <div className="flex items-center mb-8">
                 <div
-                  className={`w-3 h-3 rounded-full bg-gradient-accent mr-4 shadow-lg`}
+                  className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent mr-4 shadow-lg`}
                 ></div>
-                <h2 className="text-2xl md:text-3xl font-bold">About me</h2>
+                <h2 className="font-vulfsans text-2xl xl:text-3xl font-bold md:tracking-tight text-text-secondary md:text-text-primary">
+                  ABOUT
+                </h2>
               </div>
               <div className="flex flex-col gap-8 lg:flex-row lg:gap-16">
-                <div className="lg:w-2/3">
-                  <p
-                    className={`leading-relaxed mb-6 text-text-secondary text-lg`}
-                  >
+                <div className="lg:w-2/3 xl:text-lg">
+                  <p className={`leading-relaxed mb-6 text-text-secondary`}>
                     I'm Devansh, a software engineer based on the Gold Coast
                     with experience in full-stack development, machine learning,
                     and mobile apps.
                   </p>
-                  <p
-                    className={`leading-relaxed mb-6 text-text-secondary text-lg`}
-                  >
+                  <p className={`leading-relaxed mb-6 text-text-secondary`}>
                     Some of my projects include a mushroom classifier using deep
                     learning, a CS quiz app built with Flutter, and various
                     small tools to automate tasks and explore new tech.
                   </p>
-                  <p className={`leading-relaxed text-text-secondary text-lg`}>
+                  <p className={`leading-relaxed text-text-secondary`}>
                     When I'm not coding, I like to play video games, watch tv
                     shows, and hit the gym. I'm always open to chatting about
                     cool ideas or upcoming projects, so feel free to hit me up.
                   </p>
                 </div>
                 <div className="lg:w-1/3">
-                  <h3 className="text-lg md:text-xl font-semibold mb-6">
+                  <h3 className="text-lg md:text-xl font-vulfsans font-semibold mb-6">
                     My primary tools include:
                   </h3>
                   <div className="space-y-3">
@@ -853,18 +859,20 @@ const App = () => {
           </section>
 
           {/* Education Section */}
-          <section id="education" className="pt-20 md:pt-24 mb-12">
+          <section id="education" className="pt-20 md:pt-24 mb-4 md:mb-8">
             <div className="mx-auto">
-              <div className="flex items-center justify-between mb-12">
+              <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center">
                   <div
-                    className={`w-3 h-3 rounded-full bg-gradient-accent-secondary mr-4 shadow-lg`}
+                    className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent-secondary mr-4 shadow-lg`}
                   ></div>
-                  <h2 className="text-2xl md:text-3xl font-bold">Education</h2>
+                  <h2 className="text-2xl xl:text-3xl font-vulfsans font-bold md:tracking-tight text-text-secondary md:text-text-primary">
+                    EDUCATION
+                  </h2>
                 </div>
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
-                  className={`group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                  className={`inline-flex group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
                       : "bg-bg-secondary"
@@ -872,112 +880,100 @@ const App = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-medium text-sm">
+                  <span className="hidden md:block font-medium text-sm">
                     Academic Transcript
+                  </span>
+                  <span className="md:hidden font-medium text-sm">
+                    Transcript
                   </span>
                   <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </div>
 
-              <div className="space-y-8">
-                {education.map((edu, index) => (
-                  <div className="flex group transition-colors">
-                    <div
-                      className={`w-0.5 transition-all duration-300 group-hover:bg-accent-secondary-solid group-hover:shadow-[0_0_10px_theme(colors.accent.secondary.solid/30%)] ${
-                        isDarkMode ? "bg-bg-tertiary" : "bg-bg-quaternary"
-                      }`}
-                    ></div>
-                    <div className="pl-4 md:pl-8 flex-1 transition-colors">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                        <h3 className="text-xl font-semibold">
+              {education.map((edu, i) => (
+                <div key={i}>
+                  <ItemRow
+                    left={
+                      <>
+                        <h3 className="text-base xl:text-xl font-vulfsans font-medium">
                           {edu.institution}
                         </h3>
-                        <span className={`text-text-muted text-sm font-medium`}>
-                          {edu.period}
-                        </span>
-                      </div>
-                      <p className={`mb-4 text-text-muted text-lg`}>
-                        {edu.degree}
-                      </p>
-                      {edu.gpa && (
-                        <p
-                          className={`mb-4 text-text-secondary font-semibold text-lg`}
-                        >
-                          {edu.gpa}
-                        </p>
-                      )}
-                      {edu.misc && (
-                        <div className="text-text-secondary">
-                          {edu.misc.map((item, miscIndex) => (
-                            <p
-                              key={miscIndex}
-                              className="mb-2 flex items-start"
-                            >
-                              <span className="text-teal-400 mr-2">•</span>
-                              {item}
-                            </p>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+                        <p className="text-text-muted py-1">{edu.degree}</p>
+                        {edu.gpa && (
+                          <p className="text-text-secondary py-1">{edu.gpa}</p>
+                        )}
+                      </>
+                    }
+                    right={edu.period}
+                    children={
+                      <>
+                        {edu.misc && (
+                          <ul className="mt-2 space-y-1 xl:text-md text-text-secondary list-disc pl-5">
+                            {edu.misc.map((m, idx) => (
+                              <li key={idx}>{m}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    }
+                  />
+                </div>
+              ))}
             </div>
           </section>
 
           {/* Work Experience */}
-          <section id="work" className="pt-20 md:pt-24 mb-12">
+          <section id="work" className="pt-20 md:pt-24 mb-4 md:mb-8">
             <div className="mx-auto">
-              <div className="flex items-center mb-12">
+              <div className="flex items-center mb-8">
                 <div
-                  className={`w-3 h-3 rounded-full bg-gradient-accent mr-4 shadow-lg`}
+                  className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent mr-4 shadow-lg`}
                 ></div>
-                <h2 className="text-2xl md:text-3xl font-bold">
-                  Work Experience
+                <h2 className="text-2xl xl:text-3xl font-vulfsans font-bold md:tracking-tight text-text-secondary md:text-text-primary">
+                  EXPERIENCE
                 </h2>
               </div>
 
-              <div className="space-y-8">
-                {workExperience.map((job, index) => (
-                  <div key={index} className="flex group transition-colors">
-                    <div
-                      className={`w-0.5 transition-all duration-300 group-hover:bg-accent-solid group-hover:shadow-[0_0_10px_theme(colors.accent.solid/30%)] ${
-                        isDarkMode ? "bg-bg-tertiary" : "bg-bg-quaternary"
-                      }`}
-                    ></div>
-
-                    <div className="pl-4 md:pl-8 flex-1 transition-colors">
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                        <h3 className="text-xl font-semibold">{job.company}</h3>
-                        <span className="text-text-muted text-sm font-medium">
-                          {job.period}
-                        </span>
-                      </div>
-                      <p className="mb-4 text-text-muted text-lg">{job.role}</p>
-                      <p className="text-text-secondary text-lg leading-relaxed">
-                        {job.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              {workExperience.map((job, i) => (
+                <div key={i}>
+                  <ItemRow
+                    left={
+                      <>
+                        <h3 className="text-base xl:text-xl font-vulfsans font-medium">
+                          {job.company}
+                        </h3>
+                        <p className="text-text-muted py-1">{job.role}</p>
+                      </>
+                    }
+                    right={job.period}
+                    children={
+                      <>
+                        <p className="mt-2 text-text-secondary xl:text-lg">
+                          {job.description}
+                        </p>
+                      </>
+                    }
+                  />
+                </div>
+              ))}
             </div>
           </section>
 
           {/* Projects */}
-          <section id="projects" className="pt-20 md:pt-24 mb-12">
+          <section id="projects" className="pt-20 md:pt-24 mb-4 md:mb-8">
             <div className="mx-auto">
               <div className="flex items-center justify-between mb-12">
                 <div className="flex items-center">
                   <div
-                    className={`w-3 h-3 rounded-full bg-gradient-accent-secondary mr-4 shadow-lg`}
+                    className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent-secondary mr-4 shadow-lg`}
                   ></div>
-                  <h2 className="text-2xl md:text-3xl font-bold">Projects</h2>
+                  <h2 className="text-2xl xl:text-3xl font-vulfsans font-bold md:tracking-tight text-text-secondary md:text-text-primary">
+                    PROJECTS
+                  </h2>
                 </div>
                 <a
                   href="https://github.com/devanshkp?tab=repositories"
-                  className={`group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary inline-flex items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
+                  className={`inline-flex group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
                     isDarkMode
                       ? "bg-bg-tertiary hover:bg-bg-quaternary"
                       : "bg-bg-secondary"
@@ -985,7 +981,10 @@ const App = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-medium text-sm">See all projects</span>
+                  <span className="hidden md:block font-medium text-sm">
+                    See all projects
+                  </span>
+                  <span className="md:hidden font-medium text-sm">See All</span>
                   <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </div>
@@ -1039,14 +1038,14 @@ const App = () => {
                           {(project.live || project.inDevelopment) && (
                             <div className="absolute top-4 right-4">
                               {project.live ? (
-                                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
-                                  <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                                <span className="inline-flex items-center px-3 py-1.5 gap-2 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
+                                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                                   Live
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-yellow-600 text-white shadow-lg">
-                                  <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                                <span className="inline-flex items-center px-3 py-1.5 gap-2 rounded-full text-xs font-medium bg-yellow-600 text-white shadow-lg">
                                   WIP
+                                  <Construction className="w-3 h-3" />
                                 </span>
                               )}
                             </div>
@@ -1056,9 +1055,9 @@ const App = () => {
                         {/* Project Content */}
                         <div className="md:w-3/5 p-6 flex flex-col justify-between">
                           <div>
-                            <div className="flex justify-between items-start mb-4 md:mb-6">
-                              <div className="flex items-center gap-2">
-                                <h3 className="text-xl lg:text-2xl font-bold text-text-secondary group-hover:text-text-primary duration-200">
+                            <div className="flex justify-between items-start mb-4">
+                              <div className="flex items-center gap-1">
+                                <h3 className="text-lg md:text-xl font-vulfsans font-semibold text-text-secondary group-hover:text-text-primary duration-200">
                                   {project.title}
                                 </h3>
                                 <ArrowUpRight
@@ -1093,7 +1092,7 @@ const App = () => {
                               </a>
                             </div>
 
-                            <p className="text-text-secondary leading-relaxed mb-4 md:mb-8 text-lg">
+                            <p className="text-text-secondary leading-relaxed mb-4">
                               {project.description}
                             </p>
 

@@ -2,6 +2,12 @@
 
 @theme {
   --font-vulfsans: VulfSans, "sans-serif";
+  --font-inter: "Inter", "sans-serif";
+  --font-interstack: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+
   --color-bg: var(--bg);
   --color-bg-secondary: var(--bg-secondary);
   --color-bg-tertiary: var(--bg-tertiary);
@@ -26,20 +32,20 @@
 }
 
 :root {
-  --bg: oklch(0.19 0.005 265);
+  --bg: oklch(0.18 0.005 265);
   --bg-secondary: oklch(0.22 0.005 265);
   --bg-tertiary: oklch(0.28 0.005 265);
   --bg-quaternary: oklch(0.32 0.005 265);
   --bg-nav: oklch(0.18 0.005 265 / 0.9);
 
-  --text-primary: oklch(1 0 0);
-  --text-secondary: oklch(0.87 0 252);
+  --text-primary: oklch(0.98 0 0);
+  --text-secondary: oklch(0.9 0 252);
   --text-muted: oklch(0.68 0 240);
   --text-subtle: oklch(0.54 0 240);
 
   --border: oklch(1 0 275 / 0.1);
   --border-secondary: oklch(1 0 275 / 0.125);
-  --border-active: oklch(1 0 275 / 0.25);
+  --border-active: oklch(1 0 275 / 0.3);
 
   --accent: linear-gradient(
     to right,
@@ -70,9 +76,9 @@
   --text-muted: oklch(0.44 0 240);
   --text-subtle: oklch(0.54 0 240);
 
-  --border: oklch(0 0 0 / 0.075);
+  --border: oklch(0 0 0 / 0.125);
   --border-secondary: oklch(0 0 0 / 0.125);
-  --border-active: oklch(0 0 0 / 0.25);
+  --border-active: oklch(0 0 0 / 0.3);
 
   --accent: linear-gradient(to right, oklch(0.55 0.3 295), oklch(0.6 0.25 360));
   --accent-secondary: linear-gradient(
