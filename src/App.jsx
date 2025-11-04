@@ -476,6 +476,13 @@ const App = () => {
 
   const workExperience = [
     {
+      company: "Westpac",
+      role: "Software Engineer",
+      period: "November 2025 — Current",
+      description:
+        "Joined as a Software Engineer at Westpac, contributing to the development and maintenance of banking applications, collaborating with cross-functional teams to deliver high-quality software solutions, and implementing best practices in coding and testing.",
+    },
+    {
       company: "aka studio",
       role: "Software Engineer Intern",
       period: "Mar 2024 — Jun 2024",
@@ -515,7 +522,7 @@ const App = () => {
             <img
               src={isDarkMode ? "/logos/cat.svg" : "/logos/cat-black.svg"}
               alt={`Cat logo`}
-              className="w-5 h-5 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              className="w-5 h-5 object-cover object-center transition-transform duration-500"
               onError={(e) => {
                 e.target.style.display = "none";
                 e.target.nextSibling.style.display = "flex";
@@ -526,7 +533,7 @@ const App = () => {
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className={`transition-all duration-300 text-text-secondary hover:text-text-primary hover:scale-105 font-medium`}
+                  className={`transition-all duration-300 text-text-secondary hover:text-text-primary  font-medium`}
                 >
                   {item}
                 </a>
@@ -935,7 +942,7 @@ const App = () => {
               </div>
 
               {workExperience.map((job, i) => (
-                <div key={i}>
+                <div key={i} className="mb-12">
                   <ItemRow
                     left={
                       <>
