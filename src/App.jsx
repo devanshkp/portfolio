@@ -1,225 +1,59 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUp,
+  ArrowUpRight,
+  ChevronUp,
+  Code,
+  Clock3,
+  Construction,
   Github,
   Linkedin,
   Mail,
-  ArrowRight,
-  ArrowUpRight,
-  ChevronUp,
-  ArrowUp,
-  ArrowDown,
-  Code,
-  Sun,
-  Moon,
   MapPin,
-  Construction,
+  Moon,
+  Sparkles,
+  Sun,
 } from "lucide-react";
 
-const ItemRow = ({ left, right, children }) => (
-  <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
-    <div className="md:hidden text-sm text-text-muted">{right}</div>
-    <div className="md:col-span-3">{left}</div>
-    <div className="hidden md:block col-span-1 text-right text-sm text-text-muted">
-      {right}
+const SectionHeader = ({ label, title, action }) => (
+  <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <p className="section-eyebrow">{label}</p>
+      <h2 className="section-heading mt-2">{title}</h2>
     </div>
-    <div className="md:col-span-full">{children}</div>
+    {action}
   </div>
 );
 
-const SocialLink = ({
-  href,
-  Icon,
-  tooltip,
-  ariaLabel,
-  color = "purple",
-  isEmail = false,
-  isDarkMode = true,
-  animationDuration = 0.4,
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
+const TimelineItem = ({ title, subtitle, period, children }) => (
+  <div className="grid gap-2 border-b border-border/70 pb-6 last:border-b-0 md:grid-cols-[1fr_auto] md:gap-8">
+    <div>
+      <h3 className="font-display text-xl text-text-primary">{title}</h3>
+      <p className="mt-1 text-sm text-text-muted">{subtitle}</p>
+      <div className="mt-3 text-text-secondary">{children}</div>
+    </div>
+    <p className="font-mono text-xs uppercase tracking-[0.16em] text-text-muted md:pt-1 md:text-right">
+      {period}
+    </p>
+  </div>
+);
 
-  const colorClasses = {
-    purple: {
-      border: "hover:border-purple-400/50",
-      shadow: "hover:shadow-purple-500/25",
-      gradient: "from-purple-500/10 to-pink-500/10",
-      icon: "group-hover:text-purple-400",
-      tooltip: {
-        bg: isDarkMode ? "bg-bg-tertiary/95" : "bg-bg-secondary/95",
-        border: isDarkMode ? "border-purple-500/30" : "border-purple-300/40",
-        text: isDarkMode ? "text-purple-100" : "text-purple-700",
-        accent: isDarkMode ? "bg-purple-500/20" : "bg-purple-200/60",
-      },
-    },
-    blue: {
-      border: "hover:border-blue-400/50",
-      shadow: "hover:shadow-blue-500/25",
-      gradient: "from-blue-500/10 to-cyan-500/10",
-      icon: "group-hover:text-blue-400",
-      tooltip: {
-        bg: isDarkMode ? "bg-bg-tertiary/95" : "bg-bg-secondary/95",
-        border: isDarkMode ? "border-blue-500/30" : "border-blue-300/40",
-        text: isDarkMode ? "text-blue-100" : "text-blue-700",
-        accent: isDarkMode ? "bg-blue-500/20" : "bg-blue-200/60",
-      },
-    },
-    emerald: {
-      border: "hover:border-emerald-400/50",
-      shadow: "hover:shadow-emerald-500/25",
-      gradient: "from-emerald-500/10 to-teal-500/10",
-      icon: "group-hover:text-emerald-400",
-      tooltip: {
-        bg: isDarkMode ? "bg-bg-tertiary/95" : "bg-bg-secondary/95",
-        border: isDarkMode ? "border-emerald-500/30" : "border-emerald-300/40",
-        text: isDarkMode ? "text-emerald-100" : "text-emerald-700",
-        accent: isDarkMode ? "bg-emerald-500/20" : "bg-emerald-200/60",
-      },
-    },
-  };
-
-  const colors = colorClasses[color] || colorClasses.purple;
-
-  const raindropVariants = {
-    initial: {
-      scale: 0,
-      y: -20,
-      borderRadius: "50%",
-      opacity: 0,
-    },
-    animate: {
-      scale: 1,
-      y: 0,
-      borderRadius: "48px",
-      opacity: 1,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 300,
-        duration: animationDuration,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-    exit: {
-      scale: 0,
-      y: -10,
-      opacity: 0,
-      transition: {
-        duration: animationDuration * 0.33,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const textVariants = {
-    initial: {
-      opacity: 0,
-      scale: 0.8,
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: animationDuration * 0.25,
-        duration: animationDuration * 0.5,
-        ease: "easeOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.8,
-      transition: {
-        duration: animationDuration * 0.17,
-      },
-    },
-  };
-
-  const accentVariants = {
-    initial: {
-      opacity: 0,
-    },
-    animate: {
-      opacity: 0.5,
-      transition: {
-        delay: animationDuration * 0.33,
-        duration: animationDuration * 0.25,
-        ease: "easeOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: animationDuration * 0.17,
-      },
-    },
-  };
-
-  return (
-    <a
-      href={href}
-      className={`group relative p-5 shadow-sm rounded-full transition-all duration-500 border-1 border-border ${colors.border} hover:shadow-2xl ${colors.shadow} backdrop-blur-sm hover:scale-110 hover:-translate-y-2`}
-      aria-label={ariaLabel}
-      target={isEmail ? undefined : "_blank"}
-      rel={isEmail ? undefined : "noopener noreferrer"}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        backgroundColor: isDarkMode
-          ? "var(--bg-tertiary)"
-          : "var(--bg-secondary)",
-      }}
-    >
-      <div
-        className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full`}
-      ></div>
-
-      <div className="relative z-10">
-        <Icon
-          className={`w-6 h-6 text-text-secondary ${colors.icon} transition-all duration-500 group-hover:scale-110 group-hover:rotate-12`}
-        />
-      </div>
-
-      {/* Raindrop Tooltip Animation */}
-      <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 pointer-events-none z-30">
-        <AnimatePresence>
-          {isHovered && (
-            <motion.div
-              variants={raindropVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className={`${colors.tooltip.bg} ${colors.tooltip.text} backdrop-blur-md px-4 py-2.5 text-xs font-medium shadow-xl whitespace-nowrap border ${colors.tooltip.border} relative overflow-hidden`}
-              style={{
-                transformOrigin: "center top",
-              }}
-            >
-              {/* Animated accent background */}
-              <motion.div
-                variants={accentVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className={`absolute inset-0 ${colors.tooltip.accent}`}
-              />
-
-              {/* Animated text content */}
-              <motion.span
-                variants={textVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className="relative z-10"
-              >
-                {tooltip}
-              </motion.span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </a>
-  );
-};
+const SocialButton = ({ href, label, Icon, isEmail = false }) => (
+  <motion.a
+    href={href}
+    target={isEmail ? undefined : "_blank"}
+    rel={isEmail ? undefined : "noopener noreferrer"}
+    aria-label={label}
+    whileHover={{ y: -3 }}
+    whileTap={{ scale: 0.98 }}
+    className="group inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border-secondary bg-bg-tertiary text-text-secondary transition-colors duration-300 hover:border-accent-solid hover:text-text-primary"
+  >
+    <Icon className="h-4 w-4 transition-transform duration-300 group-hover:rotate-6" />
+  </motion.a>
+);
 
 const App = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -228,10 +62,11 @@ const App = () => {
   const [showScrollDown, setShowScrollDown] = useState(true);
   const [isScrolling, setIsScrolling] = useState(false);
   const [currentSkill, setCurrentSkill] = useState(0);
-  const [hoveredCodeButton, setHoveredCodeButton] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return !window.matchMedia("(prefers-color-scheme: light)").matches;
   });
+
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (isDarkMode) {
@@ -241,60 +76,59 @@ const App = () => {
     }
   }, [isDarkMode]);
 
-  const skills = ["SOFTWARE ENGINEER", "UI/UX DESIGNER"];
+  const skills = [
+    "Product-Minded Software Engineer",
+    "Web + Mobile Systems Builder",
+    "Automation and AI Prototyper",
+  ];
+
+  const navItems = ["About", "Education", "Work", "Projects"];
+
+  const aboutTools = [
+    "React",
+    "TypeScript",
+    "Flutter",
+    "Flask",
+    "Firebase",
+    "PostgreSQL",
+    "TensorFlow",
+    "AWS",
+  ];
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const clockTimer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
 
-    // Fade in animation
-    setTimeout(() => setIsLoaded(true), 100);
-
-    // Scroll to top
-    const handleScrollUp = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
-
-    const handleScrollDown = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      setShowScrollDown(scrollTop < 100);
-    };
-
-    // Rotate skills
     const skillTimer = setInterval(() => {
       setCurrentSkill((prev) => (prev + 1) % skills.length);
-    }, 3000);
+    }, 3200);
 
-    window.addEventListener("scroll", handleScrollUp);
-    window.addEventListener("scroll", handleScrollDown);
+    setTimeout(() => setIsLoaded(true), 80);
 
-    return () => {
-      clearInterval(timer);
-      clearInterval(skillTimer);
-      window.removeEventListener("scroll", handleScrollUp);
-      window.removeEventListener("scroll", handleScrollDown);
-    };
-  }, []);
-
-  // Scroll progress
-  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       const progressBar = document.getElementById("scroll-progress");
+
       if (progressBar) {
         progressBar.style.width = `${scrollPercent}%`;
       }
+
+      setShowScrollTop(scrollTop > 360);
+      setShowScrollDown(scrollTop < 120);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      clearInterval(clockTimer);
+      clearInterval(skillTimer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  // Update Meta Tags
   useEffect(() => {
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     const appleStatusBar = document.querySelector(
@@ -302,10 +136,10 @@ const App = () => {
     );
 
     if (isDarkMode) {
-      metaThemeColor?.setAttribute("content", "#161b22");
+      metaThemeColor?.setAttribute("content", "#070b14");
       appleStatusBar?.setAttribute("content", "black-translucent");
     } else {
-      metaThemeColor?.setAttribute("content", "#f8fafc");
+      metaThemeColor?.setAttribute("content", "#f3f7ff");
       appleStatusBar?.setAttribute("content", "default");
     }
   }, [isDarkMode]);
@@ -317,7 +151,6 @@ const App = () => {
       hour12: true,
       timeZone: "Australia/Brisbane",
     });
-
     return `${timePart} AEST`;
   };
 
@@ -330,132 +163,88 @@ const App = () => {
         window.removeEventListener("scroll", onScroll);
       }
     };
-
     window.addEventListener("scroll", onScroll);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  const reduceMotion = useReducedMotion();
-
   const easing = [0.22, 1, 0.36, 1];
 
-  const heroStagger = {
+  const containerStagger = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+      transition: {
+        staggerChildren: reduceMotion ? 0 : 0.08,
+        delayChildren: reduceMotion ? 0 : 0.12,
+      },
     },
   };
 
   const fadeUp = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 20 },
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 26 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: easing },
+      transition: { duration: reduceMotion ? 0.2 : 0.62, ease: easing },
     },
   };
 
   const fade = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.5, ease: easing } },
+    visible: { opacity: 1, transition: { duration: 0.55, ease: easing } },
   };
 
   const projects = [
     {
       title: "AI Mushroom Classifier",
       description:
-        "React-based application for real-time species recognition using a custom-trained deep learning model built with transfer learning.",
-      tech: ["React", "Tailwind CSS", "Flask", "TensorFlow", "AWS"],
+        "Real-time species recognition platform using a custom transfer-learning model, packaged into a clean browser workflow.",
       link: "https://ai-mushroom-classifier-r2ed.vercel.app/",
       git: "https://github.com/devanshkp/ai-mushroom-classifier",
       live: true,
       inDevelopment: false,
       image: "/images/mushroom-classifier.png",
       techLogos: [
-        {
-          name: "TensorFlow",
-          logo: "/logos/tensorflow.svg",
-          color: "text-orange-400",
-        },
-        { name: "React", logo: "/logos/react.svg", color: "text-blue-400" },
+        { name: "TensorFlow", logo: "/logos/tensorflow.svg" },
+        { name: "React", logo: "/logos/react.svg" },
         {
           name: "Flask",
           logo: isDarkMode ? "/logos/flask.svg" : "/logos/flask-black.svg",
-          color: "text-green-400",
         },
-        { name: "AWS", logo: "/logos/aws.svg", color: "text-yellow-400" },
+        { name: "AWS", logo: "/logos/aws.svg" },
       ],
     },
     {
       title: "Synapse",
       description:
-        "Mobile quiz application built with Flutter, featuring secure authentication, social features, and 4,000+ questions with contextual hints.",
-      tech: [
-        "Flutter",
-        "Selenium",
-        "BeautifulSoup",
-        "Firebase",
-        "Google Cloud Platform",
-        "Gemini API",
-      ],
+        "Mobile quiz ecosystem with secure auth, social mechanics, and 4,000+ questions powered by intelligent hinting.",
       link: "https://github.com/devanshkp/synapse-quiz-app",
       git: "https://github.com/devanshkp/synapse-quiz-app",
       live: false,
       inDevelopment: false,
       image: "/images/synapse.png",
       techLogos: [
-        { name: "Flutter", logo: "/logos/flutter.svg", color: "text-blue-500" },
-        { name: "Python", logo: "/logos/python.svg", color: "text-yellow-500" },
-        {
-          name: "Firebase",
-          logo: "/logos/firebase.svg",
-          color: "text-orange-500",
-        },
-        {
-          name: "Gemini API",
-          logo: "/logos/gemini.svg",
-          color: "text-purple-400",
-        },
+        { name: "Flutter", logo: "/logos/flutter.svg" },
+        { name: "Python", logo: "/logos/python.svg" },
+        { name: "Firebase", logo: "/logos/firebase.svg" },
+        { name: "Gemini API", logo: "/logos/gemini.svg" },
       ],
     },
     {
       title: "Forge",
       description:
-        "Workout tracking app built with React Native, offering offline-first logging, progress insights, and personalized routines.",
-      tech: [
-        "React Native",
-        "Expo",
-        "TypeScript",
-        "SQLite",
-        "React Query",
-        "Expo Router",
-      ],
-
+        "Offline-first workout tracker with progress analytics, custom routines, and a production-ready mobile architecture.",
       link: "https://github.com/devanshkp/workout-tracker",
       git: "https://github.com/devanshkp/workout-tracker",
       live: false,
       inDevelopment: true,
       image: "/images/forge.png",
       techLogos: [
-        {
-          name: "React Native",
-          logo: "/logos/react.svg",
-          color: "text-blue-500",
-        },
-        { name: "Expo", logo: "/logos/expo.svg", color: "text-yellow-500" },
-        {
-          name: "TypeScript",
-          logo: "/logos/typescript.svg",
-          color: "text-blue-400",
-        },
+        { name: "React Native", logo: "/logos/react.svg" },
+        { name: "Expo", logo: "/logos/expo.svg" },
+        { name: "TypeScript", logo: "/logos/typescript.svg" },
         {
           name: "SQLite",
-          logo: isDarkMode ? "logos/sqlite-lighter.svg" : "/logos/sqlite.svg",
-          color: "text-blue-300",
+          logo: isDarkMode ? "/logos/sqlite-lighter.svg" : "/logos/sqlite.svg",
         },
       ],
     },
@@ -478,533 +267,380 @@ const App = () => {
     {
       company: "Westpac",
       role: "Software Engineer",
-      period: "November 2025 — Current",
+      period: "Nov 2025 — Current",
       description:
-        "Joined as a Software Engineer at Westpac, contributing to the development and maintenance of banking applications, collaborating with cross-functional teams to deliver high-quality software solutions, and implementing best practices in coding and testing.",
+        "Contributing to banking platform development, collaborating across teams, and shipping reliable features with strong engineering standards.",
     },
     {
       company: "aka studio",
       role: "Software Engineer Intern",
       period: "Mar 2024 — Jun 2024",
       description:
-        "As a Software Engineer Intern, I redesigned and implemented interactive UI components across multiple core workflows, integrated personalized features to improve user engagement, and contributed to testing and validation to ensure reliable releases.",
+        "Redesigned and shipped interactive UI components, integrated personalization features, and supported validation workflows for stable releases.",
     },
   ];
 
   return (
-    <div
-      className={`min-h-screen font-interstack bg-bg text-text-primary relative overflow-x-hidden transition-colors duration-300`}
-    >
+    <div className="app-shell relative min-h-screen overflow-x-hidden font-sans text-text-primary transition-colors duration-500">
+      <div className="mesh-bg pointer-events-none absolute inset-0" />
+      <div className="grid-fade pointer-events-none absolute inset-0" />
+      <div className="noise-texture pointer-events-none absolute inset-0" />
+
       <div className="relative z-10">
-        {/* Navigation */}
         <motion.nav
           variants={fade}
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
-          className={`fixed top-0 w-full z-50 backdrop-blur-xl bg-bg-nav/85 border-border-secondary border-b-1`}
+          className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6 md:pt-5"
         >
-          {/* Scroll progress bar */}
-          <div
-            id="scroll-progress"
-            className="block md:hidden absolute bottom-0 left-0 h-[2px]"
-            style={{
-              width: "0%",
-              background: isDarkMode
-                ? "var(--accent-secondary-solid)"
-                : "var(--accent-solid)",
-              boxShadow: isDarkMode
-                ? "0 0 6px var(--accent-secondary-solid)"
-                : "0 0 6px var(--accent-solid)",
-              transition: "width 0.1s ease-out",
-            }}
-          ></div>
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <img
-              src={isDarkMode ? "/logos/cat.svg" : "/logos/cat-black.svg"}
-              alt={`Cat logo`}
-              className="w-5 h-5 object-cover object-center transition-transform duration-500"
-              onError={(e) => {
-                e.target.style.display = "none";
-                e.target.nextSibling.style.display = "flex";
-              }}
-            />
-            <div className="hidden md:flex space-x-8">
-              {["About", "Education", "Work", "Projects"].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className={`transition-all duration-300 text-text-secondary hover:text-text-primary  font-medium`}
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-
-            <div className="flex items-center space-x-4">
+          <div className="mx-auto max-w-6xl">
+            <div className="glass-panel relative overflow-hidden rounded-2xl border border-border-secondary/90">
               <div
-                onClick={toggleDarkMode}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 hover:scale-105 cursor-pointer focus:outline-none ring-1 ring-border-active
-                `}
-                role="switch"
-                aria-checked={isDarkMode}
-                aria-label="Toggle theme"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggleDarkMode();
-                  }
+                id="scroll-progress"
+                className="absolute bottom-0 left-0 h-[2px]"
+                style={{
+                  width: "0%",
+                  background: "var(--accent-gradient)",
+                  transition: "width 0.12s ease-out",
                 }}
-              >
-                <div
-                  className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-                    isDarkMode
-                      ? "bg-bg-quaternary/50 brightness-150"
-                      : "bg-gray-300/50"
-                  }`}
-                />
+              />
 
-                <motion.div
-                  initial={{ scale: reduceMotion ? 1 : 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.25, ease: easing, delay: 0.1 }}
-                  className={`relative inline-block h-6 w-6 rounded-full shadow-lg transform transition-transform duration-300 ${
-                    isDarkMode
-                      ? "translate-x-5 bg-bg"
-                      : "translate-x-0 bg-white"
-                  }`}
+              <div className="relative flex items-center justify-between gap-4 px-4 py-3 md:px-6 md:py-4">
+                <a
+                  href="#hero"
+                  className="group inline-flex items-center gap-3 rounded-xl transition-opacity hover:opacity-100"
                 >
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    {isDarkMode ? (
-                      <Moon className="w-4 h-4 text-gray-200" />
-                    ) : (
-                      <Sun className="w-4 h-4 text-yellow-500" />
-                    )}
+                  <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-border-secondary bg-bg-tertiary">
+                    <img
+                      src={isDarkMode ? "/logos/cat.svg" : "/logos/cat-black.svg"}
+                      alt="Cat logo"
+                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                    />
                   </div>
-                </motion.div>
-              </div>
-              <div className={`text-text-muted text-sm font-mono`}>
-                {formatTime(currentTime)}
+                  <div className="hidden md:block">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-text-muted">
+                      Devansh Kapoor
+                    </p>
+                    <p className="font-display text-sm text-text-secondary">
+                      Software Engineer
+                    </p>
+                  </div>
+                </a>
+
+                <div className="hidden items-center gap-1 rounded-full border border-border-secondary bg-bg-tertiary/70 p-1 md:flex">
+                  {navItems.map((item) => (
+                    <a
+                      key={item}
+                      href={`#${item.toLowerCase()}`}
+                      className="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted transition-colors duration-300 hover:bg-bg-quaternary hover:text-text-primary"
+                    >
+                      {item}
+                    </a>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2 md:gap-3">
+                  <div className="hidden items-center gap-2 rounded-full border border-border-secondary bg-bg-tertiary/75 px-3 py-1.5 sm:flex">
+                    <Clock3 className="h-3.5 w-3.5 text-accent-secondary-solid" />
+                    <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted">
+                      {formatTime(currentTime)}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => setIsDarkMode((prev) => !prev)}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border-secondary bg-bg-tertiary text-text-secondary transition-colors duration-300 hover:border-border-strong hover:text-text-primary"
+                    aria-label="Toggle theme"
+                  >
+                    {isDarkMode ? (
+                      <Moon className="h-4 w-4" />
+                    ) : (
+                      <Sun className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </motion.nav>
-
-        {/* Main Section */}
-        <section className="min-h-screen flex items-center justify-center relative">
-          {/* Animated Grid Background - Desktop */}
-          <div
-            className="hidden md:block absolute inset-0 pointer-events-none"
-            style={{
-              maskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
-            }}
-          >
-            {/* Base grid*/}
-            <div
-              className="absolute inset-0 grid-bg"
-              style={{ filter: "brightness(0.75) contrast(1)" }}
-            />
-
-            {/* Shimmer layer*/}
+        <section id="hero" className="relative pb-16 pt-32 md:pb-24 md:pt-40">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <motion.div
-              className="absolute inset-0 grid-bg"
-              style={{
-                filter: "brightness(3) contrast(1.5)",
-                WebkitMaskImage:
-                  "linear-gradient(90deg, transparent 35%, rgba(0,0,0,0.6) 46%, #000 50%, rgba(0,0,0,0.6) 54%, transparent 65%)",
-                maskImage:
-                  "linear-gradient(90deg, transparent 35%, rgba(0,0,0,0.6) 46%, #000 50%, rgba(0,0,0,0.6) 54%, transparent 65%)",
-                WebkitMaskSize: "220% 100%",
-                maskSize: "220% 100%",
-                WebkitMaskPosition: "var(--mask-x, -110%) 0%",
-                maskPosition: "var(--mask-x, -110%) 0%",
-                mixBlendMode: isDarkMode ? "screen" : "multiply",
-                opacity: 1,
-              }}
-              initial={{ opacity: 0 }}
-              animate={
-                reduceMotion
-                  ? { opacity: 0 }
-                  : {
-                      opacity: 0.5,
-                      ["--mask-x"]: ["-110%", "110%"],
-                    }
-              }
-              transition={
-                reduceMotion
-                  ? { duration: 0 }
-                  : {
-                      opacity: {
-                        duration: 0.5,
-                        ease: [0.22, 1, 0.36, 1],
-                        delay: 3,
-                      },
-                      ["--mask-x"]: {
-                        duration: 12,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        repeatType: "mirror",
-                      },
-                    }
-              }
-            />
-          </div>
-
-          <div
-            className="md:hidden absolute inset-0 pointer-events-none grid-bg"
-            style={{
-              maskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%)",
-            }}
-          ></div>
-
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 relative">
-            <motion.div
-              variants={heroStagger}
+              variants={containerStagger}
               initial="hidden"
               animate={isLoaded ? "visible" : "hidden"}
-              className="text-center relative z-10"
+              className="grid items-end gap-10 lg:grid-cols-[1.28fr_0.72fr]"
             >
-              {/* Main Heading */}
-              <motion.div variants={fadeUp} className="mb-8 md:mb-8">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 relative ">
-                  <span className="relative inline-grid xl:tracking-tighter tracking-tight font-vulfsans">
-                    <span
-                      className={`bg-gradient-to-r bg-clip-text text-gradient-accent text-transparent col-start-1 row-start-1`}
-                    >
-                      Devansh
-                    </span>
-                    <span
-                      className="bg-gradient-to-r bg-clip-text text-gradient-accent text-transparent blur-lg opacity-25 col-start-1 row-start-1"
-                      style={{ transform: "translate(2px, 2px)" }}
-                    >
-                      Devansh
-                    </span>
-                  </span>{" "}
-                  <span className="tracking-tight md:tracking-tighter font-vulfsans">
-                    Kapoor
-                  </span>
-                </h1>
-                <motion.div variants={fadeUp} className="h-8 mb-6">
-                  <p
-                    key={currentSkill}
-                    className={`text-xl md:text-2xl lg:text-3xl text-text-secondary font-semibold animate-pulse tracking-tight`}
-                  >
-                    {skills[currentSkill]}
-                  </p>
+              <div>
+                <motion.div
+                  variants={fadeUp}
+                  className="hero-chip inline-flex items-center gap-2"
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-accent-solid" />
+                  <span>Designing useful software with personality</span>
                 </motion.div>
-                {/* Subtext */}
+
+                <motion.h1
+                  variants={fadeUp}
+                  className="mt-6 font-display text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-text-primary sm:text-6xl lg:text-7xl"
+                >
+                  Devansh{" "}
+                  <span className="text-gradient-accent inline-block">Kapoor</span>
+                </motion.h1>
+
+                <motion.div variants={fadeUp} className="mt-5 min-h-[2.1rem]">
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={skills[currentSkill]}
+                      initial={{ opacity: 0, y: reduceMotion ? 0 : 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: reduceMotion ? 0 : -12 }}
+                      transition={{ duration: reduceMotion ? 0.2 : 0.35 }}
+                      className="font-mono text-xs uppercase tracking-[0.22em] text-text-muted"
+                    >
+                      {skills[currentSkill]}
+                    </motion.p>
+                  </AnimatePresence>
+                </motion.div>
+
                 <motion.p
                   variants={fadeUp}
-                  className={`text-text-muted max-w-2xl mx-auto leading-relaxed text-lg px-4 font-vulfsans hidden sm:block`}
+                  className="mt-6 max-w-2xl text-balance text-lg leading-relaxed text-text-secondary"
                 >
-                  CS grad from Griffith, building software that makes life
-                  easier.
+                  CS grad from Griffith building interfaces and systems that feel
+                  intentional, fast, and genuinely helpful. I focus on end-to-end
+                  product execution from UX details to production reliability.
                 </motion.p>
-              </motion.div>
 
-              {/* Social Links */}
-              <motion.div
-                variants={fadeUp}
-                className="flex justify-center space-x-6 mb-8 md:mb-12"
-              >
-                <SocialLink
-                  href="https://github.com/devanshkp/"
-                  Icon={Github}
-                  tooltip="GitHub"
-                  ariaLabel="GitHub Profile"
-                  color="purple"
-                  isDarkMode={isDarkMode}
-                />
-
-                <SocialLink
-                  href="https://www.linkedin.com/in/devansh-kapoor/"
-                  Icon={Linkedin}
-                  tooltip="LinkedIn"
-                  ariaLabel="LinkedIn Profile"
-                  color="blue"
-                  isDarkMode={isDarkMode}
-                />
-
-                <SocialLink
-                  href="mailto:devansh.kp@outlook.com"
-                  Icon={Mail}
-                  tooltip="Email"
-                  ariaLabel="Email Contact"
-                  color="emerald"
-                  isEmail={true}
-                  isDarkMode={isDarkMode}
-                />
-              </motion.div>
-
-              {/* Resume Button */}
-              <motion.div
-                variants={fadeUp}
-                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              >
-                <a
-                  href="https://drive.google.com/file/d/1EV7j6v1AqeVic54YIpfWG94guPpH6B84/view?usp=sharing"
-                  aria-label="Resume PDF"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`py-1 md:py-3 transition-all duration-300 group inline-flex items-center justify-center font-vulfsans text-text-muted hover:text-text-primary font-medium`}
+                <motion.div
+                  variants={fadeUp}
+                  className="mt-10 flex flex-wrap items-center gap-3"
                 >
-                  View Resume
-                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform" />
-                </a>
-              </motion.div>
-            </motion.div>
-          </div>
+                  <a
+                    href="https://drive.google.com/file/d/1EV7j6v1AqeVic54YIpfWG94guPpH6B84/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-gradient-accent px-5 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#051018] transition-transform duration-300 hover:-translate-y-0.5"
+                  >
+                    View Resume
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="#projects"
+                    className="inline-flex items-center gap-2 rounded-xl border border-border-secondary bg-bg-secondary px-5 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-text-secondary transition-colors duration-300 hover:border-border-strong hover:text-text-primary"
+                  >
+                    Explore Projects
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </motion.div>
 
-          {/* Scroll Indicator */}
-          <motion.div
-            variants={heroStagger}
-            initial="hidden"
-            animate={isLoaded ? "visible" : "hidden"}
-            className="fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300"
-            style={{
-              bottom: `calc(2rem + env(safe-area-inset-bottom, 0px))`,
-              opacity: showScrollDown ? 1 : 0,
-              delay: "200ms",
-              transform: showScrollDown
-                ? "translateY(0px)"
-                : "translateY(10px)",
-              transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-              pointerEvents: showScrollDown ? "auto" : "none",
-            }}
-          >
-            <motion.div
+                <motion.div variants={fadeUp} className="mt-9 flex items-center gap-3">
+                  <SocialButton
+                    href="https://github.com/devanshkp/"
+                    label="GitHub"
+                    Icon={Github}
+                  />
+                  <SocialButton
+                    href="https://www.linkedin.com/in/devansh-kapoor/"
+                    label="LinkedIn"
+                    Icon={Linkedin}
+                  />
+                  <SocialButton
+                    href="mailto:devansh.kp@outlook.com"
+                    label="Email"
+                    Icon={Mail}
+                    isEmail
+                  />
+                </motion.div>
+              </div>
+
+              <motion.aside
+                variants={fadeUp}
+                className="glass-panel rounded-3xl border border-border-secondary p-6 md:p-7"
+              >
+                <p className="section-eyebrow">Snapshot</p>
+                <div className="mt-5 grid gap-3">
+                  <div className="stat-tile">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
+                      Location
+                    </p>
+                    <p className="mt-1 text-text-secondary">
+                      Gold Coast, Queensland
+                    </p>
+                  </div>
+                  <div className="stat-tile">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
+                      Focus
+                    </p>
+                    <p className="mt-1 text-text-secondary">
+                      Product engineering, mobile systems, machine learning
+                    </p>
+                  </div>
+                  <div className="stat-tile">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
+                      Availability
+                    </p>
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-accent-secondary-solid" />
+                      <p className="text-sm text-text-secondary">
+                        Open to new opportunities
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.aside>
+            </motion.div>
+
+            <motion.button
               variants={fadeUp}
               initial="hidden"
               animate={isLoaded ? "visible" : "hidden"}
-              className="group cursor-pointer"
               onClick={() =>
                 document
                   .getElementById("about")
                   ?.scrollIntoView({ behavior: "smooth", block: "start" })
               }
+              className={`mx-auto mt-12 flex items-center gap-2 rounded-full border border-border-secondary bg-bg-secondary px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted transition-all duration-300 ${
+                showScrollDown
+                  ? "opacity-100 translate-y-0"
+                  : "pointer-events-none opacity-0 translate-y-2"
+              }`}
             >
-              <div
-                className={`flex flex-col items-center space-y-1 p-3 hover:border-active backdrop-blur-sm hover:scale-110 transition-all duration-300`}
-                style={{
-                  animation: showScrollDown
-                    ? "float-smooth 1s ease-in-out infinite"
-                    : "none",
-                }}
-              >
-                <ArrowDown className="w-8 h-8 text-accent-solid group-hover:text-text-primary transition-all duration-500 group-hover:translate-y-1" />
-              </div>
-            </motion.div>
-          </motion.div>
+              Scroll
+              <ArrowDown className="h-3.5 w-3.5 text-accent-solid" />
+            </motion.button>
+          </div>
         </section>
-
-        <motion.div
+        <motion.main
           variants={fadeUp}
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
-          className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10"
+          className="mx-auto max-w-6xl space-y-8 px-4 pb-24 sm:px-6 md:space-y-10"
         >
-          {/* About Section */}
-          <section id="about" className="pt-20 md:pt-24 mb-4 md:mb-8">
-            <div className="mx-auto">
-              <div className="flex items-center mb-8">
-                <div
-                  className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent mr-4 shadow-lg`}
-                ></div>
-                <h2 className="font-vulfsans text-2xl xl:text-3xl font-bold md:tracking-tight text-text-secondary md:text-text-primary">
-                  ABOUT
-                </h2>
+          <section id="about" className="section-shell rounded-3xl p-6 md:p-10">
+            <SectionHeader label="Profile" title="About" />
+            <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-10">
+              <div className="space-y-5 leading-relaxed text-text-secondary">
+                <p>
+                  I build full-stack products with a strong focus on UX clarity,
+                  system design, and performance. My work spans web, mobile, and
+                  machine-learning assisted tools.
+                </p>
+                <p>
+                  I care about product feel just as much as architecture: good
+                  interfaces, thoughtful motion, and dependable engineering under
+                  real-world constraints.
+                </p>
+                <p>
+                  Outside coding, I am usually exploring new developer tooling,
+                  lifting at the gym, or iterating on side ideas that blend
+                  practical utility with polished design.
+                </p>
               </div>
-              <div className="flex flex-col gap-8 lg:flex-row lg:gap-16">
-                <div className="lg:w-2/3 xl:text-lg">
-                  <p className={`leading-relaxed mb-6 text-text-secondary`}>
-                    I'm Devansh, a software engineer based on the Gold Coast
-                    with experience in full-stack development, machine learning,
-                    and mobile apps.
-                  </p>
-                  <p className={`leading-relaxed mb-6 text-text-secondary`}>
-                    Some of my projects include a mushroom classifier using deep
-                    learning, a CS quiz app built with Flutter, and various
-                    small tools to automate tasks and explore new tech.
-                  </p>
-                  <p className={`leading-relaxed text-text-secondary`}>
-                    When I'm not coding, I like to play video games, watch tv
-                    shows, and hit the gym. I'm always open to chatting about
-                    cool ideas or upcoming projects, so feel free to hit me up.
-                  </p>
-                </div>
-                <div className="lg:w-1/3">
-                  <h3 className="text-lg md:text-xl font-vulfsans font-semibold mb-6">
-                    My primary tools include:
-                  </h3>
-                  <div className="space-y-3">
-                    {[
-                      "React, Flutter",
-                      "Flask",
-                      "Firebase, PostgreSQL",
-                      "Python, C++, Javascript",
-                      "Tensorflow, Scikit-learn, Pandas",
-                      "AWS",
-                    ].map((tech, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-2 text-text-secondary"
-                      >
-                        <span>•</span>
-                        <span>{tech}</span>
-                      </div>
-                    ))}
-                  </div>
+              <div className="rounded-2xl border border-border-secondary bg-bg-tertiary/70 p-5">
+                <p className="section-eyebrow">Primary Stack</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {aboutTools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="inline-flex items-center rounded-lg border border-border-secondary bg-bg-secondary px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-text-secondary"
+                    >
+                      {tool}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Education Section */}
-          <section id="education" className="pt-20 md:pt-24 mb-4 md:mb-8">
-            <div className="mx-auto">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center">
-                  <div
-                    className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent-secondary mr-4 shadow-lg`}
-                  ></div>
-                  <h2 className="text-2xl xl:text-3xl font-vulfsans font-bold md:tracking-tight text-text-secondary md:text-text-primary">
-                    EDUCATION
-                  </h2>
-                </div>
+          <section id="education" className="section-shell rounded-3xl p-6 md:p-10">
+            <SectionHeader
+              label="Academic"
+              title="Education"
+              action={
                 <a
                   href="https://drive.google.com/file/d/1uSwKV8XJ4xjsUTqb2Gu5kiAunX_YQH0U/view?usp=sharing"
-                  className={`inline-flex group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
-                    isDarkMode
-                      ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                      : "bg-bg-secondary"
-                  }`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-lg border border-border-secondary bg-bg-secondary px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-text-secondary transition-colors duration-300 hover:text-text-primary"
                 >
-                  <span className="hidden md:block font-medium text-sm">
-                    Academic Transcript
-                  </span>
-                  <span className="md:hidden font-medium text-sm">
-                    Transcript
-                  </span>
-                  <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  Transcript
+                  <ArrowUpRight className="h-3.5 w-3.5" />
                 </a>
-              </div>
+              }
+            />
 
-              {education.map((edu, i) => (
-                <div key={i}>
-                  <ItemRow
-                    left={
-                      <>
-                        <h3 className="text-base xl:text-xl font-vulfsans font-medium">
-                          {edu.institution}
-                        </h3>
-                        <p className="text-text-muted py-1">{edu.degree}</p>
-                        {edu.gpa && (
-                          <p className="text-text-secondary py-1">{edu.gpa}</p>
-                        )}
-                      </>
-                    }
-                    right={edu.period}
-                    children={
-                      <>
-                        {edu.misc && (
-                          <ul className="mt-2 space-y-1 xl:text-md text-text-secondary list-disc pl-5">
-                            {edu.misc.map((m, idx) => (
-                              <li key={idx}>{m}</li>
-                            ))}
-                          </ul>
-                        )}
-                      </>
-                    }
-                  />
-                </div>
+            <div className="space-y-6">
+              {education.map((edu) => (
+                <TimelineItem
+                  key={edu.institution}
+                  title={edu.institution}
+                  subtitle={`${edu.degree} • ${edu.gpa}`}
+                  period={edu.period}
+                >
+                  {edu.misc && (
+                    <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-secondary">
+                      {edu.misc.map((m) => (
+                        <li key={m}>{m}</li>
+                      ))}
+                    </ul>
+                  )}
+                </TimelineItem>
               ))}
             </div>
           </section>
 
-          {/* Work Experience */}
-          <section id="work" className="pt-20 md:pt-24 mb-4 md:mb-8">
-            <div className="mx-auto">
-              <div className="flex items-center mb-8">
-                <div
-                  className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent mr-4 shadow-lg`}
-                ></div>
-                <h2 className="text-2xl xl:text-3xl font-vulfsans font-bold md:tracking-tight text-text-secondary md:text-text-primary">
-                  EXPERIENCE
-                </h2>
-              </div>
-
-              {workExperience.map((job, i) => (
-                <div key={i} className="mb-12">
-                  <ItemRow
-                    left={
-                      <>
-                        <h3 className="text-base xl:text-xl font-vulfsans font-medium">
-                          {job.company}
-                        </h3>
-                        <p className="text-text-muted py-1">{job.role}</p>
-                      </>
-                    }
-                    right={job.period}
-                    children={
-                      <>
-                        <p className="mt-2 text-text-secondary xl:text-lg">
-                          {job.description}
-                        </p>
-                      </>
-                    }
-                  />
-                </div>
+          <section id="work" className="section-shell rounded-3xl p-6 md:p-10">
+            <SectionHeader label="Career" title="Experience" />
+            <div className="space-y-6">
+              {workExperience.map((job) => (
+                <TimelineItem
+                  key={job.company}
+                  title={job.company}
+                  subtitle={job.role}
+                  period={job.period}
+                >
+                  <p className="text-sm leading-relaxed text-text-secondary">
+                    {job.description}
+                  </p>
+                </TimelineItem>
               ))}
             </div>
           </section>
 
-          {/* Projects */}
-          <section id="projects" className="pt-20 md:pt-24 mb-4 md:mb-8">
-            <div className="mx-auto">
-              <div className="flex items-center justify-between mb-12">
-                <div className="flex items-center">
-                  <div
-                    className={`hidden md:block w-3 h-3 rounded-full bg-gradient-accent-secondary mr-4 shadow-lg`}
-                  ></div>
-                  <h2 className="text-2xl xl:text-3xl font-vulfsans font-bold md:tracking-tight text-text-secondary md:text-text-primary">
-                    PROJECTS
-                  </h2>
-                </div>
+          <section id="projects" className="section-shell rounded-3xl p-6 md:p-10">
+            <SectionHeader
+              label="Builds"
+              title="Projects"
+              action={
                 <a
                   href="https://github.com/devanshkp?tab=repositories"
-                  className={`inline-flex group transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-border-secondary text-text-secondary hover:text-text-primary items-center gap-1 rounded-lg px-3 py-2 hover:scale-105 ${
-                    isDarkMode
-                      ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                      : "bg-bg-secondary"
-                  }`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-lg border border-border-secondary bg-bg-secondary px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-text-secondary transition-colors duration-300 hover:text-text-primary"
                 >
-                  <span className="hidden md:block font-medium text-sm">
-                    See all projects
-                  </span>
-                  <span className="md:hidden font-medium text-sm">See All</span>
-                  <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  All Repos
+                  <ArrowUpRight className="h-3.5 w-3.5" />
                 </a>
-              </div>
+              }
+            />
 
-              <div className="space-y-8">
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={index}
-                    variants={fadeUp}
-                    initial="hidden"
-                    animate={isLoaded ? "visible" : "hidden"}
-                    transition={{ delay: 0.12 + index * 0.03 }}
-                    className={`group relative bg-bg-secondary rounded-2xl ring-1 ring-border transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-2 overflow-hidden transform`}
+            <div className="grid gap-6 md:grid-cols-2">
+              {projects.map((project, index) => (
+                <motion.article
+                  key={project.title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate={isLoaded ? "visible" : "hidden"}
+                  transition={{ delay: reduceMotion ? 0 : 0.05 * index }}
+                  className={`project-card group relative overflow-hidden rounded-2xl border border-border-secondary bg-bg-secondary ${
+                    index === 0 ? "md:col-span-2" : ""
+                  }`}
+                >
+                  <div
+                    className={`grid ${
+                      index === 0 ? "lg:grid-cols-[1.05fr_0.95fr]" : ""
+                    }`}
                   >
                     <a
                       href={project.link}
@@ -1012,231 +648,179 @@ const App = () => {
                       rel="noopener noreferrer"
                       className="block"
                     >
-                      <div className="flex flex-col md:flex-row">
-                        {/* Project Image */}
-                        <div className="relative md:w-2/5 aspect-video md:aspect-[4/3] overflow-hidden">
-                          <img
-                            src={project.image}
-                            alt={`${project.title} preview`}
-                            className="w-full h-full scale-110 md:scale-120 object-cover object-center transition-transform duration-500 group-hover:scale-120 md:group-hover:scale-130"
-                            onError={(e) => {
-                              e.target.style.display = "none";
-                              e.target.nextSibling.style.display = "flex";
-                            }}
-                          />
-
-                          {/* Fallback placeholder */}
-                          <div
-                            className={`hidden w-full h-full items-center justify-center bg-bg-tertiary`}
-                          >
-                            <div className={`text-center text-text-muted`}>
-                              <div
-                                className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-bg-secondary flex items-center justify-center`}
-                              >
-                                <Code className="w-8 h-8" />
-                              </div>
-                              <p className="font-medium text-lg whitespace-nowrap">
-                                {project.title}
-                              </p>
+                      <div className="relative aspect-[16/10] overflow-hidden">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} preview`}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          onError={(e) => {
+                            e.target.style.display = "none";
+                            e.target.nextSibling.style.display = "flex";
+                          }}
+                        />
+                        <div className="hidden h-full w-full items-center justify-center bg-bg-tertiary">
+                          <div className="text-center text-text-muted">
+                            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-xl border border-border-secondary bg-bg-secondary">
+                              <Code className="h-6 w-6" />
                             </div>
+                            <p className="font-display text-base">{project.title}</p>
                           </div>
-
-                          {/* Live Badge */}
-                          {(project.live || project.inDevelopment) && (
-                            <div className="absolute top-4 right-4">
-                              {project.live ? (
-                                <span className="inline-flex items-center px-3 py-1.5 gap-2 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
-                                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                                  Live
-                                </span>
-                              ) : (
-                                <span className="inline-flex items-center px-3 py-1.5 gap-2 rounded-full text-xs font-medium bg-yellow-600 text-white shadow-lg">
-                                  WIP
-                                  <Construction className="w-3 h-3" />
-                                </span>
-                              )}
-                            </div>
-                          )}
                         </div>
-
-                        {/* Project Content */}
-                        <div className="md:w-3/5 p-6 flex flex-col justify-between">
-                          <div>
-                            <div className="flex justify-between items-start mb-4">
-                              <div className="flex items-center gap-1">
-                                <h3 className="text-lg md:text-xl font-vulfsans font-semibold text-text-secondary group-hover:text-text-primary duration-200">
-                                  {project.title}
-                                </h3>
-                                <ArrowUpRight
-                                  className={`hidden md:block w-5 h-5 text-text-secondary group-hover:text-text-primary transition-all duration-300 group-hover:translate-x-1 ${
-                                    hoveredCodeButton === index
-                                      ? "opacity-0"
-                                      : "opacity-0 group-hover:opacity-100"
-                                  }`}
-                                />
-                                <ArrowUpRight
-                                  className="md:hidden w-5 h-5 text-text-secondary group-hover:text-text-primary transition-all duration-300 group-hover:translate-x-1
-                                  "
-                                />
-                              </div>
-
-                              {/* View Code Button - Desktop */}
-                              <a
-                                href={project.git}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`hidden shadow-sm hover:shadow-md md:inline-flex group/code items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary transition-all duration-200 hover:scale-105 ring-1 ring-border-secondary text-text-secondary hover:text-text-primary ${
-                                  isDarkMode && "hover:bg-bg-quaternary"
-                                }`}
-                                onClick={(e) => e.stopPropagation()}
-                                onMouseEnter={() => setHoveredCodeButton(index)}
-                                onMouseLeave={() => setHoveredCodeButton(null)}
-                              >
-                                <Github className="w-4 h-4 transition-colors" />
-                                <span className="text-sm font-medium whitespace-nowrap">
-                                  View Code
-                                </span>
-                              </a>
-                            </div>
-
-                            <p className="text-text-secondary leading-relaxed mb-4">
-                              {project.description}
-                            </p>
-
-                            {/* View Code Button - Mobile */}
-                            <div className="md:hidden">
-                              <a
-                                href={project.git}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`group/code inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-tertiary shadow-sm transition-all duration-200 hover:scale-105 ring-1 ring-border text-text-secondary hover:text-text-primary ${
-                                  isDarkMode && "hover:bg-bg-quaternary"
-                                }`}
-                                onClick={(e) => e.stopPropagation()}
-                                onMouseEnter={() => setHoveredCodeButton(index)}
-                                onMouseLeave={() => setHoveredCodeButton(null)}
-                              >
-                                <Github className="w-4 h-4 transition-colors" />
-                                <span className="text-sm font-medium">
-                                  View Code
-                                </span>
-                              </a>
-                            </div>
-                          </div>
-
-                          {/* Technology Stack */}
-                          <div className="hidden md:flex flex-wrap gap-2">
-                            {project.techLogos.map((tech, techIndex) => (
-                              <div
-                                key={techIndex}
-                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bg-tertiary text-text-secondary text-sm font-medium ring-1 ring-border-secondary"
-                              >
-                                <img
-                                  src={tech.logo}
-                                  alt={tech.name}
-                                  className="w-4 h-4 object-contain"
-                                  onError={(e) => {
-                                    e.target.style.display = "none";
-                                  }}
-                                />
-                                <span>{tech.name}</span>
-                              </div>
-                            ))}
-                          </div>
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0" />
+                        <div className="absolute right-3 top-3">
+                          {project.live ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-accent-secondary-solid px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#04120f]">
+                              Live
+                            </span>
+                          ) : project.inDevelopment ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-accent-solid px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#120805]">
+                              WIP
+                              <Construction className="h-3 w-3" />
+                            </span>
+                          ) : null}
                         </div>
                       </div>
                     </a>
-                  </motion.div>
-                ))}
-              </div>
+
+                    <div className="p-5 md:p-6">
+                      <div className="flex items-start justify-between gap-3">
+                        <h3 className="font-display text-2xl tracking-[-0.02em] text-text-primary">
+                          {project.title}
+                        </h3>
+                        <a
+                          href={project.git}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-secondary bg-bg-tertiary text-text-secondary transition-colors duration-300 hover:text-text-primary"
+                          aria-label={`${project.title} source code`}
+                        >
+                          <Github className="h-4 w-4" />
+                        </a>
+                      </div>
+
+                      <p className="mt-3 leading-relaxed text-text-secondary">
+                        {project.description}
+                      </p>
+
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {project.techLogos.map((tech) => (
+                          <span
+                            key={tech.name}
+                            className="inline-flex items-center gap-2 rounded-lg border border-border-secondary bg-bg-tertiary px-2.5 py-1.5 text-xs text-text-secondary"
+                          >
+                            <img
+                              src={tech.logo}
+                              alt={tech.name}
+                              className="h-3.5 w-3.5 object-contain"
+                              onError={(e) => {
+                                e.target.style.display = "none";
+                              }}
+                            />
+                            {tech.name}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 rounded-lg bg-gradient-accent px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[#051018]"
+                        >
+                          Open
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
+                        <a
+                          href={project.git}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 rounded-lg border border-border-secondary bg-bg-tertiary px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-text-secondary transition-colors duration-300 hover:text-text-primary"
+                        >
+                          Code
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
             </div>
           </section>
-        </motion.div>
-
-        {/* Footer */}
-        <footer className="bg-bg-secondary border-t border-border-secondary mt-20 md:pb-20">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 py-6">
-            {/* top row */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-text-muted">
-              <p className="text-text-muted">&copy; 2025 Devansh Kapoor</p>
-              <nav aria-label="Footer">
-                <ul className="flex items-center gap-6">
-                  <li>
-                    <a
-                      href="https://github.com/devanshkp/"
-                      className="hover:text-text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary/40 rounded-sm"
-                      target="_blank"
-                      rel="noopener noreferrer me"
-                    >
-                      GitHub
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/in/devansh-kapoor/"
-                      className="hover:text-text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary/40 rounded-sm"
-                      target="_blank"
-                      rel="noopener noreferrer me"
-                    >
-                      LinkedIn
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="mailto:devansh.kp@outlook.com"
-                      className="hover:text-text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary/40 rounded-sm"
-                    >
-                      Email
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+        </motion.main>
+        <footer className="border-t border-border-secondary bg-bg-secondary/70 py-8">
+          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-text-muted">
+                © 2026 Devansh Kapoor
+              </p>
+              <address className="mt-2 flex items-center gap-2 not-italic text-sm text-text-muted">
+                <MapPin className="h-3.5 w-3.5" />
+                Gold Coast, QLD, Australia
+              </address>
             </div>
-
-            {/* meta row */}
-            <address className="hidden md:flex mt-4 not-italic text-xs text-text-muted max-w-lg items-center gap-2">
-              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Gold Coast, QLD, Australia</span>
-            </address>
+            <nav aria-label="Footer">
+              <ul className="flex items-center gap-6 text-sm text-text-secondary">
+                <li>
+                  <a
+                    href="https://github.com/devanshkp/"
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    className="transition-colors hover:text-text-primary"
+                  >
+                    GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/devansh-kapoor/"
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    className="transition-colors hover:text-text-primary"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:devansh.kp@outlook.com"
+                    className="transition-colors hover:text-text-primary"
+                  >
+                    Email
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </footer>
 
-        {/* Scroll to Top Button */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
+        <div className="pointer-events-none mx-auto max-w-6xl px-4 sm:px-6">
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 z-50 rounded-full md:rounded-lg transition-all ring-1 ring-border-secondary duration-300 border-border-primary hover:border-active backdrop-blur-xl hover:scale-110 hover:-translate-y-1 group inline-flex items-center px-3 py-3 md:py-2 gap-x-2 text-text-secondary hover:text-text-primary shadow-sm hover:shadow-md ${
+            className={`pointer-events-auto fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 rounded-xl border border-border-secondary bg-bg-tertiary px-3 py-2 text-text-secondary transition-all duration-300 hover:-translate-y-0.5 hover:text-text-primary ${
               showScrollTop
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 translate-y-4 pointer-events-none"
-            }  ${
-              isDarkMode
-                ? "bg-bg-tertiary hover:bg-bg-quaternary"
-                : "bg-bg-secondary"
+                ? "opacity-100 translate-y-0"
+                : "pointer-events-none opacity-0 translate-y-3"
             }`}
             aria-label="Scroll to top"
             style={{
-              right: `max(1.5rem, calc((100vw - min(56rem, 100vw - 3rem)) / 2))`,
+              right: `max(1.5rem, calc((100vw - min(72rem, 100vw - 3rem)) / 2))`,
             }}
           >
-            <div className="relative w-5 h-5">
+            <div className="relative h-5 w-5">
               <ChevronUp
-                className={`w-5 h-5 group-hover:scale-110 duration-300 transition-all group-hover:-translate-y-0.5 absolute ${
-                  showScrollDown || isScrolling
-                    ? "opacity-0"
-                    : "group-hover:opacity-0"
+                className={`absolute h-5 w-5 transition-opacity ${
+                  showScrollDown || isScrolling ? "opacity-0" : "opacity-100"
                 }`}
               />
               <ArrowUp
-                className={`w-5 h-5 group-hover:scale-110 duration-300 transition-all absolute ${
-                  showScrollDown || isScrolling
-                    ? "opacity-100"
-                    : "opacity-0 group-hover:opacity-100"
+                className={`absolute h-5 w-5 transition-opacity ${
+                  showScrollDown || isScrolling ? "opacity-100" : "opacity-0"
                 }`}
               />
             </div>
-            <span className="hidden sm:inline-block font-medium cursor-pointer">
-              Back to top
+            <span className="hidden font-mono text-[11px] uppercase tracking-[0.14em] sm:block">
+              Top
             </span>
           </button>
         </div>

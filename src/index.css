@@ -1,12 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-vulfsans: VulfSans, "sans-serif";
-  --font-inter: "Inter", "sans-serif";
-  --font-interstack: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
+  --font-sans: "Onest", "Segoe UI", sans-serif;
+  --font-display: "Sora", "Onest", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
 
   --color-bg: var(--bg);
   --color-bg-secondary: var(--bg-secondary);
@@ -17,212 +16,185 @@
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
-  --color-text-subtle: var(--text-subtle);
 
   --color-border: var(--border);
   --color-border-secondary: var(--border-secondary);
-  --color-border-active: var(--border-active);
+  --color-border-strong: var(--border-strong);
 
-  --color-accent: var(--accent);
   --color-accent-solid: var(--accent-solid);
-  --color-accent-secondary: var(--accent-secondary);
   --color-accent-secondary-solid: var(--accent-secondary-solid);
-
-  --color-grid: var(--grid-color);
 }
 
 :root {
-  --bg: oklch(0.18 0.005 265);
-  --bg-secondary: oklch(0.22 0.005 265);
-  --bg-tertiary: oklch(0.28 0.005 265);
-  --bg-quaternary: oklch(0.32 0.005 265);
-  --bg-nav: oklch(0.18 0.005 265 / 0.9);
+  --bg: #070b14;
+  --bg-secondary: #0f1628;
+  --bg-tertiary: #152038;
+  --bg-quaternary: #1f2f4c;
+  --bg-nav: rgb(7 11 20 / 0.78);
 
-  --text-primary: oklch(0.98 0 0);
-  --text-secondary: oklch(0.9 0 252);
-  --text-muted: oklch(0.68 0 240);
-  --text-subtle: oklch(0.54 0 240);
+  --text-primary: #eaf1ff;
+  --text-secondary: #c4d4ee;
+  --text-muted: #8ea4c7;
 
-  --border: oklch(1 0 275 / 0.1);
-  --border-secondary: oklch(1 0 275 / 0.125);
-  --border-active: oklch(1 0 275 / 0.3);
+  --border: rgb(234 241 255 / 0.12);
+  --border-secondary: rgb(234 241 255 / 0.18);
+  --border-strong: rgb(234 241 255 / 0.34);
 
-  --accent: linear-gradient(
-    to right,
-    oklch(0.72 0.15 295),
-    oklch(0.75 0.17 360)
-  );
-  --accent-secondary: linear-gradient(
-    to right,
-    oklch(0.74 0.11 180),
-    oklch(0.76 0.13 158)
-  );
+  --accent-solid: #35d7ff;
+  --accent-secondary-solid: #8bf95d;
+  --accent-gradient: linear-gradient(110deg, #35d7ff 0%, #8bf95d 100%);
+  --accent-secondary-gradient: linear-gradient(110deg, #2e7bff 0%, #35d7ff 100%);
 
-  --accent-solid: oklch(0.7 0.17 328);
-  --accent-secondary-solid: oklch(0.76 0.13 158);
-
-  --grid-color: oklch(0.68 0 240 / 0.3);
+  --spot-a: rgb(57 123 255 / 0.28);
+  --spot-b: rgb(92 251 191 / 0.2);
+  --grid-line: rgb(146 177 224 / 0.16);
+  --noise-dot: rgb(255 255 255 / 0.04);
+  --surface-mix: rgb(11 19 35 / 0.66);
+  --shine: rgb(255 255 255 / 0.08);
 }
 
 .light-theme {
-  --bg: oklch(1 0 120);
-  --bg-secondary: oklch(0.99 0 0);
-  --bg-tertiary: oklch(0.98 0 120);
-  --bg-quaternary: oklch(0.97 0 120);
-  --bg-nav: oklch(1 0 0 / 0.95);
+  --bg: #f3f7ff;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e9f0ff;
+  --bg-quaternary: #dce8ff;
+  --bg-nav: rgb(243 248 255 / 0.8);
 
-  --text-primary: oklch(16.529% 0.01396 18.598);
-  --text-secondary: oklch(0.35 0 252);
-  --text-muted: oklch(0.44 0 240);
-  --text-subtle: oklch(0.54 0 240);
+  --text-primary: #132038;
+  --text-secondary: #2d4164;
+  --text-muted: #5a7097;
 
-  --border: oklch(0 0 0 / 0.125);
-  --border-secondary: oklch(0 0 0 / 0.125);
-  --border-active: oklch(0 0 0 / 0.3);
+  --border: rgb(19 32 56 / 0.13);
+  --border-secondary: rgb(19 32 56 / 0.2);
+  --border-strong: rgb(19 32 56 / 0.34);
 
-  --accent: linear-gradient(to right, oklch(0.55 0.3 295), oklch(0.6 0.25 360));
-  --accent-secondary: linear-gradient(
-    to right,
-    oklch(0.68 0.12 180),
-    oklch(0.7 0.14 158)
-  );
+  --accent-solid: #0f8dff;
+  --accent-secondary-solid: #16bf74;
+  --accent-gradient: linear-gradient(110deg, #0f8dff 0%, #16bf74 100%);
+  --accent-secondary-gradient: linear-gradient(110deg, #0f8dff 0%, #3cc1ff 100%);
 
-  --accent-solid: oklch(0.65 0.25 328);
-  --accent-secondary-solid: oklch(0.76 0.13 158);
-
-  --grid-color: oklch(0.26 0.02 252 / 0.2);
+  --spot-a: rgb(71 134 255 / 0.2);
+  --spot-b: rgb(28 191 147 / 0.16);
+  --grid-line: rgb(46 70 108 / 0.12);
+  --noise-dot: rgb(18 32 53 / 0.03);
+  --surface-mix: rgb(255 255 255 / 0.72);
+  --shine: rgb(255 255 255 / 0.24);
 }
 
 .bg-gradient-accent {
-  background: var(--accent) !important;
-}
-.bg-gradient-accent-secondary {
-  background: var(--accent-secondary) !important;
+  background: var(--accent-gradient) !important;
 }
 
-/* For text gradients */
+.bg-gradient-accent-secondary {
+  background: var(--accent-secondary-gradient) !important;
+}
+
 .text-gradient-accent {
-  background: var(--accent);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
-/* For grid background */
-.grid-bg {
-  background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 100px 100px;
+.app-shell {
+  background-color: var(--bg);
 }
 
-@keyframes mouse-scroll {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  25% {
-    transform: translateY(0);
-    opacity: 100;
-  }
-  100% {
-    transform: translateY(12px);
-    opacity: 0;
-  }
+.mesh-bg {
+  background: radial-gradient(circle at 8% -10%, var(--spot-a) 0, transparent 36%),
+    radial-gradient(circle at 88% -8%, var(--spot-b) 0, transparent 40%);
 }
 
-@keyframes float-smooth {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-body {
-  margin: 0;
-  min-width: 100vw;
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: var(
-    --font-vulfsans,
-    system-ui,
-    Avenir,
-    Helvetica,
-    Arial,
-    sans-serif
+.grid-fade {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 76px 76px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.58), transparent 78%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.58),
+    transparent 78%
   );
+}
+
+.noise-texture {
+  background-image: radial-gradient(var(--noise-dot) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+}
+
+.glass-panel {
+  background: var(--surface-mix);
+  backdrop-filter: blur(18px);
+}
+
+.section-shell {
+  border: 1px solid var(--border-secondary);
+  background: var(--surface-mix);
+  backdrop-filter: blur(18px);
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2vw + 1.25rem, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.hero-chip {
+  border: 1px solid var(--border-secondary);
+  background: var(--bg-tertiary);
+  border-radius: 9999px;
+  padding: 0.45rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stat-tile {
+  border: 1px solid var(--border-secondary);
+  background: rgb(255 255 255 / 0.02);
+  border-radius: 0.95rem;
+  padding: 0.85rem;
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(130deg, transparent 30%, var(--shine), transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.85s ease;
+}
+
+.project-card:hover::after {
+  transform: translateX(120%);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Font faces remain unchanged */
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-Italic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-Bold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-BoldItalic.otf") format("opentype");
-  font-weight: 700;
-  font-style: italic;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-Light.otf") format("opentype");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-LightItalic.otf") format("opentype");
-  font-weight: 300;
-  font-style: italic;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-Medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-MediumItalic.otf") format("opentype");
-  font-weight: 500;
-  font-style: italic;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-Black.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
-}
-@font-face {
-  font-family: "VulfSans";
-  src: url("/fonts/VulfSans/VulfSans-BlackItalic.otf") format("opentype");
-  font-weight: 900;
-  font-style: italic;
+body {
+  margin: 0;
+  min-width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text-primary);
 }
