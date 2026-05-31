@@ -105,7 +105,9 @@ function AsciiBackdrop() {
     "::::::::::::......::::::+++++++::::::::::::......::::::+++++++::::::::::::......::::::+++++++::::::::::::......::::",
     "----:::::::++++++:::::::......::::::::::::::++++++::::......::::::::::::::++++++::::......::::::::::::::++++++::::",
   ];
-  const tile = rows.map((row) => `${row}....${row}....${row}....${row}....${row}`).join("\n");
+  const tile = rows
+    .map((row) => `${row}....${row}....${row}....${row}....${row}`)
+    .join("\n");
   const repeated = `${tile}\n${tile}\n${tile}\n${tile}\n${tile}`;
 
   return (
@@ -162,6 +164,7 @@ function ProjectShowcase() {
             key={project.title}
             className="project-row"
             onMouseEnter={() => setHoveredIndex(index)}
+            onTouchStart={() => setHoveredIndex(index)}
             onFocus={() => setHoveredIndex(index)}
           >
             <span className="project-year">{project.year}</span>
@@ -186,9 +189,18 @@ function App() {
 
   useEffect(() => {
     document.documentElement.classList.toggle("light-theme", isLight);
+    const color = isLight ? "#f3f3f0" : "#0a0a0a";
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", isLight ? "#f2eee8" : "#080808");
+      ?.setAttribute("content", color);
+    document.documentElement.style.backgroundColor = color; // add this
+  }, [isLight]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("light-theme", isLight);
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", isLight ? "#f3f3f0" : "#0a0a0a");
   }, [isLight]);
 
   const pageVariants = {
@@ -240,15 +252,24 @@ function App() {
               Previously, I have crafted product interfaces, machine learning
               tools, and mobile experiences. View my{" "}
               <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
-                resume ↗
+                <span>resume</span>
+                <ArrowUpRight aria-hidden="true" />
               </a>{" "}
               to learn more about my experience, or jump to my{" "}
-              <a href="#work">selected work</a>.
+              <a href="#work">
+                <span>selected work</span>
+              </a>
+              .
             </p>
           </div>
         </Motion.section>
 
-        <Section eyebrow="projects" title="selected work" className="wide" id="work">
+        <Section
+          eyebrow="projects"
+          title="selected work"
+          className="wide"
+          id="work"
+        >
           <ProjectShowcase />
         </Section>
 
@@ -298,7 +319,12 @@ function App() {
           </div>
         </Section>
 
-        <Section eyebrow="connect" title="find me" className="contact-section" id="contact">
+        <Section
+          eyebrow="connect"
+          title="find me"
+          className="contact-section"
+          id="contact"
+        >
           <div className="social-grid">
             {socials.map(({ label, href, icon }) => (
               <a
@@ -326,9 +352,15 @@ function App() {
         <a href="#top" aria-label="Profile">
           <span>Profile</span>
         </a>
-        <a href="#work"><span>Projects</span></a>
-        <a href="#about"><span>About</span></a>
-        <a href="#contact"><span>Contact</span></a>
+        <a href="#work">
+          <span>Projects</span>
+        </a>
+        <a href="#about">
+          <span>About</span>
+        </a>
+        <a href="#contact">
+          <span>Contact</span>
+        </a>
         <button
           type="button"
           aria-label="Toggle theme"
