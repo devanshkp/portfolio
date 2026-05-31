@@ -58,14 +58,14 @@ const experience = [
     role: "Software Engineer",
     period: "Nov 2025 - Current",
     description:
-      "Contributing to banking application development with a focus on maintainable systems, testing, and reliable delivery across cross-functional teams.",
+      "Leading AI initiatives and system architecture within the UNITE space.",
   },
   {
     company: "aka studio",
     role: "Software Engineer Intern",
     period: "Mar 2024 - Jun 2024",
     description:
-      "Redesigned and implemented interactive UI components, integrated personalized product features, and supported testing and validation for core workflows.",
+      "Developed interactive UI components, product features, and core workflows.",
   },
 ];
 
