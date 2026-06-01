@@ -1,10 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,450&display=swap");
 @import "tailwindcss";
 
 @theme {
   --font-sans:
     ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: VulfSans, Georgia, serif;
+  --font-serif: "Newsreader", Georgia, serif;
 }
 
 :root {
@@ -252,7 +253,7 @@ img {
 }
 
 .intro-copy em,
-.section-heading p {
+.section-heading h2 {
   font-family: var(--font-serif);
   font-style: italic;
 }
@@ -376,19 +377,12 @@ img {
   margin-bottom: 28px;
 }
 
-.section-heading p {
-  margin: 0 0 22px;
+.section-heading h2 {
+  margin: 0;
   color: var(--text);
   font-size: 22px;
   line-height: 1;
   font-weight: 400;
-}
-
-.section-heading h2 {
-  margin: 0;
-  color: var(--text);
-  font-size: 16px;
-  font-weight: 560;
   letter-spacing: 0;
   text-transform: lowercase;
 }

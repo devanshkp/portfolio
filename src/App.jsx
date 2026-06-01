@@ -117,7 +117,7 @@ function AsciiBackdrop() {
   );
 }
 
-function Section({ eyebrow, title, children, className = "", id }) {
+function Section({ eyebrow, children, className = "", id }) {
   const prefersReduced = useReducedMotion();
 
   return (
@@ -130,8 +130,7 @@ function Section({ eyebrow, title, children, className = "", id }) {
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="section-heading">
-        <p>{eyebrow}</p>
-        {title ? <h2>{title}</h2> : null}
+        <h2>{eyebrow}</h2>
       </div>
       {children}
     </Motion.section>
@@ -266,14 +265,13 @@ function App() {
 
         <Section
           eyebrow="projects"
-          title="selected work"
           className="wide"
           id="work"
         >
           <ProjectShowcase />
         </Section>
 
-        <Section eyebrow="work" title="experience">
+        <Section eyebrow="work">
           <div className="timeline">
             {experience.map((job) => (
               <article key={job.company} className="timeline-item">
@@ -288,7 +286,7 @@ function App() {
           </div>
         </Section>
 
-        <Section eyebrow="study" title="education">
+        <Section eyebrow="education">
           <article className="education-card">
             <div>
               <h3>{education.institution}</h3>
@@ -303,7 +301,7 @@ function App() {
           </article>
         </Section>
 
-        <Section eyebrow="about" title="small notes" id="about">
+        <Section eyebrow="about" id="about">
           <div className="about-copy">
             <p>
               I'm based on the Gold Coast and like working where product taste
@@ -321,7 +319,6 @@ function App() {
 
         <Section
           eyebrow="connect"
-          title="find me"
           className="contact-section"
           id="contact"
         >
