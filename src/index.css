@@ -62,18 +62,18 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background:
-    radial-gradient(
-      circle at 50% -18%,
-      rgb(255 255 255 / 0.026),
-      transparent 34rem
-    ),
-    var(--bg);
+  background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--bg);
 }
 
 button,
@@ -113,38 +113,41 @@ img {
 .site-shell {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 22px 20px 104px;
+  background:
+    radial-gradient(
+      circle at 50% -18%,
+      rgb(255 255 255 / 0.026),
+      transparent 34rem
+    ),
+    var(--bg);
 }
 
 .site-shell::before {
   --safe-top: env(safe-area-inset-top, 0px);
-  --solid-height: calc(var(--safe-top) + 4px);
-  --fade-height: 28px;
 
   position: fixed;
   top: 0;
   left: 0;
   z-index: 20;
   width: 100%;
-  height: calc(var(--solid-height) + var(--fade-height));
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--bg-rgb), 1) 0%,
-    rgba(var(--bg-rgb), 1) var(--solid-height),
-    rgba(var(--bg-rgb), 0.92)
-      calc(var(--solid-height) + var(--fade-height) * 0.15),
-    rgba(var(--bg-rgb), 0.76)
-      calc(var(--solid-height) + var(--fade-height) * 0.35),
-    rgba(var(--bg-rgb), 0.53)
-      calc(var(--solid-height) + var(--fade-height) * 0.55),
-    rgba(var(--bg-rgb), 0.3)
-      calc(var(--solid-height) + var(--fade-height) * 0.72),
-    rgba(var(--bg-rgb), 0.12)
-      calc(var(--solid-height) + var(--fade-height) * 0.86),
-    rgba(var(--bg-rgb), 0.03)
-      calc(var(--solid-height) + var(--fade-height) * 0.95),
-    rgba(var(--bg-rgb), 0) 100%
-  );
+  height: var(--safe-top);
+  background: var(--bg);
+  pointer-events: none;
+  content: "";
+}
+
+.site-shell::after {
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  height: var(--safe-bottom);
+  background: var(--bg);
   pointer-events: none;
   content: "";
 }

@@ -15,7 +15,7 @@ const projects = [
     description:
       "AI-powered resume builder for tailored applications, ATS checks, keyword optimization, and clean PDF exports.",
     year: "2026",
-    type: "Product",
+    type: "Web",
     link: "https://resumatica.com",
     repo: null,
     image: "/images/resumatica.png",
@@ -198,8 +198,10 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("light-theme", isLight);
     document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", isLight ? "#f3f3f0" : "#0a0a0a");
+      .querySelectorAll('meta[name="theme-color"]')
+      .forEach((meta) => {
+        meta.setAttribute("content", isLight ? "#f3f3f0" : "#0a0a0a");
+      });
   }, [isLight]);
 
   const pageVariants = {
@@ -263,11 +265,7 @@ function App() {
           </div>
         </Motion.section>
 
-        <Section
-          eyebrow="projects"
-          className="wide"
-          id="work"
-        >
+        <Section eyebrow="projects" className="wide" id="work">
           <ProjectShowcase />
         </Section>
 
@@ -317,11 +315,7 @@ function App() {
           </div>
         </Section>
 
-        <Section
-          eyebrow="connect"
-          className="contact-section"
-          id="contact"
-        >
+        <Section eyebrow="connect" className="contact-section" id="contact">
           <div className="social-grid">
             {socials.map(({ label, href, icon }) => (
               <a
