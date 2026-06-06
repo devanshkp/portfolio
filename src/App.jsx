@@ -197,11 +197,9 @@ function App() {
 
   useEffect(() => {
     document.documentElement.classList.toggle("light-theme", isLight);
-    document
-      .querySelectorAll('meta[name="theme-color"]')
-      .forEach((meta) => {
-        meta.setAttribute("content", isLight ? "#f3f3f0" : "#0a0a0a");
-      });
+    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+      meta.setAttribute("content", isLight ? "#f3f3f0" : "#0a0a0a");
+    });
   }, [isLight]);
 
   const pageVariants = {
@@ -302,15 +300,15 @@ function App() {
         <Section eyebrow="about" id="about">
           <div className="about-copy">
             <p>
-              I'm based on the Gold Coast and like working where product taste
-              and engineering discipline overlap. Recent work spans full-stack
-              tools, mobile apps, machine learning experiments, and practical
-              automation.
+              I’m based on the Gold Coast and like building things that are
+              useful, polished, and well put together. Lately I’ve been working
+              across full-stack tools, mobile apps, machine learning
+              experiments, and automation.
             </p>
             <p>
-              Outside the editor, I usually reset with games, shows, and the
-              gym. I am always open to thoughtful product ideas, collaboration,
-              or a good technical rabbit hole.
+              Outside of coding, I’m usually at the gym or winding down with
+              games and shows. Always happy to chat about product ideas,
+              collaboration, or a good technical rabbit hole.
             </p>
           </div>
         </Section>
