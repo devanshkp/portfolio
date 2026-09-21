@@ -172,44 +172,34 @@ img {
   isolation: isolate;
 }
 
-.ascii-backdrop {
+.intro-pattern {
   position: absolute;
-  top: -112px;
-  left: calc(50% - 50vw);
+  top: -18px;
+  right: -126px;
   z-index: 0;
-  width: 100vw;
-  min-width: 100vw;
-  max-width: none;
-  margin: 0;
+  width: 420px;
   color: var(--text);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 9px;
-  line-height: 0.92;
-  letter-spacing: 0.055em;
-  opacity: 0.2;
-  white-space: pre;
-  transform: none;
+  opacity: 0.14;
   user-select: none;
   pointer-events: none;
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 18%,
-    rgb(0 0 0 / 0.45) 48%,
-    transparent 82%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 18%,
-    rgb(0 0 0 / 0.45) 48%,
-    transparent 82%
-  );
+  mask-image: linear-gradient(to bottom left, #000 42%, transparent 92%);
+  -webkit-mask-image: linear-gradient(to bottom left, #000 42%, transparent 92%);
 }
 
-.light-theme .ascii-backdrop {
-  opacity: 0.1;
+.intro-pattern path,
+.intro-pattern circle {
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.intro-pattern-dash {
+  opacity: 0.55;
+  stroke-dasharray: 2 7;
+}
+
+.light-theme .intro-pattern {
+  opacity: 0.11;
 }
 
 .profile-lockup {
@@ -782,10 +772,6 @@ img {
     padding: 16px 16px 88px;
   }
 
-  .ascii-backdrop {
-    display: none;
-  }
-
   .page {
     padding-top: 12px;
   }
@@ -795,27 +781,11 @@ img {
     padding-top: 44px;
   }
 
-  .ascii-backdrop {
-    top: -72px;
-    left: calc(50% - 50vw);
-    width: 100vw;
-    min-width: 100vw;
-    font-size: 7px;
-    opacity: 0.12;
-    mask-image: linear-gradient(
-      to bottom,
-      #000 0%,
-      #000 14%,
-      rgb(0 0 0 / 0.38) 38%,
-      transparent 68%
-    );
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      #000 0%,
-      #000 14%,
-      rgb(0 0 0 / 0.38) 38%,
-      transparent 68%
-    );
+  .intro-pattern {
+    top: 0;
+    right: -72px;
+    width: 260px;
+    opacity: 0.1;
   }
 
   .intro-copy p {
