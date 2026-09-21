@@ -778,6 +778,7 @@ img {
 
   .intro {
     min-height: 54vh;
+    overflow: clip;
     padding-top: 44px;
   }
 
